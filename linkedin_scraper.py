@@ -2,6 +2,11 @@ import requests
 from bs4 import BeautifulSoup
 import time
 import json
+import csv
+import os
+import datetime
+import re
+from pathlib import Path
 
 def get_job_description(job_public_url):
     response=requests.get(job_public_url)
@@ -106,12 +111,16 @@ def clean_job_html(html_content):
     # However, in your HTML, the <a> wraps the content.
     recruiter_link = get_href_or_none(recruiter_profile_anchor_element)
 
+    # Extract the publishing date from posted_time_ago
+    publishing_date = extract_publishing_date(posted_time_ago)
+
     # Create and return a dictionary with all extracted variables
     job_data = {
         "job_title": job_title,
         "company_name": company_name,
         "location": location,
         "posted_time_ago": posted_time_ago,
+        "publishing_date": publishing_date,
         "num_applicants_note": num_applicants_note,
         "recruiter_message": recruiter_message,
         "recruiter_name": recruiter_name,
@@ -128,9 +137,44 @@ def clean_job_html(html_content):
     
     return job_data
 
+def extract_publishing_date(posted_time_ago):
+    """
+    Extract an approximate publishing date from the 'posted X time ago' text
+    """
+    if not posted_time_ago:
+        return datetime.datetime.now().strftime("%Y-%m-%d")
+    
+    today = datetime.datetime.now()
+    
+    # Handle different time formats
+    if "minute" in posted_time_ago or "hour" in posted_time_ago:
+        return today.strftime("%Y-%m-%d")
+    elif "day" in posted_time_ago:
+        match = re.search(r'(\d+)', posted_time_ago)
+        if match:
+            days = int(match.group(1))
+            date = today - datetime.timedelta(days=days)
+            return date.strftime("%Y-%m-%d")
+    elif "week" in posted_time_ago:
+        match = re.search(r'(\d+)', posted_time_ago)
+        if match:
+            weeks = int(match.group(1))
+            date = today - datetime.timedelta(weeks=weeks)
+            return date.strftime("%Y-%m-%d")
+    elif "month" in posted_time_ago:
+        match = re.search(r'(\d+)', posted_time_ago)
+        if match:
+            months = int(match.group(1))
+            # Approximate months as 30 days
+            date = today - datetime.timedelta(days=months*30)
+            return date.strftime("%Y-%m-%d")
+    
+    # Default to today if we can't parse
+    return today.strftime("%Y-%m-%d")
+
 def get_job_list_page(keywords, location, geoId, start_position):
     """Fetches a page of job listings from LinkedIn"""
-    list_url = f"https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords={keywords}&location={location}&geoId={geoId}&start={start_position}"
+    list_url = f"https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords={keywords}&location={location}&geoId={geoId}&f_WT=2&start={start_position}"
     
     try:
         response = requests.get(list_url)
@@ -167,11 +211,83 @@ def fetch_job_details(job_id):
 
 def save_jobs_to_file(jobs, filename="output/linkedin_jobs.json"):
     """Saves job data to a JSON file"""
+    # Ensure output directory exists
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
+    
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(jobs, f, ensure_ascii=False, indent=2)
     print(f"Job data saved to {filename}")
 
-def scrape_linkedin_jobs(keywords, location, geoId, jobs_per_page=10, max_pages=2):
+def load_existing_jobs_from_crm(csv_path="output/jobs_crm.csv"):
+    """
+    Load existing jobs from the CRM CSV file
+    Returns a set of job IDs and a list of existing job records
+    """
+    existing_job_ids = set()
+    existing_jobs = []
+    
+    if not os.path.exists(csv_path):
+        return existing_job_ids, existing_jobs
+    
+    with open(csv_path, 'r', encoding='utf-8', newline='') as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            existing_job_ids.add(row['job_id'])
+            existing_jobs.append(row)
+    
+    return existing_job_ids, existing_jobs
+
+def update_jobs_crm(new_jobs, csv_path="output/jobs_crm.csv"):
+    """
+    Update the CRM CSV file with new job listings
+    - Adds only new jobs (not already in CRM)
+    - Orders jobs by publishing date (newest first)
+    """
+    # Ensure output directory exists
+    os.makedirs(os.path.dirname(csv_path), exist_ok=True)
+    
+    # Get existing jobs
+    existing_job_ids, existing_jobs = load_existing_jobs_from_crm(csv_path)
+    
+    # Add only new jobs
+    added_count = 0
+    for job in new_jobs:
+        if job['job_id'] not in existing_job_ids:
+            # Add status fields for CRM functionality
+            job['status'] = 'New'
+            job['notes'] = ''
+            job['date_added'] = datetime.datetime.now().strftime("%Y-%m-%d")
+            existing_jobs.append(job)
+            added_count += 1
+    
+    if added_count == 0:
+        print("No new jobs to add to CRM")
+        return
+    
+    # Sort all jobs by publishing date (newest first)
+    sorted_jobs = sorted(existing_jobs, 
+                         key=lambda x: x.get('publishing_date', '1970-01-01'), 
+                         reverse=True)
+    
+    # Define fields for the CSV file
+    fieldnames = [
+        'job_id', 'job_title', 'company_name', 'location', 'publishing_date',
+        'posted_time_ago', 'seniority_level', 'employment_type', 'job_function',
+        'industries', 'status', 'notes', 'date_added', 'job_link'
+    ]
+    
+    # Write all jobs to the CSV file
+    with open(csv_path, 'w', encoding='utf-8', newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+        for job in sorted_jobs:
+            # Only write fields that are in fieldnames
+            row = {k: job.get(k, '') for k in fieldnames}
+            writer.writerow(row)
+    
+    print(f"Added {added_count} new jobs to CRM. Total jobs in CRM: {len(sorted_jobs)}")
+
+def scrape_linkedin_jobs(keywords, location, geoId, jobs_per_page=10, max_pages=1000):
     """Main function to scrape LinkedIn jobs with pagination"""
     all_jobs = []
     page = 0
@@ -215,8 +331,11 @@ def main():
     # Scrape jobs
     all_jobs = scrape_linkedin_jobs(keywords, location, geoId, max_pages=max_pages)
     
-    # Save results
+    # Save results to JSON
     save_jobs_to_file(all_jobs)
+    
+    # Update CRM with new jobs
+    update_jobs_crm(all_jobs)
 
 if __name__ == "__main__":
     main()
