@@ -429,6 +429,10 @@ def scrape_linkedin_jobs(keywords, location, geoId, work_type, jobs_per_page, ma
                 job_details["search_location"] = location
                 job_details["search_geoId"] = geoId
                 
+                # Ensure work_type and work_type_name are properly set
+                job_details["work_type"] = work_type
+                job_details["work_type_name"] = work_type_name
+                
                 all_jobs.append(job_details)
                 print(f"Scraped: {job_details['job_title']} at {job_details['company_name']}")
             

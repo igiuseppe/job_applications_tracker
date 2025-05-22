@@ -181,9 +181,29 @@ def update_jobs_crm(new_jobs, excel_path=config.CRM_EXCEL_PATH):
                     first_job = sorted_jobs[0]
                     keywords = first_job.get('search_keywords', 'Unknown')
                     location = first_job.get('search_location', 'Unknown')
-                    work_type_name = first_job.get('work_type_name', 'Any')
+                    work_type = first_job.get('work_type')
                     
-                    search_name = f"{keywords.replace('%2B', '+')} in {location} ({work_type_name})"
+                    # Make sure work type name is properly set
+                    if 'work_type_name' in first_job and first_job['work_type_name']:
+                        work_type_name = first_job['work_type_name']
+                    else:
+                        # Get the work type name from config if possible
+                        work_type_name = config.WORK_TYPE_NAMES.get(work_type, "Any")
+                    
+                    # Clean up the keywords for display
+                    if keywords and '%2B' in keywords:
+                        display_keywords = keywords.replace('%2B', '+')
+                    else:
+                        display_keywords = keywords
+                    
+                    # Create the search name with better validation
+                    search_name = f"{display_keywords} in {location}"
+                    if work_type_name and work_type_name != "Any":
+                        search_name += f" ({work_type_name})"
+                    
+                    # Handle potential sheet name issues by using the actual sheet name
+                    if not search_name or search_name.startswith("Unknown in Unknown"):
+                        search_name = f"Sheet: {sheet_name}"
                     
                     summary_data.append({
                         'Search': search_name,
