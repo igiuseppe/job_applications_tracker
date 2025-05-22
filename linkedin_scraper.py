@@ -7,10 +7,15 @@ import os
 import datetime
 import re
 from pathlib import Path
+import pandas as pd
+import openpyxl
+from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+import config
 
 def get_job_description(job_public_url):
-    response=requests.get(job_public_url)
-    soup=BeautifulSoup(response.text, "html.parser")
+    """Fetch a job description from a public LinkedIn URL"""
+    response = requests.get(job_public_url)
+    soup = BeautifulSoup(response.text, "html.parser")
     description = soup.find('div', class_='description__text description__text--rich').text.strip()  # Example: Job title
     return description
 
@@ -21,7 +26,8 @@ def get_text_or_none(element):
 def get_href_or_none(element):
     return element['href'] if element and element.has_attr('href') else None
 
-def clean_job_html(html_content):
+def clean_job_html(html_content, work_type=None):
+    """Extract structured job data from LinkedIn job HTML"""
     soup = BeautifulSoup(html_content, 'lxml')
 
     # --- Top Card Information ---
@@ -113,6 +119,9 @@ def clean_job_html(html_content):
 
     # Extract the publishing date from posted_time_ago
     publishing_date = extract_publishing_date(posted_time_ago)
+    
+    # Get work type name if specified
+    work_type_name = config.WORK_TYPE_NAMES.get(work_type, "Unknown")
 
     # Create and return a dictionary with all extracted variables
     job_data = {
@@ -132,7 +141,9 @@ def clean_job_html(html_content):
         "industries": industries,
         "job_link": job_link,
         "company_link": company_link,
-        "recruiter_link": recruiter_link
+        "recruiter_link": recruiter_link,
+        "work_type": work_type,
+        "work_type_name": work_type_name
     }
     
     return job_data
@@ -172,9 +183,28 @@ def extract_publishing_date(posted_time_ago):
     # Default to today if we can't parse
     return today.strftime("%Y-%m-%d")
 
-def get_job_list_page(keywords, location, geoId, start_position):
-    """Fetches a page of job listings from LinkedIn"""
-    list_url = f"https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords={keywords}&location={location}&geoId={geoId}&f_WT=2&start={start_position}"
+def get_job_list_page(keywords, location, geoId, start_position, work_type):
+    """
+    Fetches a page of job listings from LinkedIn
+    
+    Args:
+        keywords: Search keywords
+        location: Location to search in
+        geoId: LinkedIn GeoID for the location
+        start_position: Starting position for pagination
+        work_type: Work type filter (None, 1=on-site, 2=remote, 3=hybrid)
+    """
+
+    
+    list_url = config.LINKEDIN_JOB_LIST_URL_TEMPLATE.format(
+        keywords=keywords,
+        location=location,
+        geoId=geoId,
+        work_type=work_type,
+        start_position=start_position
+    )
+    
+    print(f"Fetching URL: {list_url}")  # Debugging output
     
     try:
         response = requests.get(list_url)
@@ -193,14 +223,14 @@ def extract_job_id(job_element):
     
     return base_card_div.get("data-entity-urn").split(":")[-1]
 
-def fetch_job_details(job_id):
+def fetch_job_details(job_id, work_type=None):
     """Fetches and processes details for a specific job"""
-    job_url = f"https://www.linkedin.com/jobs-guest/jobs/api/jobPosting/{job_id}"
+    job_url = config.LINKEDIN_JOB_DETAIL_URL_TEMPLATE.format(job_id=job_id)
     
     try:
         job_response = requests.get(job_url)
         html_content = job_response.text
-        job_details = clean_job_html(html_content)
+        job_details = clean_job_html(html_content, work_type)
         
         # Add job_id to the details
         job_details["job_id"] = job_id
@@ -218,36 +248,47 @@ def save_jobs_to_file(jobs, filename="output/linkedin_jobs.json"):
         json.dump(jobs, f, ensure_ascii=False, indent=2)
     print(f"Job data saved to {filename}")
 
-def load_existing_jobs_from_crm(csv_path="output/jobs_crm.csv"):
+def load_existing_jobs_from_crm(excel_path="output/jobs_crm.xlsx"):
     """
-    Load existing jobs from the CRM CSV file
+    Load existing jobs from the CRM Excel file
     Returns a set of job IDs and a list of existing job records
     """
     existing_job_ids = set()
     existing_jobs = []
     
-    if not os.path.exists(csv_path):
+    if not os.path.exists(excel_path):
         return existing_job_ids, existing_jobs
     
-    with open(csv_path, 'r', encoding='utf-8', newline='') as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            existing_job_ids.add(row['job_id'])
-            existing_jobs.append(row)
+    try:
+        # Read Excel file
+        df = pd.read_excel(excel_path)
+        
+        # Convert DataFrame to list of dictionaries
+        existing_jobs = df.to_dict('records')
+        
+        # Create set of job IDs
+        for job in existing_jobs:
+            if 'job_id' in job and job['job_id']:
+                existing_job_ids.add(str(job['job_id']))
+                
+        print(f"Loaded {len(existing_jobs)} existing jobs from CRM")
+        return existing_job_ids, existing_jobs
     
-    return existing_job_ids, existing_jobs
+    except Exception as e:
+        print(f"Error loading existing jobs from Excel: {str(e)}")
+        return set(), []
 
-def update_jobs_crm(new_jobs, csv_path="output/jobs_crm.csv"):
+def update_jobs_crm(new_jobs, excel_path="output/jobs_crm.xlsx"):
     """
-    Update the CRM CSV file with new job listings
+    Update the CRM Excel file with new job listings
     - Adds only new jobs (not already in CRM)
     - Orders jobs by publishing date (newest first)
     """
     # Ensure output directory exists
-    os.makedirs(os.path.dirname(csv_path), exist_ok=True)
+    os.makedirs(os.path.dirname(excel_path), exist_ok=True)
     
     # Get existing jobs
-    existing_job_ids, existing_jobs = load_existing_jobs_from_crm(csv_path)
+    existing_job_ids, existing_jobs = load_existing_jobs_from_crm(excel_path)
     
     # Add only new jobs
     added_count = 0
@@ -269,52 +310,130 @@ def update_jobs_crm(new_jobs, csv_path="output/jobs_crm.csv"):
                          key=lambda x: x.get('publishing_date', '1970-01-01'), 
                          reverse=True)
     
-    # Define fields for the CSV file
+    # Define fields for the Excel file
     fieldnames = [
         'job_id', 'job_title', 'company_name', 'location', 'publishing_date',
         'posted_time_ago', 'seniority_level', 'employment_type', 'job_function',
         'industries', 'status', 'notes', 'date_added', 'job_link'
     ]
     
-    # Write all jobs to the CSV file
-    with open(csv_path, 'w', encoding='utf-8', newline='') as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
-        writer.writeheader()
-        for job in sorted_jobs:
-            # Only write fields that are in fieldnames
-            row = {k: job.get(k, '') for k in fieldnames}
-            writer.writerow(row)
+    # Create a DataFrame with only the fields we want to include
+    rows = []
+    for job in sorted_jobs:
+        # Only include fields that are in fieldnames
+        row = {k: job.get(k, '') for k in fieldnames}
+        rows.append(row)
     
-    print(f"Added {added_count} new jobs to CRM. Total jobs in CRM: {len(sorted_jobs)}")
+    df = pd.DataFrame(rows)
+    
+    # Write to Excel
+    try:
+        # Create a styled Excel writer
+        with pd.ExcelWriter(excel_path, engine='openpyxl') as writer:
+            df.to_excel(writer, index=False, sheet_name='Job Listings')
+            
+            # Access the workbook and the worksheet
+            workbook = writer.book
+            worksheet = writer.sheets['Job Listings']
+            
+            # Format headers
+            header_font = Font(bold=True, color="FFFFFF")
+            header_fill = PatternFill(start_color="366092", end_color="366092", fill_type="solid")
+            
+            for col_num, column in enumerate(df.columns, 1):
+                cell = worksheet.cell(row=1, column=col_num)
+                cell.font = header_font
+                cell.fill = header_fill
+                cell.alignment = Alignment(horizontal='center', vertical='center')
+            
+            # Auto-adjust column width
+            for col in worksheet.columns:
+                max_length = 0
+                column = col[0].column_letter
+                for cell in col:
+                    if cell.value:
+                        max_length = max(max_length, len(str(cell.value)))
+                adjusted_width = max(max_length + 2, 10)
+                worksheet.column_dimensions[column].width = min(adjusted_width, 50)
+            
+            # Add filters to headers
+            worksheet.auto_filter.ref = worksheet.dimensions
+            
+            # Color coding for status
+            for row_idx, row in enumerate(df.iterrows(), 2):  # Start from row 2 (after header)
+                status = row[1].get('status', '')
+                status_cell = worksheet.cell(row=row_idx, column=fieldnames.index('status') + 1)
+                
+                if status == 'New':
+                    status_cell.fill = PatternFill(start_color="C6EFCE", end_color="C6EFCE", fill_type="solid")
+                elif status == 'Applied':
+                    status_cell.fill = PatternFill(start_color="FFEB9C", end_color="FFEB9C", fill_type="solid")
+                elif status == 'Interview':
+                    status_cell.fill = PatternFill(start_color="B4C6E7", end_color="B4C6E7", fill_type="solid")
+                elif status == 'Rejected':
+                    status_cell.fill = PatternFill(start_color="FFC7CE", end_color="FFC7CE", fill_type="solid")
+                elif status == 'Offer':
+                    status_cell.fill = PatternFill(start_color="C6EFCE", end_color="C6EFCE", fill_type="solid")
+        
+        print(f"Added {added_count} new jobs to CRM. Total jobs in CRM: {len(sorted_jobs)}")
+        print(f"CRM data saved to {excel_path}")
+        
+    except Exception as e:
+        print(f"Error saving to Excel file: {str(e)}")
+        # Fallback to CSV if Excel save fails
+        csv_path = excel_path.replace('.xlsx', '.csv')
+        pd.DataFrame(rows).to_csv(csv_path, index=False)
+        print(f"Saved to CSV instead at {csv_path}")
 
-def scrape_linkedin_jobs(keywords, location, geoId, jobs_per_page=10, max_pages=1000):
-    """Main function to scrape LinkedIn jobs with pagination"""
+def scrape_linkedin_jobs(keywords, location, geoId, work_type, jobs_per_page, max_pages):
+    """
+    Main function to scrape LinkedIn jobs with pagination
+    
+    Args:
+        keywords: Search keywords
+        location: Location to search in
+        geoId: LinkedIn GeoID for the location
+        work_type: Work type filter (None, 1=on-site, 2=remote, 3=hybrid)
+        jobs_per_page: Number of jobs per page
+        max_pages: Maximum number of pages to scrape
+    """
     all_jobs = []
     page = 0
+    
+    # Get work type name for display
+    work_type_name = config.WORK_TYPE_NAMES.get(work_type, "Any")
+    print(f"Searching for {work_type_name} jobs: {keywords} in {location} (work_type value: {work_type})")
     
     while page < max_pages:
         start_position = page * jobs_per_page
         print(f"Scraping page {page+1}, jobs {start_position+1}-{start_position+jobs_per_page}")
         
-        page_jobs = get_job_list_page(keywords, location, geoId, start_position)
+        page_jobs = get_job_list_page(keywords, location, geoId, start_position, work_type)
         
         # If no jobs are found, we've reached the end
         if not page_jobs:
             print(f"No more jobs found after {len(all_jobs)} jobs")
             break
+            
+        print(f"Found {len(page_jobs)} jobs on page {page+1}")
         
         for job in page_jobs:
             job_id = extract_job_id(job)
             if not job_id:
                 continue
             
-            job_details = fetch_job_details(job_id)
+            job_details = fetch_job_details(job_id, work_type)
             if job_details:
+                # Add search parameters to the job details
+                job_details["search_keywords"] = keywords
+                job_details["search_location"] = location
+                job_details["search_geoId"] = geoId
+                
                 all_jobs.append(job_details)
                 print(f"Scraped: {job_details['job_title']} at {job_details['company_name']}")
             
-            # Optional: add a delay to avoid rate limiting
-            time.sleep(1)
+            # Add a delay to avoid rate limiting
+            time.sleep(config.DELAY_BETWEEN_REQUESTS)
         
         page += 1
     

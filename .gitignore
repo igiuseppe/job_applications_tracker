@@ -2,3 +2,4 @@
 .venv/
 notes.txt
 output/
+__pycache__/
