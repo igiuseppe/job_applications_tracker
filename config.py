@@ -27,5 +27,5 @@ CRM_STATUSES = ["New", "Applied", "Interview", "Rejected", "Offer"]
 
 # LinkedIn URL templates
 # Note: f_WT parameter is now handled separately in the scraper code
-LINKEDIN_JOB_LIST_URL_TEMPLATE = "https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords={keywords}&location={location}&geoId={geoId}&f_WT={work_type}&start={start_position}"
+LINKEDIN_JOB_LIST_URL_TEMPLATE = "https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords={keywords}&location={location}&geoId={geoId}&f_E=2%2C3&f_WT={work_type}&start={start_position}"
 LINKEDIN_JOB_DETAIL_URL_TEMPLATE = "https://www.linkedin.com/jobs-guest/jobs/api/jobPosting/{job_id}" 

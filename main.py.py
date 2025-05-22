@@ -23,16 +23,16 @@ GEO_IDS = {
 
 # Common job titles with URL-safe formatting
 JOB_TITLES = {
+    "Product Manager": "Product%2BManager",
+    "Sales Engineer": "Sales%2BEngineer",
     "Business Analyst": "Business%2BAnalyst",
+    "ML Engineer": "ML%2BEngineer",
+    "AI Engineer": "AI%2BEngineer",
     "Data Scientist": "Data%2BScientist",
     "Data Analyst": "Data%2BAnalyst",
     "Data Engineer": "Data%2BEngineer",
-    "ML Engineer": "ML%2BEngineer",
-    "AI Engineer": "AI%2BEngineer",
     "Software Engineer": "Software%2BEngineer",
-    "Product Manager": "Product%2BManager",
     "Project Manager": "Project%2BManager",
-    "Sales Engineer": "Sales%2BEngineer",
 }
 
 # Work type definitions
@@ -169,8 +169,8 @@ def main():
     # search_strategy = "europe"  # Run only Europe routine
     
     # Settings for page depth
-    max_pages_italy = 1
-    max_pages_europe = 1
+    max_pages_italy = 10
+    max_pages_europe = 10
     
     # Collect search combinations based on strategy
     search_combinations = []
@@ -196,7 +196,7 @@ def main():
     # Run all searches and collect results
     all_jobs = []
     
-    for i, search_params in enumerate(search_combinations[-2:-1]):
+    for i, search_params in enumerate(search_combinations):
         # Show progress
         print(f"\nSearch {i+1} of {len(search_combinations)}")
         
