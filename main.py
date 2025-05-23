@@ -4,7 +4,7 @@ import datetime
 import argparse
 import logging
 from linkedin_scraper import scrape_linkedin_jobs
-from tracker_manager import update_jobs_tracker, save_jobs_to_file
+from tracker_manager import update_jobs_tracker, save_jobs_to_file, clear_all_jobs_sheet
 import config
 
 # Configure logging
@@ -67,7 +67,7 @@ def create_search_param(job_title, location, work_type, max_pages=1):
         "max_pages": max_pages
     }
 
-def run_search(search_params, output_dir, mode):
+def run_search(search_params, output_dir):
     """Run a LinkedIn job search with the specified parameters and save intermediate results"""
     search_name = search_params['name']
     search_id = search_name.replace(" ", "_").replace("-", "_").lower()
@@ -125,8 +125,8 @@ def run_search(search_params, output_dir, mode):
         
         # Update tracker with this batch of jobs
         google_sheet_id = config.GOOGLE_SHEET_ID
-        update_jobs_tracker(processed_jobs, google_sheet_id, mode)
-        logger.info(f"Updated tracker at Google Sheet ID: {google_sheet_id} with latest search results (Mode: {mode})")
+        update_jobs_tracker(processed_jobs, google_sheet_id)
+        logger.info(f"Updated tracker at Google Sheet ID: {google_sheet_id} with latest search results")
     
     return processed_jobs
 
@@ -228,6 +228,16 @@ def main(mode_arg):
     os.makedirs(output_dir, exist_ok=True)
     os.makedirs(f"{output_dir}/intermediate", exist_ok=True)
 
+    # If mode is 'deep', clear the sheet once at the beginning of the run
+    if mode_arg == 'deep':
+        logger.info("Deep mode: Clearing the 'All Jobs' sheet before starting searches.")
+        if not clear_all_jobs_sheet(google_sheet_id):
+            logger.error("Failed to clear the sheet in deep mode. Aborting script.")
+            return # Exit if clearing fails
+        logger.info("Sheet cleared successfully.")
+    else:
+        logger.info("Default mode: Will append to existing data in 'All Jobs' sheet (if any).")
+
     # Optional: Limit the number of searches to run (for testing)
     max_searches = 0
     
@@ -270,7 +280,7 @@ def main(mode_arg):
         logger.info(f"Processing search {i+1}/{len(search_combinations)}: {search_params['name']}")
         
         try:
-            jobs = run_search(search_params, output_dir, mode_arg)
+            jobs = run_search(search_params, output_dir)
             if jobs:
                 all_jobs.extend(jobs)
                 successful_searches += 1
