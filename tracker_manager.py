@@ -4,7 +4,12 @@ import pandas as pd
 import gspread
 from google.oauth2.service_account import Credentials
 # from openpyxl.styles import Font, PatternFill, Alignment, Border, Side # Not used for GSheets directly
+import logging
 import config
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 # Define the scope for Google Sheets API
 SCOPES = [
@@ -21,11 +26,11 @@ def get_gspread_client():
         client = gspread.authorize(creds)
         return client
     except FileNotFoundError:
-        print(f"ERROR: Google API credentials file not found at '{config.GOOGLE_CREDENTIALS_PATH}'.")
-        print("Please ensure the file exists and the path in config.py is correct.")
+        logger.error(f"Google API credentials file not found at '{config.GOOGLE_CREDENTIALS_PATH}'.")
+        logger.error("Please ensure the file exists and the path in config.py is correct.")
         return None
     except Exception as e:
-        print(f"Error initializing gspread client: {e}")
+        logger.error(f"Error initializing gspread client: {e}")
         return None
 
 def load_existing_jobs_from_tracker(sheet_id=config.GOOGLE_SHEET_ID):
@@ -48,11 +53,11 @@ def load_existing_jobs_from_tracker(sheet_id=config.GOOGLE_SHEET_ID):
             sheet_name = worksheet.title
             # No longer skipping 'Summary' here; if it exists and has job data, it will be loaded.
             # The decision to not process it as a job data sheet is handled in update_jobs_tracker.
-            print(f"Loading jobs from sheet: {sheet_name}")
+            logger.info(f"Loading jobs from sheet: {sheet_name}")
             try:
                 records = worksheet.get_all_records()  # Assumes first row is header
             except Exception as e:
-                print(f"Could not get records from sheet: {sheet_name}. Error: {e}. Skipping this sheet.")
+                logger.warning(f"Could not get records from sheet: {sheet_name}. Error: {e}. Skipping this sheet.")
                 continue
 
             sheet_job_ids = set()
@@ -66,17 +71,17 @@ def load_existing_jobs_from_tracker(sheet_id=config.GOOGLE_SHEET_ID):
             
             existing_job_ids_by_sheet[sheet_name] = sheet_job_ids
             all_existing_jobs.extend(sheet_jobs_list)
-            print(f"Loaded {len(sheet_jobs_list)} jobs from sheet: {sheet_name}, {len(sheet_job_ids)} unique job IDs.")
+            logger.info(f"Loaded {len(sheet_jobs_list)} jobs from sheet: {sheet_name}, {len(sheet_job_ids)} unique job IDs.")
 
         total_loaded_jobs = sum(len(jobs) for jobs in existing_job_ids_by_sheet.values())
-        print(f"Loaded {len(all_existing_jobs)} total existing jobs from tracker across {len(existing_job_ids_by_sheet)} sheets. ({total_loaded_jobs} unique job IDs found)")
+        logger.info(f"Loaded {len(all_existing_jobs)} total existing jobs from tracker across {len(existing_job_ids_by_sheet)} sheets. ({total_loaded_jobs} unique job IDs found)")
         return existing_job_ids_by_sheet, all_existing_jobs
     
     except gspread.exceptions.SpreadsheetNotFound:
-        print(f"ERROR: Google Sheet with ID '{sheet_id}' not found or permission denied.")
+        logger.error(f"Google Sheet with ID '{sheet_id}' not found or permission denied.")
         return {}, []
     except Exception as e:
-        print(f"Error loading existing jobs from Google Sheet: {str(e)}")
+        logger.error(f"Error loading existing jobs from Google Sheet: {str(e)}")
         return {}, []
 
 def update_jobs_tracker(new_jobs, sheet_id=config.GOOGLE_SHEET_ID, mode='default'):
@@ -86,19 +91,19 @@ def update_jobs_tracker(new_jobs, sheet_id=config.GOOGLE_SHEET_ID, mode='default
     - 'deep' mode: Clears and overwrites sheets. Creates new sheets if they don't exist.
     - 'default' mode: Only updates existing sheets. Skips job groups if sheet doesn't exist.
     """
-    print(f"Updating jobs tracker in '{mode}' mode.")
+    logger.info(f"Updating jobs tracker in '{mode}' mode.")
     client = get_gspread_client()
     if not client:
-        print("Could not connect to Google Sheets. Aborting update.")
+        logger.error("Could not connect to Google Sheets. Aborting update.")
         return
 
     try:
         spreadsheet = client.open_by_key(sheet_id)
     except gspread.exceptions.SpreadsheetNotFound:
-        print(f"ERROR: Google Sheet with ID '{sheet_id}' not found. Please create it or check the ID.")
+        logger.error(f"Google Sheet with ID '{sheet_id}' not found. Please create it or check the ID.")
         return
     except Exception as e:
-        print(f"Error opening Google Sheet: {e}")
+        logger.error(f"Error opening Google Sheet: {e}")
         return
 
     new_job_groups = {}
@@ -126,14 +131,14 @@ def update_jobs_tracker(new_jobs, sheet_id=config.GOOGLE_SHEET_ID, mode='default
         processed_sheet_names.add(target_sheet_name)
 
         if mode == 'default' and target_sheet_name not in all_sheet_names_in_spreadsheet:
-            print(f"Default mode: Sheet '{target_sheet_name}' does not exist. Skipping {len(new_jobs_for_this_group)} jobs for this group.")
+            logger.info(f"Default mode: Sheet '{target_sheet_name}' does not exist. Skipping {len(new_jobs_for_this_group)} jobs for this group.")
             continue
 
         try:
             worksheet = spreadsheet.worksheet(target_sheet_name)
-            print(f"Updating existing sheet: {target_sheet_name}")
+            logger.info(f"Updating existing sheet: {target_sheet_name}")
             if mode == 'deep':
-                print(f"Deep mode: Clearing sheet '{target_sheet_name}' before writing.")
+                logger.info(f"Deep mode: Clearing sheet '{target_sheet_name}' before writing.")
                 existing_jobs_in_sheet = []
                 current_sheet_job_ids = set()
             else: # default mode, load existing
@@ -142,15 +147,15 @@ def update_jobs_tracker(new_jobs, sheet_id=config.GOOGLE_SHEET_ID, mode='default
                 current_sheet_job_ids = {str(job.get('job_id', '')) for job in existing_jobs_in_sheet if job.get('job_id')}
         except gspread.exceptions.WorksheetNotFound:
             if mode == 'deep':
-                print(f"Deep mode: Creating new sheet: {target_sheet_name}")
+                logger.info(f"Deep mode: Creating new sheet: {target_sheet_name}")
                 worksheet = spreadsheet.add_worksheet(title=target_sheet_name, rows="1", cols=str(len(config.JOB_FIELDS)))
                 existing_jobs_in_sheet = []
                 current_sheet_job_ids = set()
             else: # Should have been caught by the check above, but as a safeguard
-                print(f"Default mode: Sheet '{target_sheet_name}' not found unexpectedly. Skipping.")
+                logger.warning(f"Default mode: Sheet '{target_sheet_name}' not found unexpectedly. Skipping.")
                 continue 
         except Exception as e:
-            print(f"Error accessing or creating sheet {target_sheet_name}: {e}")
+            logger.error(f"Error accessing or creating sheet {target_sheet_name}: {e}")
             continue 
 
         added_to_this_sheet_count = 0
@@ -168,7 +173,7 @@ def update_jobs_tracker(new_jobs, sheet_id=config.GOOGLE_SHEET_ID, mode='default
         
         total_added_globally += added_to_this_sheet_count
         if added_to_this_sheet_count > 0:
-            print(f"Added/processed {added_to_this_sheet_count} jobs for sheet: {target_sheet_name}")
+            logger.info(f"Added/processed {added_to_this_sheet_count} jobs for sheet: {target_sheet_name}")
 
         sorted_jobs_for_sheet = sorted(
             existing_jobs_in_sheet, 
@@ -184,24 +189,24 @@ def update_jobs_tracker(new_jobs, sheet_id=config.GOOGLE_SHEET_ID, mode='default
         worksheet.clear() # Clear before writing in both modes (deep mode clears, default mode re-writes with merged)
         worksheet.update('A1', data_to_write, value_input_option='USER_ENTERED')
         worksheet.format("A1:Z1", {"textFormat": {"bold": True}})
-        print(f"Sheet '{target_sheet_name}' updated with {len(sorted_jobs_for_sheet)} total jobs.")
+        logger.info(f"Sheet '{target_sheet_name}' updated with {len(sorted_jobs_for_sheet)} total jobs.")
 
     # Re-sort any existing sheets not touched by the new job batch
     # This part is more relevant for default mode, but can run in deep mode too.
     if mode == 'default': # Only re-sort other sheets in default mode if they weren't processed by new jobs
         for sheet_name in all_sheet_names_in_spreadsheet:
             if sheet_name not in processed_sheet_names:
-                print(f"Default mode: Re-sorting existing sheet not in current batch: {sheet_name}")
+                logger.info(f"Default mode: Re-sorting existing sheet not in current batch: {sheet_name}")
                 try:
                     worksheet = spreadsheet.worksheet(sheet_name)
                     existing_records = worksheet.get_all_records()
                     if not existing_records:
-                        print(f"Sheet {sheet_name} is empty or not a job data sheet. Skipping re-sort.")
+                        logger.info(f"Sheet {sheet_name} is empty or not a job data sheet. Skipping re-sort.")
                         continue
                     existing_jobs_in_sheet = [dict(rec) for rec in existing_records]
                     
                     if not existing_jobs_in_sheet or not all(header in existing_jobs_in_sheet[0] for header in config.JOB_FIELDS[:3]):
-                        print(f"Sheet {sheet_name} does not appear to be a job data sheet. Skipping re-sort.")
+                        logger.warning(f"Sheet {sheet_name} does not appear to be a job data sheet. Skipping re-sort.")
                         continue
 
                     sorted_jobs_for_sheet = sorted(
@@ -216,15 +221,15 @@ def update_jobs_tracker(new_jobs, sheet_id=config.GOOGLE_SHEET_ID, mode='default
                     worksheet.clear()
                     worksheet.update('A1', data_to_write, value_input_option='USER_ENTERED')
                     worksheet.format("A1:Z1", {"textFormat": {"bold": True}})
-                    print(f"Sheet '{sheet_name}' re-sorted.")
+                    logger.info(f"Sheet '{sheet_name}' re-sorted.")
                 except Exception as e:
-                    print(f"Error re-sorting sheet {sheet_name} in default mode: {e}")
+                    logger.error(f"Error re-sorting sheet {sheet_name} in default mode: {e}")
     
     if total_added_globally == 0 and not any(group_data['jobs'] for group_data in new_job_groups.values()):
-        print("No new jobs to process or add to tracker.")
+        logger.info("No new jobs to process or add to tracker.")
     else:
-        print(f"Total new/processed jobs for relevant sheets: {total_added_globally}")
-    print(f"Tracker data update attempt finished for Google Sheet ID: {sheet_id}")
+        logger.info(f"Total new/processed jobs for relevant sheets: {total_added_globally}")
+    logger.info(f"Tracker data update attempt finished for Google Sheet ID: {sheet_id}")
 
 def create_sheet_name(keywords, location, work_type_code_or_name):
     """Create a simplified sheet name from search parameters."""
@@ -252,12 +257,18 @@ def create_sheet_name(keywords, location, work_type_code_or_name):
     return sheet_name[:100] # Google Sheets have a 100 char limit for sheet names
 
 def save_jobs_to_file(jobs, filename=config.JSON_OUTPUT_PATH):
-    """Saves job data to a JSON file"""
-    os.makedirs(os.path.dirname(filename), exist_ok=True)
-    import json # Keep import local as it's only used here
-    with open(filename, "w", encoding="utf-8") as f:
-        json.dump(jobs, f, ensure_ascii=False, indent=2)
-    print(f"Job data saved to {filename}")
+    """Save jobs to a JSON file, overwriting if it exists."""
+    try:
+        # Ensure the directory exists
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
+        
+        # Convert to DataFrame for easier JSON export if needed, or just use json.dump
+        # For simplicity, using pandas to handle potential complexities like date formatting
+        df = pd.DataFrame(jobs)
+        df.to_json(filename, orient='records', indent=4, date_format='iso')
+        logger.info(f"Successfully saved {len(jobs)} jobs to {filename}")
+    except Exception as e:
+        logger.error(f"Error saving jobs to {filename}: {e}")
 
 # Provide backward compatibility
 load_existing_jobs_from_crm = load_existing_jobs_from_tracker

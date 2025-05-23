@@ -8,7 +8,12 @@ import datetime
 import re
 from pathlib import Path
 import pandas as pd
+import logging
 import config
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 def get_job_description(job_public_url):
     """Fetch a job description from a public LinkedIn URL"""
@@ -202,7 +207,7 @@ def get_job_list_page(keywords, location, geoId, start_position, work_type):
         start_position=start_position
     )
     
-    print(f"Fetching URL: {list_url}")  # Debugging output
+    logger.info(f"Fetching URL: {list_url}")  # Debugging output
     
     try:
         response = requests.get(list_url)
@@ -210,7 +215,7 @@ def get_job_list_page(keywords, location, geoId, start_position, work_type):
         page_jobs = soup.find_all("li")
         return page_jobs
     except Exception as e:
-        print(f"Error fetching job list page: {str(e)}")
+        logger.error(f"Error fetching job list page: {str(e)}")
         return []
 
 def extract_job_id(job_element):
@@ -234,7 +239,7 @@ def fetch_job_details(job_id, work_type=None):
         job_details["job_id"] = job_id
         return job_details
     except Exception as e:
-        print(f"Error scraping job {job_id}: {str(e)}")
+        logger.error(f"Error scraping job {job_id}: {str(e)}")
         return None
 
 def save_jobs_to_file(jobs, filename=config.JSON_OUTPUT_PATH):
@@ -244,7 +249,7 @@ def save_jobs_to_file(jobs, filename=config.JSON_OUTPUT_PATH):
     
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(jobs, f, ensure_ascii=False, indent=2)
-    print(f"Job data saved to {filename}")
+    logger.info(f"Job data saved to {filename}")
 
 def scrape_linkedin_jobs(keywords, location, geoId, work_type, jobs_per_page=25, max_pages=1):
     """
@@ -261,77 +266,64 @@ def scrape_linkedin_jobs(keywords, location, geoId, work_type, jobs_per_page=25,
     Returns:
         List of job dictionaries
     """
-    print(f"Starting LinkedIn job scrape for '{keywords}' in {location} (GeoID: {geoId})")
-    print(f"Work type: {work_type}")
-    print(f"Max pages: {max_pages}")
+    logger.info(f"Starting LinkedIn job scrape for keywords: '{keywords}', location: '{location}', work_type: {work_type}")
     
     all_jobs = []
-    total_listings = 0
-    
-    # Iterate through pagination
-    for page in range(max_pages):
-        start_position = page * jobs_per_page
-        print(f"Scraping page {page+1} (start position: {start_position})")
+    processed_job_ids = set()
+
+    for page_num in range(max_pages):
+        start_position = page_num * jobs_per_page
+        logger.info(f"Scraping page {page_num + 1} (start_position: {start_position})...")
         
-        # Get job listings for current page
-        job_listings = get_job_list_page(keywords, location, geoId, start_position, work_type)
+        page_job_elements = get_job_list_page(keywords, location, geoId, start_position, work_type)
         
-        if not job_listings or len(job_listings) == 0:
-            print("No more job listings found on this page.")
-            break
-        
-        # Process each job listing
-        page_jobs = []
-        for job_element in job_listings:
+        if not page_job_elements:
+            logger.info("No more job elements found on the page. Ending scrape for this search.")
+            break # Stop if no jobs are found on the page
+
+        job_count_on_page = 0
+        for job_element in page_job_elements:
             job_id = extract_job_id(job_element)
-            if job_id:
-                # Throttle requests to avoid rate limiting
-                time.sleep(config.DELAY_BETWEEN_REQUESTS)
-                
-                # Fetch job details
+            
+            if job_id and job_id not in processed_job_ids:
+                logger.info(f"Processing job ID: {job_id}")
                 job_details = fetch_job_details(job_id, work_type)
-                
                 if job_details:
-                    # Add search parameters to the job details
-                    job_details["search_keywords"] = keywords
-                    job_details["search_location"] = location
+                    # Add search parameters to job_details for context
+                    job_details['search_keywords'] = keywords
+                    job_details['search_location'] = location
+                    job_details['search_geo_id'] = geoId
+                    # work_type is already in job_details from fetch_job_details
                     
-                    # Fetch full job description if needed
-                    if job_details.get("job_description") is None or job_details.get("job_description") == "":
-                        if job_details.get("job_link"):
-                            try:
-                                job_details["job_description"] = get_job_description(job_details["job_link"])
-                                time.sleep(config.DELAY_BETWEEN_REQUESTS)  # Be respectful with API calls
-                            except Exception as e:
-                                print(f"Error fetching job description: {str(e)}")
-                    
-                    page_jobs.append(job_details)
+                    all_jobs.append(job_details)
+                    processed_job_ids.add(job_id)
+                    job_count_on_page += 1
+                    logger.info(f"Successfully processed job: {job_details.get('job_title', 'N/A')} at {job_details.get('company_name', 'N/A')}")
+                else:
+                    logger.warning(f"Failed to fetch details for job ID: {job_id}")
+            elif job_id in processed_job_ids:
+                logger.debug(f"Job ID: {job_id} already processed. Skipping.")
+            # else: job_id is None, so it's not a job card we can process
+
+        logger.info(f"Found {job_count_on_page} new jobs on page {page_num + 1}.")
         
-        # Add to full jobs list
-        all_jobs.extend(page_jobs)
-        total_listings += len(page_jobs)
-        
-        print(f"Page {page+1}: Found {len(page_jobs)} jobs")
-        
-        # Break if we didn't get a full page
-        if len(job_listings) < jobs_per_page:
-            print("Reached the end of listings, stopping pagination.")
-            break
-        
-        # Pause between pages to avoid rate limiting
-        if page < max_pages - 1:
-            pause_time = config.DELAY_BETWEEN_REQUESTS * 2
-            print(f"Pausing for {pause_time} seconds before next page...")
-            time.sleep(pause_time)
-    
-    print(f"Total jobs found: {total_listings}")
+        if job_count_on_page == 0 and page_num > 0: # If not the first page and no new jobs found
+             logger.info("No new jobs found on this page, and it's not the first page. Assuming end of results.")
+             break
+
+        # Add a delay between pages to be respectful to the server
+        if page_num < max_pages - 1: # Don't sleep after the last page
+            time.sleep(config.DELAY_BETWEEN_PAGES) 
+            
+    logger.info(f"Scrape finished for keywords: '{keywords}', location: '{location}'. Found {len(all_jobs)} jobs.")
     return all_jobs
 
 def main():
-    """Test function for the LinkedIn scraper"""
-    from tracker_manager import update_jobs_tracker
-    
-    # Search parameters
+    """Main function to test the scraper with example parameters."""
+    logger.info("Starting LinkedIn Scraper Test...")
+
+    # --- Configuration ---
+    # Test Search Parameters (more examples below)
     keywords = "Business%2BAnalyst"
     location = "Italia"
     geoId = "103350119"
@@ -342,9 +334,6 @@ def main():
     
     # Save results to JSON
     save_jobs_to_file(all_jobs)
-    
-    # Update tracker with new jobs (imported from tracker_manager)
-    update_jobs_tracker(all_jobs)
 
 if __name__ == "__main__":
     main()

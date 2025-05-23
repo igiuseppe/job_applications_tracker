@@ -2,9 +2,14 @@ import os
 import time
 import datetime
 import argparse
+import logging
 from linkedin_scraper import scrape_linkedin_jobs
 from tracker_manager import update_jobs_tracker, save_jobs_to_file
 import config
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 # Define common geo IDs for popular locations
 GEO_IDS = {
@@ -69,13 +74,13 @@ def run_search(search_params, output_dir, mode):
     # Start timing
     start_time = time.time()
     
-    print("-" * 50)
-    print(f"Running search: {search_name}")
-    print(f"Keywords: {search_params['keywords']}")
-    print(f"Location: {search_params['location']} (GeoID: {search_params['geo_id']})")
-    print(f"Work type: {work_type_to_name(search_params['work_type'])}")
-    print(f"Start time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    print("-" * 50)
+    logger.info("-" * 50)
+    logger.info(f"Running search: {search_name}")
+    logger.info(f"Keywords: {search_params['keywords']}")
+    logger.info(f"Location: {search_params['location']} (GeoID: {search_params['geo_id']})")
+    logger.info(f"Work type: {work_type_to_name(search_params['work_type'])}")
+    logger.info(f"Start time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    logger.info("-" * 50)
     
     jobs = scrape_linkedin_jobs(
         keywords=search_params['keywords'],
@@ -89,8 +94,8 @@ def run_search(search_params, output_dir, mode):
     # Calculate elapsed time
     elapsed_time = time.time() - start_time
     
-    print(f"Found {len(jobs)} jobs for {search_name}")
-    print(f"Search completed in {elapsed_time:.2f} seconds")
+    logger.info(f"Found {len(jobs)} jobs for {search_name}")
+    logger.info(f"Search completed in {elapsed_time:.2f} seconds")
     
     # Save intermediate results
     if jobs:
@@ -103,12 +108,12 @@ def run_search(search_params, output_dir, mode):
         
         # Save to file
         save_jobs_to_file(jobs, json_filename)
-        print(f"Saved intermediate results to {json_filename}")
+        logger.info(f"Saved intermediate results to {json_filename}")
         
         # Update tracker with this batch of jobs
         google_sheet_id = config.GOOGLE_SHEET_ID
         update_jobs_tracker(jobs, google_sheet_id, mode)
-        print(f"Updated tracker at Google Sheet ID: {google_sheet_id} with latest search results (Mode: {mode})")
+        logger.info(f"Updated tracker at Google Sheet ID: {google_sheet_id} with latest search results (Mode: {mode})")
     
     return jobs
 
@@ -185,21 +190,21 @@ def europe_remote_jobs_routine(max_pages=1):
 
 def main(mode_arg):
     """Main function to run search routines"""
-    print(f"LinkedIn Job Search Routines - Mode: {mode_arg}")
-    print("=" * 50)
+    logger.info(f"LinkedIn Job Search Routines - Mode: {mode_arg}")
+    logger.info("=" * 50)
 
     # Determine max_pages based on mode
     if mode_arg == 'deep':
         max_pages = 5
-        print("Deep mode activated: scraping up to 5 pages per search.")
+        logger.info("Deep mode activated: scraping up to 5 pages per search.")
     else: # default mode
         max_pages = 1
-        print("Default mode activated: scraping up to 1 page per search.")
+        logger.info("Default mode activated: scraping up to 1 page per search.")
     
     # Start overall timing
     total_start_time = time.time()
     start_datetime = datetime.datetime.now()
-    print(f"Started at: {start_datetime.strftime('%Y-%m-%d %H:%M:%S')}")
+    logger.info(f"Started at: {start_datetime.strftime('%Y-%m-%d %H:%M:%S')}")
     
     # Output settings
     output_dir = "output"
@@ -228,18 +233,18 @@ def main(mode_arg):
     if search_strategy in ["both", "italy"]:
         italy_searches = italy_jobs_routine(max_pages=max_pages_italy)
         search_combinations.extend(italy_searches)
-        print(f"Added {len(italy_searches)} Italy searches")
+        logger.info(f"Added {len(italy_searches)} Italy searches")
     
     if search_strategy in ["both", "europe"]:
         europe_searches = europe_remote_jobs_routine(max_pages=max_pages_europe)
         search_combinations.extend(europe_searches)
-        print(f"Added {len(europe_searches)} Europe searches")
+        logger.info(f"Added {len(europe_searches)} Europe searches")
 
     if max_searches>0 and len(search_combinations) > max_searches:
-        print(f"Limiting to first {max_searches} searches")
+        logger.info(f"Limiting to first {max_searches} searches")
         search_combinations = search_combinations[:max_searches]
     
-    print(f"Running {len(search_combinations)} searches in total")
+    logger.info(f"Running {len(search_combinations)} searches in total")
     
     # Run all searches and collect results
     all_jobs = []
@@ -248,57 +253,58 @@ def main(mode_arg):
     
     for i, search_params in enumerate(search_combinations):
         # Show progress
-        print(f"\nSearch {i+1} of {len(search_combinations)}")
+        logger.info("-" * 30)
+        logger.info(f"Processing search {i+1}/{len(search_combinations)}: {search_params['name']}")
         
         try:
-            # Run the search
             jobs = run_search(search_params, output_dir, mode_arg)
-            all_jobs.extend(jobs)
-            successful_searches += 1
+            if jobs:
+                all_jobs.extend(jobs)
+                successful_searches += 1
+                logger.info(f"Successfully processed: {search_params['name']}")
+            else:
+                logger.warning(f"No jobs found for {search_params['name']}")
+                failed_searches +=1
             
         except Exception as e:
-            print(f"ERROR in search {search_params['name']}: {str(e)}")
-            failed_searches += 1
-        
-        # Pause between searches to avoid rate limiting
-        if search_params != search_combinations[-1]:  # Skip delay after last search
-            pause_time = 1
-            print(f"Pausing for {pause_time} seconds between searches...")
-            time.sleep(pause_time)
+            logger.error(f"Error processing {search_params['name']}: {e}")
+            failed_searches +=1
+            
+        # Optional: Add a delay between searches to avoid rate limiting
+        time.sleep(config.DELAY_BETWEEN_SEARCHES)
     
-    # Save all jobs to JSON
+    # Save all collected jobs to a single JSON file
     if all_jobs:
-        print(f"Saving all {len(all_jobs)} jobs to {json_path} (final output)")
         save_jobs_to_file(all_jobs, json_path)
-        
-        # Update tracker with all jobs
-        update_jobs_tracker(all_jobs, google_sheet_id, mode_arg)
-        print(f"Updated tracker at Google Sheet ID: {google_sheet_id} (Mode: {mode_arg})")
+        logger.info(f"Saved all {len(all_jobs)} jobs to {json_path}")
     else:
-        print("No jobs found across all searches")
-    
-    # End overall timing
-    total_end_time = time.time()
+        logger.info("No jobs collected in this run.")
+
+    # Final summary
+    total_elapsed_time = time.time() - total_start_time
     end_datetime = datetime.datetime.now()
-    total_elapsed_time = total_end_time - total_start_time
     
-    print("=" * 50)
-    print("LinkedIn Job Search Completed")
-    print(f"Finished at: {end_datetime.strftime('%Y-%m-%d %H:%M:%S')}")
-    print(f"Total execution time: {total_elapsed_time:.2f} seconds ({total_elapsed_time/60:.2f} minutes)")
-    print(f"Total successful searches: {successful_searches}")
-    print(f"Total failed searches: {failed_searches}")
-    print(f"Total jobs collected: {len(all_jobs)}")
-    print("=" * 50)
+    logger.info("=" * 50)
+    logger.info("LinkedIn Job Search Summary")
+    logger.info("=" * 50)
+    logger.info(f"Mode: {mode_arg}")
+    logger.info(f"Total searches attempted: {len(search_combinations)}")
+    logger.info(f"Successful searches: {successful_searches}")
+    logger.info(f"Failed searches: {failed_searches}")
+    logger.info(f"Total jobs collected: {len(all_jobs)}")
+    logger.info(f"Started at: {start_datetime.strftime('%Y-%m-%d %H:%M:%S')}")
+    logger.info(f"Ended at: {end_datetime.strftime('%Y-%m-%d %H:%M:%S')}")
+    logger.info(f"Total duration: {total_elapsed_time:.2f} seconds")
+    logger.info("=" * 50)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Run LinkedIn job scraping routines.")
+    parser = argparse.ArgumentParser(description="Run LinkedIn job scraper.")
     parser.add_argument(
-        "--mode", 
+        '--mode', 
         type=str, 
-        choices=['default', 'deep'],
-        default='default',
-        help="Scraping mode: 'default' (1 page per search, for daily updates) or 'deep' (5 pages per search, for initial population). Default is 'default'."
+        choices=['default', 'deep'], 
+        default='default', 
+        help='Scraping mode: "default" for 1 page, "deep" for up to 5 pages per search.'
     )
     args = parser.parse_args()
     
