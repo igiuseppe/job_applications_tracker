@@ -1,3 +1,9 @@
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
 # Configuration variables for the job applications tracker
 
 # Work Type filters
@@ -20,7 +26,11 @@ DELAY_BETWEEN_REQUESTS = 1  # seconds
 # File paths
 OUTPUT_DIR = "output"
 JSON_OUTPUT_PATH = f"{OUTPUT_DIR}/linkedin_jobs.json"
-TRACKER_EXCEL_PATH = f"{OUTPUT_DIR}/jobs_tracker.xlsx"
+# TRACKER_EXCEL_PATH = f"{OUTPUT_DIR}/jobs_tracker.xlsx" # Replaced by Google Sheet
+
+# Google Sheets settings
+GOOGLE_SHEET_ID = "1hR8pAmRAX1ijDOA9NYGWWB0n45XfAuXHSOSLFsjOayU" #ID of the google sheet
+GOOGLE_CREDENTIALS_PATH = "credentials.json"  # Path to your Google API service account credentials, defaults to credentials.json
 
 # Tracker settings
 TRACKER_STATUSES = ["New", "Applied", "Interview", "Rejected", "Offer"]

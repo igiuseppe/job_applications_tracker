@@ -1,351 +1,260 @@
 import os
 import datetime
 import pandas as pd
-from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+import gspread
+from google.oauth2.service_account import Credentials
+# from openpyxl.styles import Font, PatternFill, Alignment, Border, Side # Not used for GSheets directly
 import config
 
-def load_existing_jobs_from_tracker(excel_path=config.TRACKER_EXCEL_PATH):
-    """
-    Load existing jobs from the tracker Excel file
-    Returns a set of job IDs and a list of existing job records
-    """
-    existing_job_ids = set()
-    existing_jobs = []
-    
-    if not os.path.exists(excel_path):
-        return existing_job_ids, existing_jobs
-    
-    try:
-        # Read Excel file - we need to read all sheets except 'Summary'
-        xl = pd.ExcelFile(excel_path)
-        sheet_names = [s for s in xl.sheet_names if s != 'Summary']
-        
-        # Read each sheet
-        for sheet_name in sheet_names:
-            df = pd.read_excel(excel_path, sheet_name=sheet_name)
-            
-            # Convert DataFrame to list of dictionaries
-            sheet_jobs = df.to_dict('records')
-            
-            # Add to existing jobs list
-            existing_jobs.extend(sheet_jobs)
-        
-        # Create set of job IDs
-        for job in existing_jobs:
-            if 'job_id' in job and job['job_id'] and not pd.isna(job['job_id']):
-                existing_job_ids.add(str(job['job_id']))
-                
-        print(f"Loaded {len(existing_jobs)} existing jobs from tracker across {len(sheet_names)} sheets")
-        return existing_job_ids, existing_jobs
-    
-    except Exception as e:
-        print(f"Error loading existing jobs from Excel: {str(e)}")
-        return set(), []
+# Define the scope for Google Sheets API
+SCOPES = [
+    'https://www.googleapis.com/auth/spreadsheets',
+    'https://www.googleapis.com/auth/drive.file' # if you need to create new sheets or manage files
+]
 
-def update_jobs_tracker(new_jobs, excel_path=config.TRACKER_EXCEL_PATH):
+def get_gspread_client():
+    """Initializes and returns a gspread client."""
+    try:
+        creds = Credentials.from_service_account_file(
+            config.GOOGLE_CREDENTIALS_PATH, scopes=SCOPES
+        )
+        client = gspread.authorize(creds)
+        return client
+    except FileNotFoundError:
+        print(f"ERROR: Google API credentials file not found at '{config.GOOGLE_CREDENTIALS_PATH}'.")
+        print("Please ensure the file exists and the path in config.py is correct.")
+        return None
+    except Exception as e:
+        print(f"Error initializing gspread client: {e}")
+        return None
+
+def load_existing_jobs_from_tracker(sheet_id=config.GOOGLE_SHEET_ID):
     """
-    Update the tracker Excel file with new job listings
-    - Adds only new jobs (not already in the same search sheet)
-    - Orders jobs by publishing date (newest first)
-    - Creates separate sheets for different search combinations
+    Load existing jobs from the Google Sheet tracker.
+    Returns a dictionary mapping sheet names to sets of job IDs, and a list of all existing job records.
     """
-    # Ensure output directory exists
-    os.makedirs(os.path.dirname(excel_path), exist_ok=True)
+    client = get_gspread_client()
+    if not client:
+        return {}, [] 
+
+    existing_job_ids_by_sheet = {} 
+    all_existing_jobs = [] 
+
+    try:
+        spreadsheet = client.open_by_key(sheet_id)
+        worksheets = spreadsheet.worksheets()
+        
+        for worksheet in worksheets:
+            sheet_name = worksheet.title
+            # No longer skipping 'Summary' here; if it exists and has job data, it will be loaded.
+            # The decision to not process it as a job data sheet is handled in update_jobs_tracker.
+            print(f"Loading jobs from sheet: {sheet_name}")
+            try:
+                records = worksheet.get_all_records()  # Assumes first row is header
+            except Exception as e:
+                print(f"Could not get records from sheet: {sheet_name}. Error: {e}. Skipping this sheet.")
+                continue
+
+            sheet_job_ids = set()
+            sheet_jobs_list = []
+            if records: # Ensure records is not empty
+                for record in records:
+                    job_id = str(record.get('job_id', '')) 
+                    if job_id:
+                        sheet_job_ids.add(job_id)
+                    sheet_jobs_list.append(dict(record))
+            
+            existing_job_ids_by_sheet[sheet_name] = sheet_job_ids
+            all_existing_jobs.extend(sheet_jobs_list)
+            print(f"Loaded {len(sheet_jobs_list)} jobs from sheet: {sheet_name}, {len(sheet_job_ids)} unique job IDs.")
+
+        total_loaded_jobs = sum(len(jobs) for jobs in existing_job_ids_by_sheet.values())
+        print(f"Loaded {len(all_existing_jobs)} total existing jobs from tracker across {len(existing_job_ids_by_sheet)} sheets. ({total_loaded_jobs} unique job IDs found)")
+        return existing_job_ids_by_sheet, all_existing_jobs
     
-    # Group the new jobs by search parameters
+    except gspread.exceptions.SpreadsheetNotFound:
+        print(f"ERROR: Google Sheet with ID '{sheet_id}' not found or permission denied.")
+        return {}, []
+    except Exception as e:
+        print(f"Error loading existing jobs from Google Sheet: {str(e)}")
+        return {}, []
+
+def update_jobs_tracker(new_jobs, sheet_id=config.GOOGLE_SHEET_ID, mode='default'):
+    """
+    Update the Google Sheet tracker with new job listings.
+    Behavior depends on the mode:
+    - 'deep' mode: Clears and overwrites sheets. Creates new sheets if they don't exist.
+    - 'default' mode: Only updates existing sheets. Skips job groups if sheet doesn't exist.
+    """
+    print(f"Updating jobs tracker in '{mode}' mode.")
+    client = get_gspread_client()
+    if not client:
+        print("Could not connect to Google Sheets. Aborting update.")
+        return
+
+    try:
+        spreadsheet = client.open_by_key(sheet_id)
+    except gspread.exceptions.SpreadsheetNotFound:
+        print(f"ERROR: Google Sheet with ID '{sheet_id}' not found. Please create it or check the ID.")
+        return
+    except Exception as e:
+        print(f"Error opening Google Sheet: {e}")
+        return
+
     new_job_groups = {}
-    
     for job in new_jobs:
-        # Create a key based on search parameters
         keywords = job.get('search_keywords', 'Unknown')
         location = job.get('search_location', 'Unknown')
-        work_type = job.get('work_type', None)
-        
-        # Simplified key and sheet name
-        group_key = f"{keywords}_{location}_{work_type}"
-        sheet_name = create_sheet_name(keywords, location, work_type)
-        
+        work_type_from_job = job.get('work_type', None) # Note: work_type in job might be int code
+        group_key = f"{keywords}_{location}_{work_type_from_job}"
+        sheet_name_for_group = create_sheet_name(keywords, location, work_type_from_job)
+
         if group_key not in new_job_groups:
             new_job_groups[group_key] = {
                 'jobs': [],
-                'sheet_name': sheet_name,
-                'job_ids': set()  # To track job IDs in this group
+                'sheet_name': sheet_name_for_group
             }
-        
         new_job_groups[group_key]['jobs'].append(job)
-        new_job_groups[group_key]['job_ids'].add(job['job_id'])
-    
-    # Now load existing jobs and organize by sheet
-    existing_sheets = {}
-    
-    if os.path.exists(excel_path):
-        try:
-            # Read Excel file - we need to read all sheets except 'Summary'
-            xl = pd.ExcelFile(excel_path)
-            sheet_names = [s for s in xl.sheet_names if s != 'Summary']
-            
-            # Read each sheet
-            for sheet_name in sheet_names:
-                df = pd.read_excel(excel_path, sheet_name=sheet_name)
-                
-                # Convert DataFrame to list of dictionaries
-                sheet_jobs = df.to_dict('records')
-                
-                # Create set of job IDs for this sheet
-                job_ids = set()
-                for job in sheet_jobs:
-                    if 'job_id' in job and job['job_id'] and not pd.isna(job['job_id']):
-                        job_ids.add(str(job['job_id']))
-                
-                existing_sheets[sheet_name] = {
-                    'jobs': sheet_jobs,
-                    'job_ids': job_ids
-                }
-                
-            print(f"Loaded {len(sheet_names)} existing sheets from tracker")
-            
-        except Exception as e:
-            print(f"Error loading existing jobs from Excel: {str(e)}")
-            existing_sheets = {}
-    
-    # Merge new jobs with existing jobs, checking duplicates per sheet
-    final_sheets = {}
-    total_added = 0
-    
-    # First, copy all existing sheets to final
-    for sheet_name, sheet_data in existing_sheets.items():
-        final_sheets[sheet_name] = {
-            'jobs': sheet_data['jobs'].copy(),
-            'job_ids': sheet_data['job_ids'].copy()
-        }
-    
-    # Now add new job groups, checking for duplicates within each sheet
+
+    total_added_globally = 0
+    all_sheet_names_in_spreadsheet = [ws.title for ws in spreadsheet.worksheets()]
+    processed_sheet_names = set()
+
     for group_key, group_data in new_job_groups.items():
-        sheet_name = group_data['sheet_name']
-        new_jobs_in_group = group_data['jobs']
-        
-        # If sheet doesn't exist yet in final, create it
-        if sheet_name not in final_sheets:
-            final_sheets[sheet_name] = {
-                'jobs': [],
-                'job_ids': set()
-            }
-        
-        # Add non-duplicate jobs to this sheet
-        added_to_sheet = 0
-        for job in new_jobs_in_group:
-            if job['job_id'] not in final_sheets[sheet_name]['job_ids']:
-                # Add status fields for tracker functionality
+        target_sheet_name = group_data['sheet_name']
+        new_jobs_for_this_group = group_data['jobs']
+        processed_sheet_names.add(target_sheet_name)
+
+        if mode == 'default' and target_sheet_name not in all_sheet_names_in_spreadsheet:
+            print(f"Default mode: Sheet '{target_sheet_name}' does not exist. Skipping {len(new_jobs_for_this_group)} jobs for this group.")
+            continue
+
+        try:
+            worksheet = spreadsheet.worksheet(target_sheet_name)
+            print(f"Updating existing sheet: {target_sheet_name}")
+            if mode == 'deep':
+                print(f"Deep mode: Clearing sheet '{target_sheet_name}' before writing.")
+                existing_jobs_in_sheet = []
+                current_sheet_job_ids = set()
+            else: # default mode, load existing
+                existing_records = worksheet.get_all_records() 
+                existing_jobs_in_sheet = [dict(rec) for rec in existing_records]
+                current_sheet_job_ids = {str(job.get('job_id', '')) for job in existing_jobs_in_sheet if job.get('job_id')}
+        except gspread.exceptions.WorksheetNotFound:
+            if mode == 'deep':
+                print(f"Deep mode: Creating new sheet: {target_sheet_name}")
+                worksheet = spreadsheet.add_worksheet(title=target_sheet_name, rows="1", cols=str(len(config.JOB_FIELDS)))
+                existing_jobs_in_sheet = []
+                current_sheet_job_ids = set()
+            else: # Should have been caught by the check above, but as a safeguard
+                print(f"Default mode: Sheet '{target_sheet_name}' not found unexpectedly. Skipping.")
+                continue 
+        except Exception as e:
+            print(f"Error accessing or creating sheet {target_sheet_name}: {e}")
+            continue 
+
+        added_to_this_sheet_count = 0
+        for job in new_jobs_for_this_group:
+            # In deep mode, current_sheet_job_ids is empty, so all jobs are "new" to the sheet
+            # In default mode, we check against loaded IDs
+            if str(job.get('job_id')) not in current_sheet_job_ids:
                 job['status'] = 'New'
                 job['notes'] = ''
                 job['date_added'] = datetime.datetime.now().strftime("%Y-%m-%d")
-                
-                final_sheets[sheet_name]['jobs'].append(job)
-                final_sheets[sheet_name]['job_ids'].add(job['job_id'])
-                added_to_sheet += 1
-                total_added += 1
+                existing_jobs_in_sheet.append(job) # Add to the list that will be sorted and written
+                if mode == 'default': # Only count as "added" if it wasn't there before in default mode
+                    current_sheet_job_ids.add(str(job.get('job_id')))
+                added_to_this_sheet_count += 1
         
-        if added_to_sheet > 0:
-            print(f"Added {added_to_sheet} new jobs to sheet: {sheet_name}")
-    
-    if total_added == 0:
-        print("No new jobs to add to tracker")
-        return
-    
-    # Get fields for the Excel file from config
-    fieldnames = config.JOB_FIELDS
-    
-    # Write to Excel
-    try:
-        # Create a styled Excel writer
-        with pd.ExcelWriter(excel_path, engine='openpyxl') as writer:
-            # Create a summary sheet
-            summary_data = []
-            
-            # Process each group and create a sheet
-            for sheet_name, sheet_data in final_sheets.items():
-                jobs = sheet_data['jobs']
-                
-                # Sort jobs by publishing date (newest first)
-                sorted_jobs = sorted(jobs, 
-                                     key=lambda x: x.get('publishing_date', '1970-01-01'), 
-                                     reverse=True)
-                
-                # Add to summary data
-                if sorted_jobs:
-                    # Extract search parameters from the first job
-                    first_job = sorted_jobs[0]
-                    keywords = first_job.get('search_keywords', 'Unknown')
-                    location = first_job.get('search_location', 'Unknown')
-                    work_type = first_job.get('work_type')
-                    
-                    # Make sure work type name is properly set
-                    if 'work_type_name' in first_job and first_job['work_type_name']:
-                        work_type_name = first_job['work_type_name']
-                    else:
-                        # Get the work type name from config if possible
-                        work_type_name = config.WORK_TYPE_NAMES.get(work_type, "Any")
-                    
-                    # Clean up the keywords for display
-                    if keywords and '%2B' in keywords:
-                        display_keywords = keywords.replace('%2B', '+')
-                    else:
-                        display_keywords = keywords
-                    
-                    # Create the search name with better validation
-                    search_name = f"{display_keywords} in {location}"
-                    if work_type_name and work_type_name != "Any":
-                        search_name += f" ({work_type_name})"
-                    
-                    # Handle potential sheet name issues by using the actual sheet name
-                    if not search_name or search_name.startswith("Unknown in Unknown"):
-                        search_name = f"Sheet: {sheet_name}"
-                    
-                    summary_data.append({
-                        'Search': search_name,
-                        'Jobs Found': len(sorted_jobs),
-                        'Newest Job': sorted_jobs[0]['publishing_date'] if sorted_jobs else 'N/A',
-                        'New Jobs': len([j for j in sorted_jobs if j['status'] == 'New']),
-                        'Applied': len([j for j in sorted_jobs if j['status'] == 'Applied']),
-                        'Interviews': len([j for j in sorted_jobs if j['status'] == 'Interview']),
-                        'Offers': len([j for j in sorted_jobs if j['status'] == 'Offer']),
-                        'Rejected': len([j for j in sorted_jobs if j['status'] == 'Rejected'])
-                    })
-                
-                # Create a DataFrame for this group
-                rows = []
-                for job in sorted_jobs:
-                    # Only include fields that are in fieldnames
-                    row = {k: job.get(k, '') for k in fieldnames}
-                    rows.append(row)
-                
-                df = pd.DataFrame(rows)
-                
-                # Write the sheet
-                df.to_excel(writer, index=False, sheet_name=sheet_name)
-                
-                # Get the worksheet
-                worksheet = writer.sheets[sheet_name]
-                
-                # Format headers
-                header_font = Font(bold=True, color="FFFFFF")
-                header_fill = PatternFill(start_color="366092", end_color="366092", fill_type="solid")
-                
-                for col_num, column in enumerate(df.columns, 1):
-                    cell = worksheet.cell(row=1, column=col_num)
-                    cell.font = header_font
-                    cell.fill = header_fill
-                    cell.alignment = Alignment(horizontal='center', vertical='center')
-                
-                # Auto-adjust column width
-                for col in worksheet.columns:
-                    max_length = 0
-                    column = col[0].column_letter
-                    for cell in col:
-                        if cell.value:
-                            max_length = max(max_length, len(str(cell.value)))
-                    adjusted_width = max(max_length + 2, 10)
-                    worksheet.column_dimensions[column].width = min(adjusted_width, 50)
-                
-                # Add filters to headers
-                worksheet.auto_filter.ref = worksheet.dimensions
-                
-                # Color coding for status
-                for row_idx, row in enumerate(df.iterrows(), 2):  # Start from row 2 (after header)
-                    status = row[1].get('status', '')
-                    status_cell = worksheet.cell(row=row_idx, column=fieldnames.index('status') + 1)
-                    
-                    if status == 'New':
-                        status_cell.fill = PatternFill(start_color="C6EFCE", end_color="C6EFCE", fill_type="solid")
-                    elif status == 'Applied':
-                        status_cell.fill = PatternFill(start_color="FFEB9C", end_color="FFEB9C", fill_type="solid")
-                    elif status == 'Interview':
-                        status_cell.fill = PatternFill(start_color="B4C6E7", end_color="B4C6E7", fill_type="solid")
-                    elif status == 'Rejected':
-                        status_cell.fill = PatternFill(start_color="FFC7CE", end_color="FFC7CE", fill_type="solid")
-                    elif status == 'Offer':
-                        status_cell.fill = PatternFill(start_color="C6EFCE", end_color="C6EFCE", fill_type="solid")
-            
-            # Create summary sheet
-            if summary_data:
-                summary_df = pd.DataFrame(summary_data)
-                summary_df.to_excel(writer, index=False, sheet_name='Summary')
-                
-                # Format summary sheet
-                summary_sheet = writer.sheets['Summary']
-                
-                # Format headers
-                for col_num, column in enumerate(summary_df.columns, 1):
-                    cell = summary_sheet.cell(row=1, column=col_num)
-                    cell.font = header_font
-                    cell.fill = header_fill
-                    cell.alignment = Alignment(horizontal='center', vertical='center')
-                
-                # Auto-adjust column width
-                for col in summary_sheet.columns:
-                    max_length = 0
-                    column = col[0].column_letter
-                    for cell in col:
-                        if cell.value:
-                            max_length = max(max_length, len(str(cell.value)))
-                    adjusted_width = max(max_length + 2, 10)
-                    summary_sheet.column_dimensions[column].width = min(adjusted_width, 50)
-                
-                # Add filters to headers
-                summary_sheet.auto_filter.ref = summary_sheet.dimensions
-        
-        print(f"Total jobs added: {total_added}")
-        print(f"Total jobs in tracker: {sum(len(sheet['jobs']) for sheet in final_sheets.values())}")
-        print(f"Tracker data saved to {excel_path} with {len(final_sheets)} search groups")
-        
-    except Exception as e:
-        print(f"Error saving to Excel file: {str(e)}")
-        # Fallback to CSV if Excel save fails
-        csv_path = excel_path.replace('.xlsx', '.csv')
-        
-        # Create a single DataFrame with all jobs
-        all_rows = []
-        for sheet_data in final_sheets.values():
-            for job in sheet_data['jobs']:
-                row = {k: job.get(k, '') for k in fieldnames}
-                all_rows.append(row)
-        
-        pd.DataFrame(all_rows).to_csv(csv_path, index=False)
-        print(f"Saved to CSV instead at {csv_path}")
+        total_added_globally += added_to_this_sheet_count
+        if added_to_this_sheet_count > 0:
+            print(f"Added/processed {added_to_this_sheet_count} jobs for sheet: {target_sheet_name}")
 
-def create_sheet_name(keywords, location, work_type):
-    """Create a simplified sheet name from search parameters"""
-    # Get work type name
-    work_type_name = config.WORK_TYPE_NAMES.get(work_type, "Any")
+        sorted_jobs_for_sheet = sorted(
+            existing_jobs_in_sheet, 
+            key=lambda x: x.get('publishing_date', '1970-01-01'), 
+            reverse=True
+        )
+
+        headers = config.JOB_FIELDS
+        data_to_write = [headers] + [
+            [str(job.get(field, '')) for field in headers] for job in sorted_jobs_for_sheet
+        ]
+
+        worksheet.clear() # Clear before writing in both modes (deep mode clears, default mode re-writes with merged)
+        worksheet.update('A1', data_to_write, value_input_option='USER_ENTERED')
+        worksheet.format("A1:Z1", {"textFormat": {"bold": True}})
+        print(f"Sheet '{target_sheet_name}' updated with {len(sorted_jobs_for_sheet)} total jobs.")
+
+    # Re-sort any existing sheets not touched by the new job batch
+    # This part is more relevant for default mode, but can run in deep mode too.
+    if mode == 'default': # Only re-sort other sheets in default mode if they weren't processed by new jobs
+        for sheet_name in all_sheet_names_in_spreadsheet:
+            if sheet_name not in processed_sheet_names:
+                print(f"Default mode: Re-sorting existing sheet not in current batch: {sheet_name}")
+                try:
+                    worksheet = spreadsheet.worksheet(sheet_name)
+                    existing_records = worksheet.get_all_records()
+                    if not existing_records:
+                        print(f"Sheet {sheet_name} is empty or not a job data sheet. Skipping re-sort.")
+                        continue
+                    existing_jobs_in_sheet = [dict(rec) for rec in existing_records]
+                    
+                    if not existing_jobs_in_sheet or not all(header in existing_jobs_in_sheet[0] for header in config.JOB_FIELDS[:3]):
+                        print(f"Sheet {sheet_name} does not appear to be a job data sheet. Skipping re-sort.")
+                        continue
+
+                    sorted_jobs_for_sheet = sorted(
+                        existing_jobs_in_sheet, 
+                        key=lambda x: x.get('publishing_date', '1970-01-01'), 
+                        reverse=True
+                    )
+                    headers = config.JOB_FIELDS
+                    data_to_write = [headers] + [
+                        [str(job.get(field, '')) for field in headers] for job in sorted_jobs_for_sheet
+                    ]
+                    worksheet.clear()
+                    worksheet.update('A1', data_to_write, value_input_option='USER_ENTERED')
+                    worksheet.format("A1:Z1", {"textFormat": {"bold": True}})
+                    print(f"Sheet '{sheet_name}' re-sorted.")
+                except Exception as e:
+                    print(f"Error re-sorting sheet {sheet_name} in default mode: {e}")
     
-    # Replace %2B with + in keywords
-    keywords = keywords.replace('%2B', '+')
-    
-    # Create base name
-    if len(keywords) <= 10 and len(location) <= 10:
-        # If short enough, use the full name
-        sheet_name = f"{keywords}-{location}-{work_type_name}"
+    if total_added_globally == 0 and not any(group_data['jobs'] for group_data in new_job_groups.values()):
+        print("No new jobs to process or add to tracker.")
     else:
-        # Truncate long names
-        sheet_name = f"{keywords[:10]}-{location[:10]}-{work_type_name}"
+        print(f"Total new/processed jobs for relevant sheets: {total_added_globally}")
+    print(f"Tracker data update attempt finished for Google Sheet ID: {sheet_id}")
+
+def create_sheet_name(keywords, location, work_type_code_or_name):
+    """Create a simplified sheet name from search parameters."""
+    # work_type_code_or_name can be the integer code from the job data or the string name from create_search_param
+    if isinstance(work_type_code_or_name, int):
+        work_type_name = config.WORK_TYPE_NAMES.get(work_type_code_or_name, "Any")
+    else: # It's already a name or None
+        work_type_name = config.WORK_TYPE_NAMES.get(config.WORK_TYPES.get(work_type_code_or_name), work_type_code_or_name if work_type_code_or_name else "Any")
+
+    keywords = str(keywords).replace('%2B', '+')
+    location = str(location)
     
-    # Remove special characters not allowed in Excel sheet names
+    sheet_name_parts = []
+    if keywords and keywords != 'Unknown': sheet_name_parts.append(keywords)
+    if location and location != 'Unknown': sheet_name_parts.append(location)
+    if work_type_name != "Any": sheet_name_parts.append(work_type_name)
+
+    sheet_name = "-".join(sheet_name_parts)
+    if not sheet_name: sheet_name = "Default_Sheet"
+
     invalid_chars = [':', '\\', '/', '?', '*', '[', ']']
     for char in invalid_chars:
         sheet_name = sheet_name.replace(char, '')
     
-    # Ensure sheet name is no longer than 31 characters (Excel limit)
-    if len(sheet_name) > 31:
-        sheet_name = sheet_name[:31]
-    
-    return sheet_name
+    return sheet_name[:100] # Google Sheets have a 100 char limit for sheet names
 
 def save_jobs_to_file(jobs, filename=config.JSON_OUTPUT_PATH):
     """Saves job data to a JSON file"""
-    # Ensure output directory exists
     os.makedirs(os.path.dirname(filename), exist_ok=True)
-    
-    import json
+    import json # Keep import local as it's only used here
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(jobs, f, ensure_ascii=False, indent=2)
     print(f"Job data saved to {filename}")

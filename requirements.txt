@@ -6,3 +6,6 @@ requests==2.32.3
 gradio==5.23.2
 lxml==5.4.0
 openpyxl==3.1.2
+gspread==6.2.1
+google-auth==2.40.2
+google-auth-oauthlib==1.2.2

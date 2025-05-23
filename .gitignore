@@ -3,3 +3,10 @@
 notes.txt
 output/
 __pycache__/
+*.pyc
+*~
+__pycache__/
+.DS_Store
+credentials.json
+*.json
+*.xlsx

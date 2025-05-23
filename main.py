@@ -1,8 +1,10 @@
 import os
 import time
 import datetime
+import argparse
 from linkedin_scraper import scrape_linkedin_jobs
 from tracker_manager import update_jobs_tracker, save_jobs_to_file
+import config
 
 # Define common geo IDs for popular locations
 GEO_IDS = {
@@ -59,7 +61,7 @@ def create_search_param(job_title, location, work_type, max_pages=1):
         "max_pages": max_pages
     }
 
-def run_search(search_params, output_dir):
+def run_search(search_params, output_dir, mode):
     """Run a LinkedIn job search with the specified parameters and save intermediate results"""
     search_name = search_params['name']
     search_id = search_name.replace(" ", "_").replace("-", "_").lower()
@@ -104,9 +106,9 @@ def run_search(search_params, output_dir):
         print(f"Saved intermediate results to {json_filename}")
         
         # Update tracker with this batch of jobs
-        tracker_path = f"{output_dir}/jobs_tracker.xlsx"
-        update_jobs_tracker(jobs, tracker_path)
-        print(f"Updated tracker at {tracker_path} with latest search results")
+        google_sheet_id = config.GOOGLE_SHEET_ID
+        update_jobs_tracker(jobs, google_sheet_id, mode)
+        print(f"Updated tracker at Google Sheet ID: {google_sheet_id} with latest search results (Mode: {mode})")
     
     return jobs
 
@@ -181,10 +183,18 @@ def europe_remote_jobs_routine(max_pages=1):
     
     return searches
 
-def main():
+def main(mode_arg):
     """Main function to run search routines"""
-    print("LinkedIn Job Search Routines")
+    print(f"LinkedIn Job Search Routines - Mode: {mode_arg}")
     print("=" * 50)
+
+    # Determine max_pages based on mode
+    if mode_arg == 'deep':
+        max_pages = 5
+        print("Deep mode activated: scraping up to 5 pages per search.")
+    else: # default mode
+        max_pages = 1
+        print("Default mode activated: scraping up to 1 page per search.")
     
     # Start overall timing
     total_start_time = time.time()
@@ -194,7 +204,7 @@ def main():
     # Output settings
     output_dir = "output"
     json_path = f"{output_dir}/linkedin_jobs.json"
-    tracker_path = f"{output_dir}/jobs_tracker.xlsx"
+    google_sheet_id = config.GOOGLE_SHEET_ID
     
     # Ensure output directories exist
     os.makedirs(output_dir, exist_ok=True)
@@ -208,9 +218,9 @@ def main():
     # search_strategy = "italy"  # Run only Italy routine
     # search_strategy = "europe"  # Run only Europe routine
     
-    # Settings for page depth
-    max_pages_italy = 5
-    max_pages_europe = 5
+    # Settings for page depth (use the determined max_pages)
+    max_pages_italy = max_pages
+    max_pages_europe = max_pages
     
     # Collect search combinations based on strategy
     search_combinations = []
@@ -242,7 +252,7 @@ def main():
         
         try:
             # Run the search
-            jobs = run_search(search_params, output_dir)
+            jobs = run_search(search_params, output_dir, mode_arg)
             all_jobs.extend(jobs)
             successful_searches += 1
             
@@ -252,35 +262,44 @@ def main():
         
         # Pause between searches to avoid rate limiting
         if search_params != search_combinations[-1]:  # Skip delay after last search
-            pause_time = 5
+            pause_time = 1
             print(f"Pausing for {pause_time} seconds between searches...")
             time.sleep(pause_time)
     
     # Save all jobs to JSON
     if all_jobs:
+        print(f"Saving all {len(all_jobs)} jobs to {json_path} (final output)")
         save_jobs_to_file(all_jobs, json_path)
-        print(f"Saved {len(all_jobs)} jobs to {json_path}")
         
         # Update tracker with all jobs
-        update_jobs_tracker(all_jobs, tracker_path)
-        print(f"Updated tracker at {tracker_path}")
+        update_jobs_tracker(all_jobs, google_sheet_id, mode_arg)
+        print(f"Updated tracker at Google Sheet ID: {google_sheet_id} (Mode: {mode_arg})")
     else:
         print("No jobs found across all searches")
     
-    # Calculate total elapsed time
-    total_elapsed_time = time.time() - total_start_time
-    hours, remainder = divmod(total_elapsed_time, 3600)
-    minutes, seconds = divmod(remainder, 60)
+    # End overall timing
+    total_end_time = time.time()
+    end_datetime = datetime.datetime.now()
+    total_elapsed_time = total_end_time - total_start_time
     
     print("=" * 50)
-    print(f"Search routine summary:")
-    print(f"- Started: {start_datetime.strftime('%Y-%m-%d %H:%M:%S')}")
-    print(f"- Finished: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    print(f"- Total runtime: {int(hours)}h {int(minutes)}m {int(seconds)}s")
-    print(f"- Successful searches: {successful_searches}")
-    print(f"- Failed searches: {failed_searches}")
-    print(f"- Total jobs found: {len(all_jobs)}")
+    print("LinkedIn Job Search Completed")
+    print(f"Finished at: {end_datetime.strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"Total execution time: {total_elapsed_time:.2f} seconds ({total_elapsed_time/60:.2f} minutes)")
+    print(f"Total successful searches: {successful_searches}")
+    print(f"Total failed searches: {failed_searches}")
+    print(f"Total jobs collected: {len(all_jobs)}")
     print("=" * 50)
 
 if __name__ == "__main__":
-    main() 
+    parser = argparse.ArgumentParser(description="Run LinkedIn job scraping routines.")
+    parser.add_argument(
+        "--mode", 
+        type=str, 
+        choices=['default', 'deep'],
+        default='default',
+        help="Scraping mode: 'default' (1 page per search, for daily updates) or 'deep' (5 pages per search, for initial population). Default is 'default'."
+    )
+    args = parser.parse_args()
+    
+    main(args.mode) 
