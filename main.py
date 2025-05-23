@@ -2,7 +2,7 @@ import os
 import time
 import datetime
 from linkedin_scraper import scrape_linkedin_jobs
-from tracker_manager import update_jobs_crm, save_jobs_to_file
+from tracker_manager import update_jobs_tracker, save_jobs_to_file
 
 # Define common geo IDs for popular locations
 GEO_IDS = {
@@ -103,10 +103,10 @@ def run_search(search_params, output_dir):
         save_jobs_to_file(jobs, json_filename)
         print(f"Saved intermediate results to {json_filename}")
         
-        # Update CRM with this batch of jobs
-        crm_path = f"{output_dir}/jobs_tracker.xlsx"
-        update_jobs_crm(jobs, crm_path)
-        print(f"Updated CRM at {crm_path} with latest search results")
+        # Update tracker with this batch of jobs
+        tracker_path = f"{output_dir}/jobs_tracker.xlsx"
+        update_jobs_tracker(jobs, tracker_path)
+        print(f"Updated tracker at {tracker_path} with latest search results")
     
     return jobs
 
@@ -194,7 +194,7 @@ def main():
     # Output settings
     output_dir = "output"
     json_path = f"{output_dir}/linkedin_jobs.json"
-    crm_path = f"{output_dir}/jobs_tracker.xlsx"
+    tracker_path = f"{output_dir}/jobs_tracker.xlsx"
     
     # Ensure output directories exist
     os.makedirs(output_dir, exist_ok=True)
@@ -261,9 +261,9 @@ def main():
         save_jobs_to_file(all_jobs, json_path)
         print(f"Saved {len(all_jobs)} jobs to {json_path}")
         
-        # Update CRM with all jobs
-        update_jobs_crm(all_jobs, crm_path)
-        print(f"Updated CRM at {crm_path}")
+        # Update tracker with all jobs
+        update_jobs_tracker(all_jobs, tracker_path)
+        print(f"Updated tracker at {tracker_path}")
     else:
         print("No jobs found across all searches")
     

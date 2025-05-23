@@ -329,7 +329,7 @@ def scrape_linkedin_jobs(keywords, location, geoId, work_type, jobs_per_page=25,
 
 def main():
     """Test function for the LinkedIn scraper"""
-    from tracker_manager import update_jobs_crm
+    from tracker_manager import update_jobs_tracker
     
     # Search parameters
     keywords = "Business%2BAnalyst"
@@ -343,8 +343,8 @@ def main():
     # Save results to JSON
     save_jobs_to_file(all_jobs)
     
-    # Update CRM with new jobs (imported from tracker_manager)
-    update_jobs_crm(all_jobs)
+    # Update tracker with new jobs (imported from tracker_manager)
+    update_jobs_tracker(all_jobs)
 
 if __name__ == "__main__":
     main()

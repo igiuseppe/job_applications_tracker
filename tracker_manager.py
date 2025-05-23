@@ -4,9 +4,9 @@ import pandas as pd
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 import config
 
-def load_existing_jobs_from_crm(excel_path=config.CRM_EXCEL_PATH):
+def load_existing_jobs_from_tracker(excel_path=config.TRACKER_EXCEL_PATH):
     """
-    Load existing jobs from the CRM Excel file
+    Load existing jobs from the tracker Excel file
     Returns a set of job IDs and a list of existing job records
     """
     existing_job_ids = set()
@@ -35,16 +35,16 @@ def load_existing_jobs_from_crm(excel_path=config.CRM_EXCEL_PATH):
             if 'job_id' in job and job['job_id'] and not pd.isna(job['job_id']):
                 existing_job_ids.add(str(job['job_id']))
                 
-        print(f"Loaded {len(existing_jobs)} existing jobs from CRM across {len(sheet_names)} sheets")
+        print(f"Loaded {len(existing_jobs)} existing jobs from tracker across {len(sheet_names)} sheets")
         return existing_job_ids, existing_jobs
     
     except Exception as e:
         print(f"Error loading existing jobs from Excel: {str(e)}")
         return set(), []
 
-def update_jobs_crm(new_jobs, excel_path=config.CRM_EXCEL_PATH):
+def update_jobs_tracker(new_jobs, excel_path=config.TRACKER_EXCEL_PATH):
     """
-    Update the CRM Excel file with new job listings
+    Update the tracker Excel file with new job listings
     - Adds only new jobs (not already in the same search sheet)
     - Orders jobs by publishing date (newest first)
     - Creates separate sheets for different search combinations
@@ -102,7 +102,7 @@ def update_jobs_crm(new_jobs, excel_path=config.CRM_EXCEL_PATH):
                     'job_ids': job_ids
                 }
                 
-            print(f"Loaded {len(sheet_names)} existing sheets from CRM")
+            print(f"Loaded {len(sheet_names)} existing sheets from tracker")
             
         except Exception as e:
             print(f"Error loading existing jobs from Excel: {str(e)}")
@@ -135,7 +135,7 @@ def update_jobs_crm(new_jobs, excel_path=config.CRM_EXCEL_PATH):
         added_to_sheet = 0
         for job in new_jobs_in_group:
             if job['job_id'] not in final_sheets[sheet_name]['job_ids']:
-                # Add status fields for CRM functionality
+                # Add status fields for tracker functionality
                 job['status'] = 'New'
                 job['notes'] = ''
                 job['date_added'] = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -149,7 +149,7 @@ def update_jobs_crm(new_jobs, excel_path=config.CRM_EXCEL_PATH):
             print(f"Added {added_to_sheet} new jobs to sheet: {sheet_name}")
     
     if total_added == 0:
-        print("No new jobs to add to CRM")
+        print("No new jobs to add to tracker")
         return
     
     # Get fields for the Excel file from config
@@ -295,8 +295,8 @@ def update_jobs_crm(new_jobs, excel_path=config.CRM_EXCEL_PATH):
                 summary_sheet.auto_filter.ref = summary_sheet.dimensions
         
         print(f"Total jobs added: {total_added}")
-        print(f"Total jobs in CRM: {sum(len(sheet['jobs']) for sheet in final_sheets.values())}")
-        print(f"CRM data saved to {excel_path} with {len(final_sheets)} search groups")
+        print(f"Total jobs in tracker: {sum(len(sheet['jobs']) for sheet in final_sheets.values())}")
+        print(f"Tracker data saved to {excel_path} with {len(final_sheets)} search groups")
         
     except Exception as e:
         print(f"Error saving to Excel file: {str(e)}")
@@ -348,4 +348,8 @@ def save_jobs_to_file(jobs, filename=config.JSON_OUTPUT_PATH):
     import json
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(jobs, f, ensure_ascii=False, indent=2)
-    print(f"Job data saved to {filename}") 
+    print(f"Job data saved to {filename}")
+
+# Provide backward compatibility
+load_existing_jobs_from_crm = load_existing_jobs_from_tracker
+update_jobs_crm = update_jobs_tracker 

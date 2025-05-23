@@ -1,4 +1,4 @@
-# Configuration variables for the job applications CRM
+# Configuration variables for the job applications tracker
 
 # Work Type filters
 WORK_TYPE_REMOTE = 2  # Remote jobs
@@ -20,10 +20,10 @@ DELAY_BETWEEN_REQUESTS = 1  # seconds
 # File paths
 OUTPUT_DIR = "output"
 JSON_OUTPUT_PATH = f"{OUTPUT_DIR}/linkedin_jobs.json"
-CRM_EXCEL_PATH = f"{OUTPUT_DIR}/jobs_tracker.xlsx"
+TRACKER_EXCEL_PATH = f"{OUTPUT_DIR}/jobs_tracker.xlsx"
 
-# CRM settings
-CRM_STATUSES = ["New", "Applied", "Interview", "Rejected", "Offer"]
+# Tracker settings
+TRACKER_STATUSES = ["New", "Applied", "Interview", "Rejected", "Offer"]
 
 # Common field definitions for job data
 JOB_FIELDS = [
