@@ -59,6 +59,7 @@ def create_search_param(job_title, location, work_type, max_pages=1):
     
     return {
         "name": f"{job_title} - {location} - {work_type}",
+        "original_job_title": job_title,
         "keywords": job_title_code,
         "location": location,
         "geo_id": geo_id,
@@ -82,7 +83,7 @@ def run_search(search_params, output_dir, mode):
     logger.info(f"Start time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     logger.info("-" * 50)
     
-    jobs = scrape_linkedin_jobs(
+    scraped_jobs_list = scrape_linkedin_jobs(
         keywords=search_params['keywords'],
         location=search_params['location'],
         geoId=search_params['geo_id'],
@@ -94,11 +95,23 @@ def run_search(search_params, output_dir, mode):
     # Calculate elapsed time
     elapsed_time = time.time() - start_time
     
-    logger.info(f"Found {len(jobs)} jobs for {search_name}")
+    logger.info(f"Found {len(scraped_jobs_list)} jobs for {search_name}")
     logger.info(f"Search completed in {elapsed_time:.2f} seconds")
     
+    # Add search_location (Country) and work_type_name to each job
+    processed_jobs = []
+    if scraped_jobs_list:
+        for job in scraped_jobs_list:
+            job['search_location'] = search_params['location'] # This will be used as 'Country'
+            job['Country'] = search_params['location'] # Explicitly add 'Country'
+            job['work_type_name'] = work_type_to_name(search_params['work_type'])
+            job['search_keyword_job_title'] = search_params['original_job_title']
+            # Ensure other necessary fields from search_params are in the job if needed by tracker/saver
+            job['search_keywords'] = search_params['keywords'] # Keep for context if useful
+            processed_jobs.append(job)
+
     # Save intermediate results
-    if jobs:
+    if processed_jobs:
         # Create a timestamped filename for this search
         timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
         json_filename = f"{output_dir}/intermediate/{search_id}_{timestamp}.json"
@@ -107,17 +120,17 @@ def run_search(search_params, output_dir, mode):
         os.makedirs(os.path.dirname(json_filename), exist_ok=True)
         
         # Save to file
-        save_jobs_to_file(jobs, json_filename)
+        save_jobs_to_file(processed_jobs, json_filename)
         logger.info(f"Saved intermediate results to {json_filename}")
         
         # Update tracker with this batch of jobs
         google_sheet_id = config.GOOGLE_SHEET_ID
-        update_jobs_tracker(jobs, google_sheet_id, mode)
+        update_jobs_tracker(processed_jobs, google_sheet_id, mode)
         logger.info(f"Updated tracker at Google Sheet ID: {google_sheet_id} with latest search results (Mode: {mode})")
     
-    return jobs
+    return processed_jobs
 
-def work_type_to_name(work_type):
+def work_type_to_name(work_type_code):
     """Convert work type value to name"""
     work_type_names = {
         1: "On-site",
@@ -125,7 +138,7 @@ def work_type_to_name(work_type):
         3: "Hybrid",
         None: "Any"
     }
-    return work_type_names.get(work_type, "Unknown")
+    return work_type_names.get(work_type_code, "Unknown")
 
 def italy_jobs_routine(max_pages=1):
     """

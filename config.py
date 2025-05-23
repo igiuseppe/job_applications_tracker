@@ -21,7 +21,7 @@ WORK_TYPE_NAMES = {
 }
 
 # Scraping settings
-DELAY_BETWEEN_REQUESTS = 1  # seconds
+DELAY_BETWEEN_SEARCHES = 1  # seconds
 
 # File paths
 OUTPUT_DIR = "output"
@@ -29,7 +29,7 @@ JSON_OUTPUT_PATH = f"{OUTPUT_DIR}/linkedin_jobs.json"
 # TRACKER_EXCEL_PATH = f"{OUTPUT_DIR}/jobs_tracker.xlsx" # Replaced by Google Sheet
 
 # Google Sheets settings
-GOOGLE_SHEET_ID = "1hR8pAmRAX1ijDOA9NYGWWB0n45XfAuXHSOSLFsjOayU" #ID of the google sheet
+GOOGLE_SHEET_ID = "1ml8TsOm5dk8KZYv-6ZRSjd85EX8Xo_Um8-v8rHYEOBE" #ID of the google sheet
 GOOGLE_CREDENTIALS_PATH = "credentials.json"  # Path to your Google API service account credentials, defaults to credentials.json
 
 # Tracker settings
@@ -37,10 +37,10 @@ TRACKER_STATUSES = ["New", "Applied", "Interview", "Rejected", "Offer"]
 
 # Common field definitions for job data
 JOB_FIELDS = [
-    'job_id', 'job_title', 'company_name', 'location', 'publishing_date',
+    'job_id', 'job_title','search_keyword_job_title','Country', 'work_type_name', 'company_name', 'location', 'publishing_date',
     'posted_time_ago', 'seniority_level', 'employment_type', 'job_function',
-    'industries', 'status', 'notes', 'date_added', 'job_link', 'company_link', 
-    'work_type_name', 'job_description'
+    'industries', 'status', 'date_added', 'job_link', 'company_link', 
+     'job_description','notes'
 ]
 
 # LinkedIn URL templates

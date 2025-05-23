@@ -17,6 +17,9 @@ SCOPES = [
     'https://www.googleapis.com/auth/drive.file' # if you need to create new sheets or manage files
 ]
 
+# Name for the single sheet
+ALL_JOBS_SHEET_NAME = "All Jobs"
+
 def get_gspread_client():
     """Initializes and returns a gspread client."""
     try:
@@ -35,63 +38,51 @@ def get_gspread_client():
 
 def load_existing_jobs_from_tracker(sheet_id=config.GOOGLE_SHEET_ID):
     """
-    Load existing jobs from the Google Sheet tracker.
-    Returns a dictionary mapping sheet names to sets of job IDs, and a list of all existing job records.
+    Load existing jobs from the "All Jobs" sheet in the Google Sheet tracker.
+    Returns a set of job IDs and a list of all existing job records.
     """
     client = get_gspread_client()
     if not client:
-        return {}, [] 
+        return set(), []
 
-    existing_job_ids_by_sheet = {} 
-    all_existing_jobs = [] 
+    existing_job_ids = set()
+    all_existing_jobs = []
 
     try:
         spreadsheet = client.open_by_key(sheet_id)
-        worksheets = spreadsheet.worksheets()
-        
-        for worksheet in worksheets:
-            sheet_name = worksheet.title
-            # No longer skipping 'Summary' here; if it exists and has job data, it will be loaded.
-            # The decision to not process it as a job data sheet is handled in update_jobs_tracker.
-            logger.info(f"Loading jobs from sheet: {sheet_name}")
-            try:
-                records = worksheet.get_all_records()  # Assumes first row is header
-            except Exception as e:
-                logger.warning(f"Could not get records from sheet: {sheet_name}. Error: {e}. Skipping this sheet.")
-                continue
-
-            sheet_job_ids = set()
-            sheet_jobs_list = []
-            if records: # Ensure records is not empty
-                for record in records:
-                    job_id = str(record.get('job_id', '')) 
-                    if job_id:
-                        sheet_job_ids.add(job_id)
-                    sheet_jobs_list.append(dict(record))
+        try:
+            worksheet = spreadsheet.worksheet(ALL_JOBS_SHEET_NAME)
+            logger.info(f"Loading jobs from sheet: {ALL_JOBS_SHEET_NAME}")
+            records = worksheet.get_all_records()  # Assumes first row is header
             
-            existing_job_ids_by_sheet[sheet_name] = sheet_job_ids
-            all_existing_jobs.extend(sheet_jobs_list)
-            logger.info(f"Loaded {len(sheet_jobs_list)} jobs from sheet: {sheet_name}, {len(sheet_job_ids)} unique job IDs.")
+            if records:
+                for record in records:
+                    job_id = str(record.get('job_id', ''))
+                    if job_id:
+                        existing_job_ids.add(job_id)
+                    all_existing_jobs.append(dict(record))
+            logger.info(f"Loaded {len(all_existing_jobs)} jobs from sheet: {ALL_JOBS_SHEET_NAME}, {len(existing_job_ids)} unique job IDs.")
+        
+        except gspread.exceptions.WorksheetNotFound:
+            logger.info(f"Sheet '{ALL_JOBS_SHEET_NAME}' not found. Assuming no existing jobs.")
+            # No need to return error, just means no jobs loaded.
 
-        total_loaded_jobs = sum(len(jobs) for jobs in existing_job_ids_by_sheet.values())
-        logger.info(f"Loaded {len(all_existing_jobs)} total existing jobs from tracker across {len(existing_job_ids_by_sheet)} sheets. ({total_loaded_jobs} unique job IDs found)")
-        return existing_job_ids_by_sheet, all_existing_jobs
-    
+        return existing_job_ids, all_existing_jobs
+
     except gspread.exceptions.SpreadsheetNotFound:
         logger.error(f"Google Sheet with ID '{sheet_id}' not found or permission denied.")
-        return {}, []
+        return set(), []
     except Exception as e:
         logger.error(f"Error loading existing jobs from Google Sheet: {str(e)}")
-        return {}, []
+        return set(), []
 
 def update_jobs_tracker(new_jobs, sheet_id=config.GOOGLE_SHEET_ID, mode='default'):
     """
-    Update the Google Sheet tracker with new job listings.
-    Behavior depends on the mode:
-    - 'deep' mode: Clears and overwrites sheets. Creates new sheets if they don't exist.
-    - 'default' mode: Only updates existing sheets. Skips job groups if sheet doesn't exist.
+    Update the "All Jobs" sheet in the Google Sheet tracker with new job listings.
+    - 'deep' mode: Clears and overwrites the "All Jobs" sheet.
+    - 'default' mode: Appends new jobs to the "All Jobs" sheet, avoiding duplicates.
     """
-    logger.info(f"Updating jobs tracker in '{mode}' mode.")
+    logger.info(f"Updating jobs tracker in '{mode}' mode for sheet: {ALL_JOBS_SHEET_NAME}.")
     client = get_gspread_client()
     if not client:
         logger.error("Could not connect to Google Sheets. Aborting update.")
@@ -106,169 +97,165 @@ def update_jobs_tracker(new_jobs, sheet_id=config.GOOGLE_SHEET_ID, mode='default
         logger.error(f"Error opening Google Sheet: {e}")
         return
 
-    new_job_groups = {}
-    for job in new_jobs:
-        keywords = job.get('search_keywords', 'Unknown')
-        location = job.get('search_location', 'Unknown')
-        work_type_from_job = job.get('work_type', None) # Note: work_type in job might be int code
-        group_key = f"{keywords}_{location}_{work_type_from_job}"
-        sheet_name_for_group = create_sheet_name(keywords, location, work_type_from_job)
+    existing_jobs_in_sheet = []
+    current_sheet_job_ids = set()
 
-        if group_key not in new_job_groups:
-            new_job_groups[group_key] = {
-                'jobs': [],
-                'sheet_name': sheet_name_for_group
-            }
-        new_job_groups[group_key]['jobs'].append(job)
+    try:
+        worksheet = spreadsheet.worksheet(ALL_JOBS_SHEET_NAME)
+        logger.info(f"Accessing sheet: {ALL_JOBS_SHEET_NAME}")
+        if mode == 'deep':
+            logger.info(f"Deep mode: Sheet '{ALL_JOBS_SHEET_NAME}' will be cleared.")
+            # existing_jobs_in_sheet and current_sheet_job_ids remain empty
+        else: # default mode, load existing
+            logger.info(f"Default mode: Loading existing jobs from '{ALL_JOBS_SHEET_NAME}'.")
+            records = worksheet.get_all_records()
+            existing_jobs_in_sheet = [dict(rec) for rec in records]
+            current_sheet_job_ids = {str(job.get('job_id', '')) for job in existing_jobs_in_sheet if job.get('job_id')}
+            logger.info(f"Loaded {len(existing_jobs_in_sheet)} existing jobs with {len(current_sheet_job_ids)} unique IDs.")
 
-    total_added_globally = 0
-    all_sheet_names_in_spreadsheet = [ws.title for ws in spreadsheet.worksheets()]
-    processed_sheet_names = set()
-
-    for group_key, group_data in new_job_groups.items():
-        target_sheet_name = group_data['sheet_name']
-        new_jobs_for_this_group = group_data['jobs']
-        processed_sheet_names.add(target_sheet_name)
-
-        if mode == 'default' and target_sheet_name not in all_sheet_names_in_spreadsheet:
-            logger.info(f"Default mode: Sheet '{target_sheet_name}' does not exist. Skipping {len(new_jobs_for_this_group)} jobs for this group.")
-            continue
-
+    except gspread.exceptions.WorksheetNotFound:
+        logger.info(f"Sheet '{ALL_JOBS_SHEET_NAME}' not found. Creating it.")
         try:
-            worksheet = spreadsheet.worksheet(target_sheet_name)
-            logger.info(f"Updating existing sheet: {target_sheet_name}")
-            if mode == 'deep':
-                logger.info(f"Deep mode: Clearing sheet '{target_sheet_name}' before writing.")
-                existing_jobs_in_sheet = []
-                current_sheet_job_ids = set()
-            else: # default mode, load existing
-                existing_records = worksheet.get_all_records() 
-                existing_jobs_in_sheet = [dict(rec) for rec in existing_records]
-                current_sheet_job_ids = {str(job.get('job_id', '')) for job in existing_jobs_in_sheet if job.get('job_id')}
-        except gspread.exceptions.WorksheetNotFound:
-            if mode == 'deep':
-                logger.info(f"Deep mode: Creating new sheet: {target_sheet_name}")
-                worksheet = spreadsheet.add_worksheet(title=target_sheet_name, rows="1", cols=str(len(config.JOB_FIELDS)))
-                existing_jobs_in_sheet = []
-                current_sheet_job_ids = set()
-            else: # Should have been caught by the check above, but as a safeguard
-                logger.warning(f"Default mode: Sheet '{target_sheet_name}' not found unexpectedly. Skipping.")
-                continue 
+            worksheet = spreadsheet.add_worksheet(title=ALL_JOBS_SHEET_NAME, rows="1", cols=str(len(config.JOB_FIELDS)))
+            # New sheet, so no existing jobs to load.
+            # existing_jobs_in_sheet and current_sheet_job_ids remain empty
         except Exception as e:
-            logger.error(f"Error accessing or creating sheet {target_sheet_name}: {e}")
-            continue 
-
-        added_to_this_sheet_count = 0
-        for job in new_jobs_for_this_group:
-            # In deep mode, current_sheet_job_ids is empty, so all jobs are "new" to the sheet
-            # In default mode, we check against loaded IDs
-            if str(job.get('job_id')) not in current_sheet_job_ids:
-                job['status'] = 'New'
-                job['notes'] = ''
-                job['date_added'] = datetime.datetime.now().strftime("%Y-%m-%d")
-                existing_jobs_in_sheet.append(job) # Add to the list that will be sorted and written
-                if mode == 'default': # Only count as "added" if it wasn't there before in default mode
-                    current_sheet_job_ids.add(str(job.get('job_id')))
-                added_to_this_sheet_count += 1
-        
-        total_added_globally += added_to_this_sheet_count
-        if added_to_this_sheet_count > 0:
-            logger.info(f"Added/processed {added_to_this_sheet_count} jobs for sheet: {target_sheet_name}")
-
-        sorted_jobs_for_sheet = sorted(
-            existing_jobs_in_sheet, 
-            key=lambda x: x.get('publishing_date', '1970-01-01'), 
-            reverse=True
-        )
-
-        headers = config.JOB_FIELDS
-        data_to_write = [headers] + [
-            [str(job.get(field, '')) for field in headers] for job in sorted_jobs_for_sheet
-        ]
-
-        worksheet.clear() # Clear before writing in both modes (deep mode clears, default mode re-writes with merged)
-        worksheet.update('A1', data_to_write, value_input_option='USER_ENTERED')
-        worksheet.format("A1:Z1", {"textFormat": {"bold": True}})
-        logger.info(f"Sheet '{target_sheet_name}' updated with {len(sorted_jobs_for_sheet)} total jobs.")
-
-    # Re-sort any existing sheets not touched by the new job batch
-    # This part is more relevant for default mode, but can run in deep mode too.
-    if mode == 'default': # Only re-sort other sheets in default mode if they weren't processed by new jobs
-        for sheet_name in all_sheet_names_in_spreadsheet:
-            if sheet_name not in processed_sheet_names:
-                logger.info(f"Default mode: Re-sorting existing sheet not in current batch: {sheet_name}")
-                try:
-                    worksheet = spreadsheet.worksheet(sheet_name)
-                    existing_records = worksheet.get_all_records()
-                    if not existing_records:
-                        logger.info(f"Sheet {sheet_name} is empty or not a job data sheet. Skipping re-sort.")
-                        continue
-                    existing_jobs_in_sheet = [dict(rec) for rec in existing_records]
-                    
-                    if not existing_jobs_in_sheet or not all(header in existing_jobs_in_sheet[0] for header in config.JOB_FIELDS[:3]):
-                        logger.warning(f"Sheet {sheet_name} does not appear to be a job data sheet. Skipping re-sort.")
-                        continue
-
-                    sorted_jobs_for_sheet = sorted(
-                        existing_jobs_in_sheet, 
-                        key=lambda x: x.get('publishing_date', '1970-01-01'), 
-                        reverse=True
-                    )
-                    headers = config.JOB_FIELDS
-                    data_to_write = [headers] + [
-                        [str(job.get(field, '')) for field in headers] for job in sorted_jobs_for_sheet
-                    ]
-                    worksheet.clear()
-                    worksheet.update('A1', data_to_write, value_input_option='USER_ENTERED')
-                    worksheet.format("A1:Z1", {"textFormat": {"bold": True}})
-                    logger.info(f"Sheet '{sheet_name}' re-sorted.")
-                except Exception as e:
-                    logger.error(f"Error re-sorting sheet {sheet_name} in default mode: {e}")
+            logger.error(f"Error creating sheet {ALL_JOBS_SHEET_NAME}: {e}")
+            return
+    except Exception as e:
+        logger.error(f"Error accessing sheet {ALL_JOBS_SHEET_NAME}: {e}")
+        return
     
-    if total_added_globally == 0 and not any(group_data['jobs'] for group_data in new_job_groups.values()):
-        logger.info("No new jobs to process or add to tracker.")
-    else:
-        logger.info(f"Total new/processed jobs for relevant sheets: {total_added_globally}")
+    added_count = 0
+    updated_count = 0 # Not strictly tracking updates vs new, but count of jobs processed
+
+    for job in new_jobs:
+        job_id_str = str(job.get('job_id'))
+        
+        # Add 'Country' and 'work_type_name' if not already present (main.py should add them)
+        if 'Country' not in job:
+            job['Country'] = job.get('search_location', 'Unknown') 
+        if 'work_type_name' not in job: # Should be added in main.py run_search
+             # Attempt to derive it if missing - placeholder logic
+            raw_work_type = job.get('work_type') 
+            if isinstance(raw_work_type, int):
+                 job['work_type_name'] = config.WORK_TYPE_NAMES.get(raw_work_type, "Any")
+            elif isinstance(raw_work_type, str) and raw_work_type in config.WORK_TYPES: # if it's "Remote", "Hybrid"
+                 job['work_type_name'] = raw_work_type
+            else: # if it's the actual code like "2" but as string
+                 job['work_type_name'] = config.WORK_TYPE_NAMES.get(int(raw_work_type), "Any") if str(raw_work_type).isdigit() else "Any"
+        
+        # Ensure 'search_keyword_job_title' is present (main.py should add this)
+        if 'search_keyword_job_title' not in job:
+            job['search_keyword_job_title'] = job.get('search_keywords', 'Unknown') # Fallback, though main.py should provide original_job_title
+
+        if mode == 'deep' or job_id_str not in current_sheet_job_ids:
+            if job_id_str not in current_sheet_job_ids: # New job
+                 job['status'] = 'New'
+                 job['notes'] = ''
+                 job['date_added'] = datetime.datetime.now().strftime("%Y-%m-%d")
+                 added_count +=1
+            else: # Job exists, but deep mode means we re-add it (effectively an update)
+                 # Preserve status/notes if already there? For now, deep mode re-adds as "New" if it was previously scraped
+                 # For simplicity in deep mode, treat as new add for now.
+                 # More sophisticated update logic could be added here if needed for deep mode.
+                 job['status'] = 'New' # Or try to find and merge?
+                 job['notes'] = ''
+                 job['date_added'] = datetime.datetime.now().strftime("%Y-%m-%d") # Or keep old one?
+                 updated_count +=1 # Or consider this an "added" in deep mode context
+
+
+            existing_jobs_in_sheet.append(job)
+            current_sheet_job_ids.add(job_id_str) # Add to set to handle duplicates within the new_jobs batch itself
+
+    if added_count > 0 :
+        logger.info(f"Added {added_count} new jobs to '{ALL_JOBS_SHEET_NAME}'.")
+    if updated_count > 0 and mode == 'deep': # only log "updated" in sense of re-processing for deep mode
+        logger.info(f"Re-processed {updated_count} jobs in 'deep' mode for '{ALL_JOBS_SHEET_NAME}'.")
+    if not new_jobs:
+        logger.info("No new jobs provided to update.")
+    elif added_count == 0 and updated_count == 0 and mode !='deep':
+        logger.info(f"No new unique jobs to add to '{ALL_JOBS_SHEET_NAME}'.")
+
+
+    # Sort all jobs (existing + new unique ones, or all if deep mode)
+    # Ensure publishing_date is a string for sorting, handle missing dates
+    def get_sort_key(x):
+        date_str = x.get('publishing_date', '1970-01-01')
+        if isinstance(date_str, datetime.date):
+            return date_str.isoformat()
+        if isinstance(date_str, datetime.datetime):
+            return date_str.date().isoformat()
+        return str(date_str)
+
+    sorted_jobs_for_sheet = sorted(
+        existing_jobs_in_sheet,
+        key=get_sort_key,
+        reverse=True
+    )
+
+    headers = config.JOB_FIELDS # JOB_FIELDS now includes 'Country'
+    data_to_write = [headers] + [
+        [str(job.get(field, '')) for field in headers] for job in sorted_jobs_for_sheet
+    ]
+
+    try:
+        worksheet.clear() 
+        worksheet.update('A1', data_to_write, value_input_option='USER_ENTERED')
+        worksheet.format("A1:Z1", {"textFormat": {"bold": True}}) # Format header
+        # Auto-resize columns - this might be slow or fail for very large sheets/many columns.
+        # gspread itself doesn't have a direct auto-resize. This needs to be done via Google Sheets API batchUpdate.
+        # For simplicity, skipping auto-resize or doing it manually in GSheets is often easier.
+        logger.info(f"Sheet '{ALL_JOBS_SHEET_NAME}' updated with {len(sorted_jobs_for_sheet)} total jobs.")
+    except Exception as e:
+        logger.error(f"Error writing data to sheet {ALL_JOBS_SHEET_NAME}: {e}")
+        return
+
     logger.info(f"Tracker data update attempt finished for Google Sheet ID: {sheet_id}")
 
-def create_sheet_name(keywords, location, work_type_code_or_name):
-    """Create a simplified sheet name from search parameters."""
-    # work_type_code_or_name can be the integer code from the job data or the string name from create_search_param
-    if isinstance(work_type_code_or_name, int):
-        work_type_name = config.WORK_TYPE_NAMES.get(work_type_code_or_name, "Any")
-    else: # It's already a name or None
-        work_type_name = config.WORK_TYPE_NAMES.get(config.WORK_TYPES.get(work_type_code_or_name), work_type_code_or_name if work_type_code_or_name else "Any")
-
-    keywords = str(keywords).replace('%2B', '+')
-    location = str(location)
-    
-    sheet_name_parts = []
-    if keywords and keywords != 'Unknown': sheet_name_parts.append(keywords)
-    if location and location != 'Unknown': sheet_name_parts.append(location)
-    if work_type_name != "Any": sheet_name_parts.append(work_type_name)
-
-    sheet_name = "-".join(sheet_name_parts)
-    if not sheet_name: sheet_name = "Default_Sheet"
-
-    invalid_chars = [':', '\\', '/', '?', '*', '[', ']']
-    for char in invalid_chars:
-        sheet_name = sheet_name.replace(char, '')
-    
-    return sheet_name[:100] # Google Sheets have a 100 char limit for sheet names
-
 def save_jobs_to_file(jobs, filename=config.JSON_OUTPUT_PATH):
-    """Save jobs to a JSON file, overwriting if it exists."""
-    try:
-        # Ensure the directory exists
-        os.makedirs(os.path.dirname(filename), exist_ok=True)
+    """
+    Saves a list of job dictionaries to a JSON file.
+    Ensures 'Country' and 'work_type_name' are present.
+    """
+    import json
+    processed_jobs = []
+    for job in jobs:
+        # Ensure 'Country' is present, derived from 'search_location' if needed
+        if 'Country' not in job and 'search_location' in job:
+            job['Country'] = job['search_location']
+        elif 'Country' not in job:
+            job['Country'] = 'Unknown' # Default if not found
+
+        # Ensure 'work_type_name' is present
+        if 'work_type_name' not in job:
+            raw_work_type = job.get('work_type')
+            if isinstance(raw_work_type, int):
+                 job['work_type_name'] = config.WORK_TYPE_NAMES.get(raw_work_type, "Any")
+            elif isinstance(raw_work_type, str) and raw_work_type in config.WORK_TYPES: # if it's "Remote", "Hybrid"
+                 job['work_type_name'] = raw_work_type # It's already the name
+            elif str(raw_work_type).isdigit():
+                 job['work_type_name'] = config.WORK_TYPE_NAMES.get(int(raw_work_type), "Any")
+            else: # Fallback if it's some other string or None
+                 job['work_type_name'] = str(raw_work_type) if raw_work_type else "Any"
         
-        # Convert to DataFrame for easier JSON export if needed, or just use json.dump
-        # For simplicity, using pandas to handle potential complexities like date formatting
-        df = pd.DataFrame(jobs)
-        df.to_json(filename, orient='records', indent=4, date_format='iso')
-        logger.info(f"Successfully saved {len(jobs)} jobs to {filename}")
+        # Ensure 'search_keyword_job_title' is present
+        if 'search_keyword_job_title' not in job:
+            # Fallback: use 'search_keywords' if 'original_job_title' wasn't propagated
+            # config.py has JOB_TITLES which maps readable to URL-safe, we want readable here.
+            # This fallback might not be perfect if search_keywords is the URL-encoded version.
+            # Ideally, main.py correctly populates 'search_keyword_job_title' from 'original_job_title'.
+            job['search_keyword_job_title'] = job.get('search_keywords', 'Unknown') 
+
+        processed_jobs.append(job)
+
+    try:
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
+        with open(filename, 'w', encoding='utf-8') as f:
+            json.dump(processed_jobs, f, ensure_ascii=False, indent=4)
+        logger.info(f"Successfully saved {len(processed_jobs)} jobs to {filename}")
     except Exception as e:
-        logger.error(f"Error saving jobs to {filename}: {e}")
+        logger.error(f"Error saving jobs to JSON file {filename}: {e}")
 
 # Provide backward compatibility
 load_existing_jobs_from_crm = load_existing_jobs_from_tracker
