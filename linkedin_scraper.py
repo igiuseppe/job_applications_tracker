@@ -313,7 +313,7 @@ def scrape_linkedin_jobs(keywords, location, geoId, work_type, jobs_per_page=25,
 
         # Add a delay between pages to be respectful to the server
         if page_num < max_pages - 1: # Don't sleep after the last page
-            time.sleep(config.DELAY_BETWEEN_PAGES) 
+            time.sleep(config.DELAY_BETWEEN_SEARCHES) 
             
     logger.info(f"Scrape finished for keywords: '{keywords}', location: '{location}'. Found {len(all_jobs)} jobs.")
     return all_jobs
