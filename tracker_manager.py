@@ -152,12 +152,8 @@ def update_jobs_crm(new_jobs, excel_path=config.CRM_EXCEL_PATH):
         print("No new jobs to add to CRM")
         return
     
-    # Define fields for the Excel file
-    fieldnames = [
-        'job_id', 'job_title', 'company_name', 'location', 'publishing_date',
-        'posted_time_ago', 'seniority_level', 'employment_type', 'job_function',
-        'industries', 'status', 'notes', 'date_added', 'job_link', 'work_type_name'
-    ]
+    # Get fields for the Excel file from config
+    fieldnames = config.JOB_FIELDS
     
     # Write to Excel
     try:

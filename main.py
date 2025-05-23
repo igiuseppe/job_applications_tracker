@@ -1,5 +1,6 @@
 import os
 import time
+import datetime
 from linkedin_scraper import scrape_linkedin_jobs
 from tracker_manager import update_jobs_crm, save_jobs_to_file
 
@@ -58,13 +59,20 @@ def create_search_param(job_title, location, work_type, max_pages=1):
         "max_pages": max_pages
     }
 
-def run_search(search_params):
-    """Run a LinkedIn job search with the specified parameters"""
+def run_search(search_params, output_dir):
+    """Run a LinkedIn job search with the specified parameters and save intermediate results"""
+    search_name = search_params['name']
+    search_id = search_name.replace(" ", "_").replace("-", "_").lower()
+    
+    # Start timing
+    start_time = time.time()
+    
     print("-" * 50)
-    print(f"Running search: {search_params['name']}")
+    print(f"Running search: {search_name}")
     print(f"Keywords: {search_params['keywords']}")
     print(f"Location: {search_params['location']} (GeoID: {search_params['geo_id']})")
     print(f"Work type: {work_type_to_name(search_params['work_type'])}")
+    print(f"Start time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("-" * 50)
     
     jobs = scrape_linkedin_jobs(
@@ -76,7 +84,30 @@ def run_search(search_params):
         max_pages=search_params.get('max_pages', 1)
     )
     
-    print(f"Found {len(jobs)} jobs for {search_params['name']}")
+    # Calculate elapsed time
+    elapsed_time = time.time() - start_time
+    
+    print(f"Found {len(jobs)} jobs for {search_name}")
+    print(f"Search completed in {elapsed_time:.2f} seconds")
+    
+    # Save intermediate results
+    if jobs:
+        # Create a timestamped filename for this search
+        timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+        json_filename = f"{output_dir}/intermediate/{search_id}_{timestamp}.json"
+        
+        # Ensure directory exists
+        os.makedirs(os.path.dirname(json_filename), exist_ok=True)
+        
+        # Save to file
+        save_jobs_to_file(jobs, json_filename)
+        print(f"Saved intermediate results to {json_filename}")
+        
+        # Update CRM with this batch of jobs
+        crm_path = f"{output_dir}/jobs_tracker.xlsx"
+        update_jobs_crm(jobs, crm_path)
+        print(f"Updated CRM at {crm_path} with latest search results")
+    
     return jobs
 
 def work_type_to_name(work_type):
@@ -155,13 +186,22 @@ def main():
     print("LinkedIn Job Search Routines")
     print("=" * 50)
     
+    # Start overall timing
+    total_start_time = time.time()
+    start_datetime = datetime.datetime.now()
+    print(f"Started at: {start_datetime.strftime('%Y-%m-%d %H:%M:%S')}")
+    
     # Output settings
     output_dir = "output"
     json_path = f"{output_dir}/linkedin_jobs.json"
     crm_path = f"{output_dir}/jobs_tracker.xlsx"
     
-    # Ensure output directory exists
+    # Ensure output directories exist
     os.makedirs(output_dir, exist_ok=True)
+    os.makedirs(f"{output_dir}/intermediate", exist_ok=True)
+
+    # Optional: Limit the number of searches to run (for testing)
+    max_searches = 0
     
     # Select which search strategy to use (uncomment one)
     search_strategy = "both"  # Run both Italy and Europe routines
@@ -169,8 +209,8 @@ def main():
     # search_strategy = "europe"  # Run only Europe routine
     
     # Settings for page depth
-    max_pages_italy = 10
-    max_pages_europe = 10
+    max_pages_italy = 5
+    max_pages_europe = 5
     
     # Collect search combinations based on strategy
     search_combinations = []
@@ -184,30 +224,37 @@ def main():
         europe_searches = europe_remote_jobs_routine(max_pages=max_pages_europe)
         search_combinations.extend(europe_searches)
         print(f"Added {len(europe_searches)} Europe searches")
+
+    if max_searches>0 and len(search_combinations) > max_searches:
+        print(f"Limiting to first {max_searches} searches")
+        search_combinations = search_combinations[:max_searches]
     
     print(f"Running {len(search_combinations)} searches in total")
     
-    # Optional: Limit the number of searches to run (for testing)
-    # max_searches = 10
-    # if len(search_combinations) > max_searches:
-    #     print(f"Limiting to first {max_searches} searches")
-    #     search_combinations = search_combinations[:max_searches]
-    
     # Run all searches and collect results
     all_jobs = []
+    successful_searches = 0
+    failed_searches = 0
     
     for i, search_params in enumerate(search_combinations):
         # Show progress
         print(f"\nSearch {i+1} of {len(search_combinations)}")
         
-        # Run the search
-        jobs = run_search(search_params)
-        all_jobs.extend(jobs)
+        try:
+            # Run the search
+            jobs = run_search(search_params, output_dir)
+            all_jobs.extend(jobs)
+            successful_searches += 1
+            
+        except Exception as e:
+            print(f"ERROR in search {search_params['name']}: {str(e)}")
+            failed_searches += 1
         
         # Pause between searches to avoid rate limiting
         if search_params != search_combinations[-1]:  # Skip delay after last search
-            print("Pausing between searches...")
-            time.sleep(5)  # 5 second pause
+            pause_time = 5
+            print(f"Pausing for {pause_time} seconds between searches...")
+            time.sleep(pause_time)
     
     # Save all jobs to JSON
     if all_jobs:
@@ -220,8 +267,20 @@ def main():
     else:
         print("No jobs found across all searches")
     
+    # Calculate total elapsed time
+    total_elapsed_time = time.time() - total_start_time
+    hours, remainder = divmod(total_elapsed_time, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    
     print("=" * 50)
-    print(f"Search routine completed. Ran {len(search_combinations)} searches and found {len(all_jobs)} jobs.")
+    print(f"Search routine summary:")
+    print(f"- Started: {start_datetime.strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"- Finished: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"- Total runtime: {int(hours)}h {int(minutes)}m {int(seconds)}s")
+    print(f"- Successful searches: {successful_searches}")
+    print(f"- Failed searches: {failed_searches}")
+    print(f"- Total jobs found: {len(all_jobs)}")
+    print("=" * 50)
 
 if __name__ == "__main__":
     main() 

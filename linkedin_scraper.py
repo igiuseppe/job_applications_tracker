@@ -8,8 +8,6 @@ import datetime
 import re
 from pathlib import Path
 import pandas as pd
-import openpyxl
-from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 import config
 
 def get_job_description(job_public_url):
@@ -239,7 +237,7 @@ def fetch_job_details(job_id, work_type=None):
         print(f"Error scraping job {job_id}: {str(e)}")
         return None
 
-def save_jobs_to_file(jobs, filename="output/linkedin_jobs.json"):
+def save_jobs_to_file(jobs, filename=config.JSON_OUTPUT_PATH):
     """Saves job data to a JSON file"""
     # Ensure output directory exists
     os.makedirs(os.path.dirname(filename), exist_ok=True)
@@ -248,203 +246,91 @@ def save_jobs_to_file(jobs, filename="output/linkedin_jobs.json"):
         json.dump(jobs, f, ensure_ascii=False, indent=2)
     print(f"Job data saved to {filename}")
 
-def load_existing_jobs_from_crm(excel_path="output/jobs_crm.xlsx"):
+def scrape_linkedin_jobs(keywords, location, geoId, work_type, jobs_per_page=25, max_pages=1):
     """
-    Load existing jobs from the CRM Excel file
-    Returns a set of job IDs and a list of existing job records
-    """
-    existing_job_ids = set()
-    existing_jobs = []
-    
-    if not os.path.exists(excel_path):
-        return existing_job_ids, existing_jobs
-    
-    try:
-        # Read Excel file
-        df = pd.read_excel(excel_path)
-        
-        # Convert DataFrame to list of dictionaries
-        existing_jobs = df.to_dict('records')
-        
-        # Create set of job IDs
-        for job in existing_jobs:
-            if 'job_id' in job and job['job_id']:
-                existing_job_ids.add(str(job['job_id']))
-                
-        print(f"Loaded {len(existing_jobs)} existing jobs from CRM")
-        return existing_job_ids, existing_jobs
-    
-    except Exception as e:
-        print(f"Error loading existing jobs from Excel: {str(e)}")
-        return set(), []
-
-def update_jobs_crm(new_jobs, excel_path="output/jobs_crm.xlsx"):
-    """
-    Update the CRM Excel file with new job listings
-    - Adds only new jobs (not already in CRM)
-    - Orders jobs by publishing date (newest first)
-    """
-    # Ensure output directory exists
-    os.makedirs(os.path.dirname(excel_path), exist_ok=True)
-    
-    # Get existing jobs
-    existing_job_ids, existing_jobs = load_existing_jobs_from_crm(excel_path)
-    
-    # Add only new jobs
-    added_count = 0
-    for job in new_jobs:
-        if job['job_id'] not in existing_job_ids:
-            # Add status fields for CRM functionality
-            job['status'] = 'New'
-            job['notes'] = ''
-            job['date_added'] = datetime.datetime.now().strftime("%Y-%m-%d")
-            existing_jobs.append(job)
-            added_count += 1
-    
-    if added_count == 0:
-        print("No new jobs to add to CRM")
-        return
-    
-    # Sort all jobs by publishing date (newest first)
-    sorted_jobs = sorted(existing_jobs, 
-                         key=lambda x: x.get('publishing_date', '1970-01-01'), 
-                         reverse=True)
-    
-    # Define fields for the Excel file
-    fieldnames = [
-        'job_id', 'job_title', 'company_name', 'location', 'publishing_date',
-        'posted_time_ago', 'seniority_level', 'employment_type', 'job_function',
-        'industries', 'status', 'notes', 'date_added', 'job_link'
-    ]
-    
-    # Create a DataFrame with only the fields we want to include
-    rows = []
-    for job in sorted_jobs:
-        # Only include fields that are in fieldnames
-        row = {k: job.get(k, '') for k in fieldnames}
-        rows.append(row)
-    
-    df = pd.DataFrame(rows)
-    
-    # Write to Excel
-    try:
-        # Create a styled Excel writer
-        with pd.ExcelWriter(excel_path, engine='openpyxl') as writer:
-            df.to_excel(writer, index=False, sheet_name='Job Listings')
-            
-            # Access the workbook and the worksheet
-            workbook = writer.book
-            worksheet = writer.sheets['Job Listings']
-            
-            # Format headers
-            header_font = Font(bold=True, color="FFFFFF")
-            header_fill = PatternFill(start_color="366092", end_color="366092", fill_type="solid")
-            
-            for col_num, column in enumerate(df.columns, 1):
-                cell = worksheet.cell(row=1, column=col_num)
-                cell.font = header_font
-                cell.fill = header_fill
-                cell.alignment = Alignment(horizontal='center', vertical='center')
-            
-            # Auto-adjust column width
-            for col in worksheet.columns:
-                max_length = 0
-                column = col[0].column_letter
-                for cell in col:
-                    if cell.value:
-                        max_length = max(max_length, len(str(cell.value)))
-                adjusted_width = max(max_length + 2, 10)
-                worksheet.column_dimensions[column].width = min(adjusted_width, 50)
-            
-            # Add filters to headers
-            worksheet.auto_filter.ref = worksheet.dimensions
-            
-            # Color coding for status
-            for row_idx, row in enumerate(df.iterrows(), 2):  # Start from row 2 (after header)
-                status = row[1].get('status', '')
-                status_cell = worksheet.cell(row=row_idx, column=fieldnames.index('status') + 1)
-                
-                if status == 'New':
-                    status_cell.fill = PatternFill(start_color="C6EFCE", end_color="C6EFCE", fill_type="solid")
-                elif status == 'Applied':
-                    status_cell.fill = PatternFill(start_color="FFEB9C", end_color="FFEB9C", fill_type="solid")
-                elif status == 'Interview':
-                    status_cell.fill = PatternFill(start_color="B4C6E7", end_color="B4C6E7", fill_type="solid")
-                elif status == 'Rejected':
-                    status_cell.fill = PatternFill(start_color="FFC7CE", end_color="FFC7CE", fill_type="solid")
-                elif status == 'Offer':
-                    status_cell.fill = PatternFill(start_color="C6EFCE", end_color="C6EFCE", fill_type="solid")
-        
-        print(f"Added {added_count} new jobs to CRM. Total jobs in CRM: {len(sorted_jobs)}")
-        print(f"CRM data saved to {excel_path}")
-        
-    except Exception as e:
-        print(f"Error saving to Excel file: {str(e)}")
-        # Fallback to CSV if Excel save fails
-        csv_path = excel_path.replace('.xlsx', '.csv')
-        pd.DataFrame(rows).to_csv(csv_path, index=False)
-        print(f"Saved to CSV instead at {csv_path}")
-
-def scrape_linkedin_jobs(keywords, location, geoId, work_type, jobs_per_page, max_pages):
-    """
-    Main function to scrape LinkedIn jobs with pagination
+    Scrapes LinkedIn jobs for the specified search criteria
     
     Args:
         keywords: Search keywords
         location: Location to search in
         geoId: LinkedIn GeoID for the location
         work_type: Work type filter (None, 1=on-site, 2=remote, 3=hybrid)
-        jobs_per_page: Number of jobs per page
+        jobs_per_page: Number of jobs per page (default is 25)
         max_pages: Maximum number of pages to scrape
+        
+    Returns:
+        List of job dictionaries
     """
+    print(f"Starting LinkedIn job scrape for '{keywords}' in {location} (GeoID: {geoId})")
+    print(f"Work type: {work_type}")
+    print(f"Max pages: {max_pages}")
+    
     all_jobs = []
-    page = 0
+    total_listings = 0
     
-    # Get work type name for display
-    work_type_name = config.WORK_TYPE_NAMES.get(work_type, "Any")
-    print(f"Searching for {work_type_name} jobs: {keywords} in {location} (work_type value: {work_type})")
-    
-    while page < max_pages:
+    # Iterate through pagination
+    for page in range(max_pages):
         start_position = page * jobs_per_page
-        print(f"Scraping page {page+1}, jobs {start_position+1}-{start_position+jobs_per_page}")
+        print(f"Scraping page {page+1} (start position: {start_position})")
         
-        page_jobs = get_job_list_page(keywords, location, geoId, start_position, work_type)
+        # Get job listings for current page
+        job_listings = get_job_list_page(keywords, location, geoId, start_position, work_type)
         
-        # If no jobs are found, we've reached the end
-        if not page_jobs:
-            print(f"No more jobs found after {len(all_jobs)} jobs")
+        if not job_listings or len(job_listings) == 0:
+            print("No more job listings found on this page.")
             break
-            
-        print(f"Found {len(page_jobs)} jobs on page {page+1}")
         
-        for job in page_jobs:
-            job_id = extract_job_id(job)
-            if not job_id:
-                continue
-            
-            job_details = fetch_job_details(job_id, work_type)
-            if job_details:
-                # Add search parameters to the job details
-                job_details["search_keywords"] = keywords
-                job_details["search_location"] = location
-                job_details["search_geoId"] = geoId
+        # Process each job listing
+        page_jobs = []
+        for job_element in job_listings:
+            job_id = extract_job_id(job_element)
+            if job_id:
+                # Throttle requests to avoid rate limiting
+                time.sleep(config.DELAY_BETWEEN_REQUESTS)
                 
-                # Ensure work_type and work_type_name are properly set
-                job_details["work_type"] = work_type
-                job_details["work_type_name"] = work_type_name
+                # Fetch job details
+                job_details = fetch_job_details(job_id, work_type)
                 
-                all_jobs.append(job_details)
-                print(f"Scraped: {job_details['job_title']} at {job_details['company_name']}")
-            
-            # Add a delay to avoid rate limiting
-            time.sleep(config.DELAY_BETWEEN_REQUESTS)
+                if job_details:
+                    # Add search parameters to the job details
+                    job_details["search_keywords"] = keywords
+                    job_details["search_location"] = location
+                    
+                    # Fetch full job description if needed
+                    if job_details.get("job_description") is None or job_details.get("job_description") == "":
+                        if job_details.get("job_link"):
+                            try:
+                                job_details["job_description"] = get_job_description(job_details["job_link"])
+                                time.sleep(config.DELAY_BETWEEN_REQUESTS)  # Be respectful with API calls
+                            except Exception as e:
+                                print(f"Error fetching job description: {str(e)}")
+                    
+                    page_jobs.append(job_details)
         
-        page += 1
+        # Add to full jobs list
+        all_jobs.extend(page_jobs)
+        total_listings += len(page_jobs)
+        
+        print(f"Page {page+1}: Found {len(page_jobs)} jobs")
+        
+        # Break if we didn't get a full page
+        if len(job_listings) < jobs_per_page:
+            print("Reached the end of listings, stopping pagination.")
+            break
+        
+        # Pause between pages to avoid rate limiting
+        if page < max_pages - 1:
+            pause_time = config.DELAY_BETWEEN_REQUESTS * 2
+            print(f"Pausing for {pause_time} seconds before next page...")
+            time.sleep(pause_time)
     
-    print(f"Total jobs scraped: {len(all_jobs)}")
+    print(f"Total jobs found: {total_listings}")
     return all_jobs
 
 def main():
+    """Test function for the LinkedIn scraper"""
+    from tracker_manager import update_jobs_crm
+    
     # Search parameters
     keywords = "Business%2BAnalyst"
     location = "Italia"
@@ -457,7 +343,7 @@ def main():
     # Save results to JSON
     save_jobs_to_file(all_jobs)
     
-    # Update CRM with new jobs
+    # Update CRM with new jobs (imported from tracker_manager)
     update_jobs_crm(all_jobs)
 
 if __name__ == "__main__":

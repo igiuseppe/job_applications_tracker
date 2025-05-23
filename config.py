@@ -20,10 +20,18 @@ DELAY_BETWEEN_REQUESTS = 1  # seconds
 # File paths
 OUTPUT_DIR = "output"
 JSON_OUTPUT_PATH = f"{OUTPUT_DIR}/linkedin_jobs.json"
-CRM_EXCEL_PATH = f"{OUTPUT_DIR}/jobs_crm.xlsx"
+CRM_EXCEL_PATH = f"{OUTPUT_DIR}/jobs_tracker.xlsx"
 
 # CRM settings
 CRM_STATUSES = ["New", "Applied", "Interview", "Rejected", "Offer"]
+
+# Common field definitions for job data
+JOB_FIELDS = [
+    'job_id', 'job_title', 'company_name', 'location', 'publishing_date',
+    'posted_time_ago', 'seniority_level', 'employment_type', 'job_function',
+    'industries', 'status', 'notes', 'date_added', 'job_link', 'company_link', 
+    'work_type_name', 'job_description'
+]
 
 # LinkedIn URL templates
 # Note: f_WT parameter is now handled separately in the scraper code
