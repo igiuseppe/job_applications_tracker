@@ -1,19 +1,23 @@
 import requests
 from bs4 import BeautifulSoup
 import time
-import json
-import csv
-import os
 import datetime
 import re
 from pathlib import Path
 import pandas as pd
 import logging
 import config
+import os
+import random
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
+
+# Common headers to mimic a browser
+COMMON_HEADERS = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+}
 
 def get_job_description(job_public_url):
     """Fetch a job description from a public LinkedIn URL"""
@@ -29,7 +33,7 @@ def get_text_or_none(element):
 def get_href_or_none(element):
     return element['href'] if element and element.has_attr('href') else None
 
-def clean_job_html(html_content, work_type=None):
+def clean_job_html(html_content, work_type=None, country=None, search_keyword_job_title=None):
     """Extract structured job data from LinkedIn job HTML"""
     soup = BeautifulSoup(html_content, 'lxml')
 
@@ -122,6 +126,7 @@ def clean_job_html(html_content, work_type=None):
 
     # Extract the publishing date from posted_time_ago
     publishing_date = extract_publishing_date(posted_time_ago)
+    date_added = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
     # Get work type name if specified
     work_type_name = config.WORK_TYPE_NAMES.get(work_type, "Unknown")
@@ -129,10 +134,11 @@ def clean_job_html(html_content, work_type=None):
     # Create and return a dictionary with all extracted variables
     job_data = {
         "job_title": job_title,
-        "company_name": company_name,
+        "company": company_name,
         "location": location,
         "posted_time_ago": posted_time_ago,
         "publishing_date": publishing_date,
+        "date_added": date_added,
         "num_applicants_note": num_applicants_note,
         "recruiter_message": recruiter_message,
         "recruiter_name": recruiter_name,
@@ -145,46 +151,42 @@ def clean_job_html(html_content, work_type=None):
         "job_link": job_link,
         "company_link": company_link,
         "recruiter_link": recruiter_link,
-        "work_type": work_type,
-        "work_type_name": work_type_name
+        "work_type": work_type_name,
+        "country": country,
+        "search_keyword_job_title": search_keyword_job_title
     }
     
     return job_data
 
 def extract_publishing_date(posted_time_ago):
     """
-    Extract an approximate publishing date from the 'posted X time ago' text
+    Extract an approximate publishing date from the 'posted X time ago' text.
+    Returns a string in the format 'YYYY-MM-DD HH:MM:SS', using the current time minus the posted_time_ago.
     """
+    import re
+    now = datetime.datetime.now()
     if not posted_time_ago:
-        return datetime.datetime.now().strftime("%Y-%m-%d")
-    
-    today = datetime.datetime.now()
-    
-    # Handle different time formats
-    if "minute" in posted_time_ago or "hour" in posted_time_ago:
-        return today.strftime("%Y-%m-%d")
-    elif "day" in posted_time_ago:
-        match = re.search(r'(\d+)', posted_time_ago)
-        if match:
-            days = int(match.group(1))
-            date = today - datetime.timedelta(days=days)
-            return date.strftime("%Y-%m-%d")
-    elif "week" in posted_time_ago:
-        match = re.search(r'(\d+)', posted_time_ago)
-        if match:
-            weeks = int(match.group(1))
-            date = today - datetime.timedelta(weeks=weeks)
-            return date.strftime("%Y-%m-%d")
-    elif "month" in posted_time_ago:
-        match = re.search(r'(\d+)', posted_time_ago)
-        if match:
-            months = int(match.group(1))
-            # Approximate months as 30 days
-            date = today - datetime.timedelta(days=months*30)
-            return date.strftime("%Y-%m-%d")
-    
-    # Default to today if we can't parse
-    return today.strftime("%Y-%m-%d")
+        return now.strftime("%Y-%m-%d %H:%M:%S")
+    posted_time_ago = posted_time_ago.lower()
+    match = re.search(r'(\d+)\s*(minute|hour|day|week|month)', posted_time_ago)
+    if match:
+        value = int(match.group(1))
+        unit = match.group(2)
+        if unit == 'minute':
+            dt = now - datetime.timedelta(minutes=value)
+        elif unit == 'hour':
+            dt = now - datetime.timedelta(hours=value)
+        elif unit == 'day':
+            dt = now - datetime.timedelta(days=value)
+        elif unit == 'week':
+            dt = now - datetime.timedelta(weeks=value)
+        elif unit == 'month':
+            dt = now - datetime.timedelta(days=value*30)
+        else:
+            dt = now
+        return dt.strftime("%Y-%m-%d %H:%M:%S")
+    # If no match, fallback to now
+    return now.strftime("%Y-%m-%d %H:%M:%S")
 
 def get_job_list_page(keywords, location, geoId, start_position, work_type):
     """
@@ -210,7 +212,7 @@ def get_job_list_page(keywords, location, geoId, start_position, work_type):
     logger.info(f"Fetching URL: {list_url}")  # Debugging output
     
     try:
-        response = requests.get(list_url)
+        response = requests.get(list_url, headers=COMMON_HEADERS)
         soup = BeautifulSoup(response.text, "html.parser")
         page_jobs = soup.find_all("li")
         return page_jobs
@@ -226,32 +228,23 @@ def extract_job_id(job_element):
     
     return base_card_div.get("data-entity-urn").split(":")[-1]
 
-def fetch_job_details(job_id, work_type=None):
+def fetch_job_details(job_id, work_type=None, country=None, search_keyword_job_title=None):
     """Fetches and processes details for a specific job"""
     job_url = config.LINKEDIN_JOB_DETAIL_URL_TEMPLATE.format(job_id=job_id)
     
     try:
-        job_response = requests.get(job_url)
+        job_response = requests.get(job_url, headers=COMMON_HEADERS)
         html_content = job_response.text
-        job_details = clean_job_html(html_content, work_type)
+        job_details = clean_job_html(html_content, work_type, country, search_keyword_job_title)
         
-        # Add job_id to the details
-        job_details["job_id"] = job_id
-        return job_details
+        if job_details:
+            job_details["id"] = job_id
+        return job_details, html_content
     except Exception as e:
         logger.error(f"Error scraping job {job_id}: {str(e)}")
-        return None
+        return None, None
 
-def save_jobs_to_file(jobs, filename=config.JSON_OUTPUT_PATH):
-    """Saves job data to a JSON file"""
-    # Ensure output directory exists
-    os.makedirs(os.path.dirname(filename), exist_ok=True)
-    
-    with open(filename, "w", encoding="utf-8") as f:
-        json.dump(jobs, f, ensure_ascii=False, indent=2)
-    logger.info(f"Job data saved to {filename}")
-
-def scrape_linkedin_jobs(keywords, location, geoId, work_type, jobs_per_page=25, max_pages=1):
+def scrape_linkedin_jobs(keywords, location, geoId, work_type, jobs_per_page=25, max_pages=1, search_keyword_job_title=None):
     """
     Scrapes LinkedIn jobs for the specified search criteria
     
@@ -262,6 +255,7 @@ def scrape_linkedin_jobs(keywords, location, geoId, work_type, jobs_per_page=25,
         work_type: Work type filter (None, 1=on-site, 2=remote, 3=hybrid)
         jobs_per_page: Number of jobs per page (default is 25)
         max_pages: Maximum number of pages to scrape
+        search_keyword_job_title: Job title for search context
         
     Returns:
         List of job dictionaries
@@ -270,6 +264,8 @@ def scrape_linkedin_jobs(keywords, location, geoId, work_type, jobs_per_page=25,
     
     all_jobs = []
     processed_job_ids = set()
+    debug_html_dir = os.path.join("output", "debug_html")
+    os.makedirs(debug_html_dir, exist_ok=True)
 
     for page_num in range(max_pages):
         start_position = page_num * jobs_per_page
@@ -278,27 +274,36 @@ def scrape_linkedin_jobs(keywords, location, geoId, work_type, jobs_per_page=25,
         page_job_elements = get_job_list_page(keywords, location, geoId, start_position, work_type)
         
         if not page_job_elements:
-            logger.info("No more job elements found on the page. Ending scrape for this search.")
-            break # Stop if no jobs are found on the page
+            logger.info("No more job elements found. Ending scrape for this search.")
+            break
 
         job_count_on_page = 0
         for job_element in page_job_elements:
             job_id = extract_job_id(job_element)
             
             if job_id and job_id not in processed_job_ids:
+                time.sleep(random.uniform(1.0, 2.5))
                 logger.info(f"Processing job ID: {job_id}")
-                job_details = fetch_job_details(job_id, work_type)
+                job_details, html_content = fetch_job_details(job_id, work_type, location, search_keyword_job_title)
                 if job_details:
-                    # Add search parameters to job_details for context
+                    job_title = job_details.get('job_title')
+                    company_name = job_details.get('company')
+                    if not job_title or not company_name:
+                        job_link = config.LINKEDIN_JOB_DETAIL_URL_TEMPLATE.format(job_id=job_id)
+                        html_file_path = os.path.join(debug_html_dir, f"debug_html_{job_id}.html")
+                        try:
+                            with open(html_file_path, 'w', encoding='utf-8') as f:
+                                f.write(html_content if html_content else "")
+                            logger.warning(f"Missing title/company for job ID: {job_id}. Link: {job_link}. HTML saved to: {html_file_path}")
+                        except Exception as e_write:
+                            logger.error(f"Could not write HTML for job ID {job_id} to {html_file_path}: {e_write}")
                     job_details['search_keywords'] = keywords
                     job_details['search_location'] = location
                     job_details['search_geo_id'] = geoId
-                    # work_type is already in job_details from fetch_job_details
-                    
                     all_jobs.append(job_details)
                     processed_job_ids.add(job_id)
                     job_count_on_page += 1
-                    logger.info(f"Successfully processed job: {job_details.get('job_title', 'N/A')} at {job_details.get('company_name', 'N/A')}")
+                    logger.info(f"Successfully processed job: {job_title if job_title else 'N/A'} at {company_name if company_name else 'N/A'}")
                 else:
                     logger.warning(f"Failed to fetch details for job ID: {job_id}")
             elif job_id in processed_job_ids:
@@ -308,7 +313,7 @@ def scrape_linkedin_jobs(keywords, location, geoId, work_type, jobs_per_page=25,
         logger.info(f"Found {job_count_on_page} new jobs on page {page_num + 1}.")
         
         if job_count_on_page == 0 and page_num > 0: # If not the first page and no new jobs found
-             logger.info("No new jobs found on this page, and it's not the first page. Assuming end of results.")
+             logger.info("No new jobs found on this page. Assuming end of results.")
              break
 
         # Add a delay between pages to be respectful to the server
@@ -333,7 +338,7 @@ def main():
     all_jobs = scrape_linkedin_jobs(keywords, location, geoId, max_pages=max_pages)
     
     # Save results to JSON
-    save_jobs_to_file(all_jobs)
+    # save_jobs_to_file(all_jobs)
 
 if __name__ == "__main__":
     main()

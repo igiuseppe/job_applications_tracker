@@ -1,10 +1,9 @@
-import os
 import time
 import datetime
 import argparse
 import logging
 from linkedin_scraper import scrape_linkedin_jobs
-from tracker_manager import update_jobs_tracker, save_jobs_to_file, clear_all_jobs_sheet
+from tracker_manager import update_jobs_tracker
 import config
 
 # Configure logging
@@ -31,6 +30,7 @@ GEO_IDS = {
 
 # Common job titles with URL-safe formatting
 JOB_TITLES = {
+    "Solution Architect": "Solution%2BArchitect",
     "Product Manager": "Product%2BManager",
     "Sales Engineer": "Sales%2BEngineer",
     "Business Analyst": "Business%2BAnalyst",
@@ -67,10 +67,9 @@ def create_search_param(job_title, location, work_type, max_pages=1):
         "max_pages": max_pages
     }
 
-def run_search(search_params, output_dir):
+def run_search(search_params):
     """Run a LinkedIn job search with the specified parameters and save intermediate results"""
     search_name = search_params['name']
-    search_id = search_name.replace(" ", "_").replace("-", "_").lower()
     
     # Start timing
     start_time = time.time()
@@ -89,7 +88,8 @@ def run_search(search_params, output_dir):
         geoId=search_params['geo_id'],
         work_type=search_params['work_type'],
         jobs_per_page=search_params.get('jobs_per_page', 10),
-        max_pages=search_params.get('max_pages', 1)
+        max_pages=search_params.get('max_pages', 1),
+        search_keyword_job_title=search_params['original_job_title']
     )
     
     # Calculate elapsed time
@@ -102,31 +102,20 @@ def run_search(search_params, output_dir):
     processed_jobs = []
     if scraped_jobs_list:
         for job in scraped_jobs_list:
-            job['search_location'] = search_params['location'] # This will be used as 'Country'
-            job['Country'] = search_params['location'] # Explicitly add 'Country'
-            job['work_type_name'] = work_type_to_name(search_params['work_type'])
-            job['search_keyword_job_title'] = search_params['original_job_title']
-            # Ensure other necessary fields from search_params are in the job if needed by tracker/saver
-            job['search_keywords'] = search_params['keywords'] # Keep for context if useful
-            processed_jobs.append(job)
+            # Map job fields to config.JOB_FIELDS (case-insensitive)
+            job_out = {}
+            for field in config.JOB_FIELDS:
+                for k in job:
+                    if k.lower() == field.lower():
+                        job_out[field] = job[k]
+                        break
+                else:
+                    job_out[field] = ''
+            processed_jobs.append(job_out)
 
-    # Save intermediate results
     if processed_jobs:
-        # Create a timestamped filename for this search
-        timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-        json_filename = f"{output_dir}/intermediate/{search_id}_{timestamp}.json"
-        
-        # Ensure directory exists
-        os.makedirs(os.path.dirname(json_filename), exist_ok=True)
-        
-        # Save to file
-        save_jobs_to_file(processed_jobs, json_filename)
-        logger.info(f"Saved intermediate results to {json_filename}")
-        
-        # Update tracker with this batch of jobs
-        google_sheet_id = config.GOOGLE_SHEET_ID
-        update_jobs_tracker(processed_jobs, google_sheet_id)
-        logger.info(f"Updated tracker at Google Sheet ID: {google_sheet_id} with latest search results")
+        update_jobs_tracker(processed_jobs)
+        logger.info(f"Updated tracker with latest search results")
     
     return processed_jobs
 
@@ -147,20 +136,7 @@ def italy_jobs_routine(max_pages=1):
     Args:
         max_pages: Number of pages to scrape per search
     """
-    searches = []
-    
-    # All job titles
-    job_titles = list(JOB_TITLES.keys())
-    
-    # Work types for Italy
-    work_types = ["Remote", "Hybrid"]
-    
-    # Create search combinations for Italy
-    for job_title in job_titles:
-        for work_type in work_types:
-            searches.append(create_search_param(job_title, "Italia", work_type, max_pages=max_pages))
-    
-    return searches
+    return [create_search_param(j, "Italia", w, max_pages) for j in JOB_TITLES for w in ["Remote", "Hybrid"]]
 
 def europe_remote_jobs_routine(max_pages=1):
     """
@@ -169,37 +145,8 @@ def europe_remote_jobs_routine(max_pages=1):
     Args:
         max_pages: Number of pages to scrape per search
     """
-    searches = []
-    
-    # All job titles
-    job_titles = list(JOB_TITLES.keys())
-    
-    # European countries excluding Italy
-    countries = [
-        "Francia",
-        "Germania",
-        "Spagna",
-        "Portogallo",
-        "Paesi Bassi",
-        "Svizzera",
-        "Regno Unito",
-        "Irlanda",
-        "Svezia",
-        "Danimarca",
-        "Finlandia",
-        "Norvegia",
-        "Austria"
-    ]
-    
-    # Work type for Europe (remote only)
-    work_type = "Remote"
-    
-    # Create search combinations for Europe
-    for job_title in job_titles:
-        for country in countries:
-            searches.append(create_search_param(job_title, country, work_type, max_pages=max_pages))
-    
-    return searches
+    countries = [k for k in GEO_IDS if k != "Italia"]
+    return [create_search_param(j, c, "Remote", max_pages) for j in JOB_TITLES for c in countries]
 
 def main(mode_arg):
     """Main function to run search routines"""
@@ -207,65 +154,16 @@ def main(mode_arg):
     logger.info("=" * 50)
 
     # Determine max_pages based on mode
-    if mode_arg == 'deep':
-        max_pages = 5
-        logger.info("Deep mode activated: scraping up to 5 pages per search.")
-    else: # default mode
-        max_pages = 1
-        logger.info("Default mode activated: scraping up to 1 page per search.")
+    max_pages = 5 if mode_arg == 'deep' else 1
+    logger.info(f"{'Deep' if mode_arg == 'deep' else 'Default'} mode: scraping up to {max_pages} page(s) per search.")
     
     # Start overall timing
     total_start_time = time.time()
     start_datetime = datetime.datetime.now()
     logger.info(f"Started at: {start_datetime.strftime('%Y-%m-%d %H:%M:%S')}")
     
-    # Output settings
-    output_dir = "output"
-    json_path = f"{output_dir}/linkedin_jobs.json"
-    google_sheet_id = config.GOOGLE_SHEET_ID
-    
-    # Ensure output directories exist
-    os.makedirs(output_dir, exist_ok=True)
-    os.makedirs(f"{output_dir}/intermediate", exist_ok=True)
-
-    # If mode is 'deep', clear the sheet once at the beginning of the run
-    if mode_arg == 'deep':
-        logger.info("Deep mode: Clearing the 'All Jobs' sheet before starting searches.")
-        if not clear_all_jobs_sheet(google_sheet_id):
-            logger.error("Failed to clear the sheet in deep mode. Aborting script.")
-            return # Exit if clearing fails
-        logger.info("Sheet cleared successfully.")
-    else:
-        logger.info("Default mode: Will append to existing data in 'All Jobs' sheet (if any).")
-
-    # Optional: Limit the number of searches to run (for testing)
-    max_searches = 0
-    
-    # Select which search strategy to use (uncomment one)
-    search_strategy = "both"  # Run both Italy and Europe routines
-    # search_strategy = "italy"  # Run only Italy routine
-    # search_strategy = "europe"  # Run only Europe routine
-    
-    # Settings for page depth (use the determined max_pages)
-    max_pages_italy = max_pages
-    max_pages_europe = max_pages
-    
     # Collect search combinations based on strategy
-    search_combinations = []
-    
-    if search_strategy in ["both", "italy"]:
-        italy_searches = italy_jobs_routine(max_pages=max_pages_italy)
-        search_combinations.extend(italy_searches)
-        logger.info(f"Added {len(italy_searches)} Italy searches")
-    
-    if search_strategy in ["both", "europe"]:
-        europe_searches = europe_remote_jobs_routine(max_pages=max_pages_europe)
-        search_combinations.extend(europe_searches)
-        logger.info(f"Added {len(europe_searches)} Europe searches")
-
-    if max_searches>0 and len(search_combinations) > max_searches:
-        logger.info(f"Limiting to first {max_searches} searches")
-        search_combinations = search_combinations[:max_searches]
+    search_combinations = italy_jobs_routine(max_pages) + europe_remote_jobs_routine(max_pages)
     
     logger.info(f"Running {len(search_combinations)} searches in total")
     
@@ -280,7 +178,7 @@ def main(mode_arg):
         logger.info(f"Processing search {i+1}/{len(search_combinations)}: {search_params['name']}")
         
         try:
-            jobs = run_search(search_params, output_dir)
+            jobs = run_search(search_params)
             if jobs:
                 all_jobs.extend(jobs)
                 successful_searches += 1
@@ -295,11 +193,9 @@ def main(mode_arg):
             
         # Optional: Add a delay between searches to avoid rate limiting
         time.sleep(config.DELAY_BETWEEN_SEARCHES)
-    
-    # Save all collected jobs to a single JSON file
+
     if all_jobs:
-        save_jobs_to_file(all_jobs, json_path)
-        logger.info(f"Saved all {len(all_jobs)} jobs to {json_path}")
+        logger.info(f"Collected {len(all_jobs)} jobs in this run.")
     else:
         logger.info("No jobs collected in this run.")
 
