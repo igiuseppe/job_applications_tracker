@@ -1,4 +1,7 @@
 import openai
+from dotenv import load_dotenv
+
+load_dotenv()
 
 LLM_MODEL = "gpt-4.1-nano"
 temperature = 0
