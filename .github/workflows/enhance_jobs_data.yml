@@ -31,4 +31,6 @@ jobs:
           echo "credentials.json created."
 
       - name: Run enhance jobs data script
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: python ${{ github.workspace }}/enhance_jobs_data.py 
