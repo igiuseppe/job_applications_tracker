@@ -114,6 +114,7 @@ def main(filters=None):
 default_filters="""
 seniority_level in ('Associate','Entry level') 
 and  publishing_date >= (CURRENT_TIMESTAMP() - INTERVAL 7 DAY)
+order by id
 """
 
 if __name__ == "__main__":
