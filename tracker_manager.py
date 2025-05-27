@@ -121,6 +121,75 @@ def update_jobs_tracker(new_jobs):
         logger.error(f"Error inserting jobs into table {ALL_JOBS_TABLE_NAME}: {e}")
         return
 
+def update_job_in_tracker(job_id_to_update: str, job_data: dict):
+    """
+    Updates a single job identified by job_id_to_update in the BigQuery table with new job_data.
+    """
+    logger.info(f"Attempting to update job ID: {job_id_to_update} in table: {ALL_JOBS_TABLE_NAME}.")
+    client = get_bigquery_client()
+    if not client:
+        logger.error("Could not connect to BigQuery. Aborting update for job ID: {job_id_to_update}.")
+        return False
+
+    table_ref_str = get_table_ref()
+
+    # Ensure all field values in job_data are strings and conform to JOB_FIELDS
+    update_values = {}
+    set_clauses = []
+    param_index = 0
+    query_params = []
+
+    for field in config.JOB_FIELDS:
+        if field == 'id': # ID should not be in the SET clause, it's for the WHERE clause
+            continue
+        value = job_data.get(field)
+        if value is not None:
+            # Ensure date fields are correctly formatted if they are part of job_data for update
+            if field in ['publishing_date', 'date_added'] and isinstance(value, str) and len(value) == 10:
+                # If only date is provided, append a default time. BigQuery expects YYYY-MM-DD HH:MM:SS
+                value_str = f"{value} 00:00:00"
+            elif isinstance(value, datetime.datetime):
+                value_str = value.strftime("%Y-%m-%d %H:%M:%S")
+            else:
+                value_str = str(value)
+            
+            set_clauses.append(f"{field} = @param_{param_index}")
+            query_params.append(bigquery.ScalarQueryParameter(f"param_{param_index}", "STRING", value_str))
+            param_index += 1
+        # If you want to set fields to NULL if not in job_data, add an else clause here.
+        # Otherwise, fields not in job_data will remain unchanged.
+
+    if not set_clauses:
+        logger.warning(f"No valid fields to update for job ID: {job_id_to_update}. Nothing to do.")
+        return False
+
+    # Add the job_id for the WHERE clause as the last parameter
+    query_params.append(bigquery.ScalarQueryParameter(f"param_{param_index}", "STRING", str(job_id_to_update)))
+
+    query = f"UPDATE `{table_ref_str}` SET {', '.join(set_clauses)} WHERE id = @param_{param_index}"
+
+    logger.debug(f"Executing update query: {query} with params: {[(p.name, p.value) for p in query_params]}")
+
+    try:
+        job_config = bigquery.QueryJobConfig(
+            query_parameters=query_params
+        )
+        query_job = client.query(query, job_config=job_config)
+        query_job.result()  # Wait for the query to complete
+
+        if query_job.errors:
+            logger.error(f"Errors occurred while updating job ID {job_id_to_update}: {query_job.errors}")
+            return False
+        if query_job.num_dml_affected_rows > 0:
+            logger.info(f"Successfully updated {query_job.num_dml_affected_rows} row(s) for job ID: {job_id_to_update}.")
+            return True
+        else:
+            logger.info(f"No rows updated for job ID: {job_id_to_update}. It might not exist or values were the same.")
+            return False # Or True if no change is not an error for you
+
+    except Exception as e:
+        logger.error(f"Error updating job ID {job_id_to_update} in BigQuery table {ALL_JOBS_TABLE_NAME}: {e}")
+        return False
 
 def save_jobs_to_file(jobs, filename=config.JSON_OUTPUT_PATH):
     """

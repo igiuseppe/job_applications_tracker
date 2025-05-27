@@ -59,7 +59,7 @@ jobs:
         # GOOGLE_CREDENTIALS_PATH is already set to credentials.json in config.py by default
         run: |
           echo "Starting job scrape in ${{ steps.script_mode.outputs.mode }} mode..."
-          python main.py --mode ${{ steps.script_mode.outputs.mode }}
+          python scrape_jobs.py --mode ${{ steps.script_mode.outputs.mode }}
           echo "Job scrape finished."
 
       - name: Clean up credentials file

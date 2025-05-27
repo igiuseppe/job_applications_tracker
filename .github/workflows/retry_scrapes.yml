@@ -1,0 +1,45 @@
+name: Retry Failed LinkedIn Job Scrapes
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'  # Runs every Monday at 06:00 UTC
+  workflow_dispatch:      # Allows manual triggering
+
+jobs:
+  retry_scrape_jobs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11' # Or your preferred Python version
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Create Google Credentials file
+        env:
+          GOOGLE_CREDENTIALS_CONTENT: ${{ secrets.GOOGLE_CREDENTIALS_JSON }} # Ensure this secret is set in your GitHub repo
+        run: |
+          echo "Creating credentials.json from secret..."
+          echo "$GOOGLE_CREDENTIALS_CONTENT" > ${{ github.workspace }}/credentials.json
+          echo "credentials.json created."
+          # Verify content for debugging (optional)
+          # ls -l ${{ github.workspace }}/credentials.json
+          # cat ${{ github.workspace }}/credentials.json | head -c 100 # Print first 100 chars
+
+      - name: Run failed job scraper retry script
+        run: python ${{ github.workspace }}/retry_failed_scrapes.py
+
+      - name: Upload debug HTML artifacts (if any)
+        if: always() # Always run this step to capture artifacts even if script fails
+        uses: actions/upload-artifact@v4
+        with:
+          name: retry-debug-html
+          path: ${{ github.workspace }}/output/debug_html_retry/
+          if-no-files-found: ignore # Don't fail if the directory is empty 
