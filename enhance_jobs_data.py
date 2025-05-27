@@ -95,7 +95,6 @@ def enhance_job_with_llm(job_row):
 
 def main(filters=None):
     logger.info("Starting LLM enhancement process for jobs data...")
-    ensure_llm_data_table_exists()
     existing_llm_job_ids = load_existing_llm_job_ids()
     jobs = query_jobs_with_filters(filters)
     jobs_to_process = [job for job in jobs if str(job.get("id")) not in existing_llm_job_ids]
