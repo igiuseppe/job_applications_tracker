@@ -247,21 +247,8 @@ def fetch_job_details(job_id, work_type=None, country=None, search_keyword_job_t
 def scrape_linkedin_jobs(keywords, location, geoId, work_type, jobs_per_page=25, max_pages=1, search_keyword_job_title=None):
     """
     Scrapes LinkedIn jobs for the specified search criteria
-    
-    Args:
-        keywords: Search keywords
-        location: Location to search in
-        geoId: LinkedIn GeoID for the location
-        work_type: Work type filter (None, 1=on-site, 2=remote, 3=hybrid)
-        jobs_per_page: Number of jobs per page (default is 25)
-        max_pages: Maximum number of pages to scrape
-        search_keyword_job_title: Job title for search context
-        
-    Returns:
-        List of job dictionaries
+    Returns: List of job dictionaries
     """
-    logger.info(f"Starting LinkedIn job scrape for keywords: '{keywords}', location: '{location}', work_type: {work_type}")
-    
     all_jobs = []
     processed_job_ids = set()
     debug_html_dir = os.path.join("output", "debug_html")
@@ -269,21 +256,13 @@ def scrape_linkedin_jobs(keywords, location, geoId, work_type, jobs_per_page=25,
 
     for page_num in range(max_pages):
         start_position = page_num * jobs_per_page
-        logger.info(f"Scraping page {page_num + 1} (start_position: {start_position})...")
-        
         page_job_elements = get_job_list_page(keywords, location, geoId, start_position, work_type)
-        
         if not page_job_elements:
-            logger.info("No more job elements found. Ending scrape for this search.")
             break
-
-        job_count_on_page = 0
         for job_element in page_job_elements:
             job_id = extract_job_id(job_element)
-            
             if job_id and job_id not in processed_job_ids:
                 time.sleep(random.uniform(1.0, 2.5))
-                logger.info(f"Processing job ID: {job_id}")
                 job_details, html_content = fetch_job_details(job_id, work_type, location, search_keyword_job_title)
                 if job_details:
                     job_title = job_details.get('job_title')
@@ -302,24 +281,13 @@ def scrape_linkedin_jobs(keywords, location, geoId, work_type, jobs_per_page=25,
                     job_details['search_geo_id'] = geoId
                     all_jobs.append(job_details)
                     processed_job_ids.add(job_id)
-                    job_count_on_page += 1
-                    logger.info(f"Successfully processed job: {job_title if job_title else 'N/A'} at {company_name if company_name else 'N/A'}")
                 else:
                     logger.warning(f"Failed to fetch details for job ID: {job_id}")
-            elif job_id in processed_job_ids:
-                logger.debug(f"Job ID: {job_id} already processed. Skipping.")
             # else: job_id is None, so it's not a job card we can process
-
-        logger.info(f"Found {job_count_on_page} new jobs on page {page_num + 1}.")
-        
-        if job_count_on_page == 0 and page_num > 0: # If not the first page and no new jobs found
-             logger.info("No new jobs found on this page. Assuming end of results.")
-             break
-
-        # Add a delay between pages to be respectful to the server
-        if page_num < max_pages - 1: # Don't sleep after the last page
-            time.sleep(config.DELAY_BETWEEN_SEARCHES) 
-            
+        if len(page_job_elements) == 0:
+            break
+        if page_num < max_pages - 1:
+            time.sleep(config.DELAY_BETWEEN_SEARCHES)
     logger.info(f"Scrape finished for keywords: '{keywords}', location: '{location}'. Found {len(all_jobs)} jobs.")
     return all_jobs
 

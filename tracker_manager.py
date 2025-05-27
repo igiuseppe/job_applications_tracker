@@ -89,12 +89,12 @@ def load_existing_job_ids():
 def update_jobs_tracker(new_jobs):
     """
     Insert only new jobs (by id) into the BigQuery jobs table.
+    Returns the number of jobs added to the DB (int).
     """
-    logger.info(f"Updating jobs tracker for table: {ALL_JOBS_TABLE_NAME}.")
     client = get_bigquery_client()
     if not client:
         logger.error("Could not connect to BigQuery. Aborting update.")
-        return
+        return 0
     table_ref = get_table_ref()
     existing_job_ids = load_existing_job_ids()
     jobs_to_insert = []
@@ -109,17 +109,19 @@ def update_jobs_tracker(new_jobs):
         job_row = {field: str(job.get(field, '')) for field in config.JOB_FIELDS}
         jobs_to_insert.append(job_row)
     if not jobs_to_insert:
-        logger.info("No new unique jobs to add.")
-        return
+        # No new jobs to add
+        return 0
     try:
         errors = client.insert_rows_json(table_ref, jobs_to_insert)
         if errors:
             logger.error(f"Errors occurred while inserting rows: {errors}")
+            return 0
         else:
-            logger.info(f"Inserted {len(jobs_to_insert)} new jobs into table '{ALL_JOBS_TABLE_NAME}'.")
+            # Only log a summary here if needed
+            return len(jobs_to_insert)
     except Exception as e:
         logger.error(f"Error inserting jobs into table {ALL_JOBS_TABLE_NAME}: {e}")
-        return
+        return 0
 
 def update_job_in_tracker(job_id_to_update: str, job_data: dict):
     """

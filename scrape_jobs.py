@@ -70,18 +70,8 @@ def create_search_param(job_title, location, work_type, max_pages=1):
 def run_search(search_params):
     """Run a LinkedIn job search with the specified parameters and save intermediate results"""
     search_name = search_params['name']
-    
-    # Start timing
     start_time = time.time()
-    
-    logger.info("-" * 50)
-    logger.info(f"Running search: {search_name}")
-    logger.info(f"Keywords: {search_params['keywords']}")
-    logger.info(f"Location: {search_params['location']} (GeoID: {search_params['geo_id']})")
-    logger.info(f"Work type: {work_type_to_name(search_params['work_type'])}")
-    logger.info(f"Start time: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    logger.info("-" * 50)
-    
+
     scraped_jobs_list = scrape_linkedin_jobs(
         keywords=search_params['keywords'],
         location=search_params['location'],
@@ -91,18 +81,14 @@ def run_search(search_params):
         max_pages=search_params.get('max_pages', 1),
         search_keyword_job_title=search_params['original_job_title']
     )
-    
-    # Calculate elapsed time
+
     elapsed_time = time.time() - start_time
-    
-    logger.info(f"Found {len(scraped_jobs_list)} jobs for {search_name}")
-    logger.info(f"Search completed in {elapsed_time:.2f} seconds")
-    
+    num_found = len(scraped_jobs_list) if scraped_jobs_list else 0
+
     # Add search_location (Country) and work_type_name to each job
     processed_jobs = []
     if scraped_jobs_list:
         for job in scraped_jobs_list:
-            # Map job fields to config.JOB_FIELDS (case-insensitive)
             job_out = {}
             for field in config.JOB_FIELDS:
                 for k in job:
@@ -113,10 +99,11 @@ def run_search(search_params):
                     job_out[field] = ''
             processed_jobs.append(job_out)
 
+    num_added = 0
     if processed_jobs:
-        update_jobs_tracker(processed_jobs)
-        logger.info(f"Updated tracker with latest search results")
-    
+        num_added = update_jobs_tracker(processed_jobs)
+
+    logger.info(f"[SEARCH] {search_name}: Found {num_found} jobs, {num_added} added to DB. (Elapsed: {elapsed_time:.2f}s)")
     return processed_jobs
 
 def work_type_to_name(work_type_code):
