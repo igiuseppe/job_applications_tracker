@@ -18,4 +18,6 @@ def call_llm(prompt: str, response_format=None, model=LLM_MODEL,temperature=temp
             messages=[{"role": "user", "content": prompt}],
             temperature=temperature
         )
-    return response.choices[0].message.content
+    input_tokens = response.usage.prompt_tokens
+    output_tokens = response.usage.completion_tokens
+    return response.choices[0].message.content,input_tokens,output_tokens

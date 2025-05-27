@@ -223,3 +223,24 @@ def save_jobs_to_file(jobs, filename=config.JSON_OUTPUT_PATH):
         logger.info(f"Successfully saved {len(processed_jobs)} jobs to {filename}")
     except Exception as e:
         logger.error(f"Error saving jobs to JSON file {filename}: {e}") 
+
+def query_jobs_with_filters(filters=None):
+    """
+    Query jobs from the main jobs table with optional filters (as a WHERE clause string).
+    Returns a list of job dicts.
+    """
+    client = get_bigquery_client()
+    if not client:
+        logger.error("Could not connect to BigQuery. Aborting job query.")
+        return []
+    table_ref = get_table_ref()
+    where_clause = f"WHERE {filters}" if filters else ""
+    query = f"SELECT * FROM `{table_ref}` {where_clause}"
+    try:
+        query_job = client.query(query)
+        jobs = [dict(row) for row in query_job]
+        logger.info(f"Queried {len(jobs)} jobs from table: {table_ref} with filters: {filters}")
+        return jobs
+    except Exception as e:
+        logger.error(f"Error querying jobs with filters '{filters}': {e}")
+        return [] 

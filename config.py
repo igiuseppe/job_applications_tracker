@@ -38,6 +38,7 @@ JOB_FIELDS = [
 BIGQUERY_PROJECT="decent-era-411512"
 BIGQUERY_DATASET="jobs_tracker"
 BIGQUERY_TABLE="jobs"
+BIGQUERY_TABLE_LLM_DATA = "llm_data"
 GOOGLE_CREDENTIALS_PATH = "credentials.json"  # Path to your Google API service account credentials, defaults to credentials.json
 
 # LinkedIn URL templates
