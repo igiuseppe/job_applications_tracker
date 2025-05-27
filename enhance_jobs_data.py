@@ -105,6 +105,8 @@ def main(filters=None):
         logger.info(f"Enhancing job {i+1}/{len(jobs_to_process)}: {job.get('id')}")
         enhanced = enhance_job_with_llm(job)
         if enhanced:
+            enhanced["job_id"]=job.get("id")
+            enhanced["created_at"]=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             enhanced_rows.append(enhanced)
         if len(enhanced_rows) >= 100:
             num_inserted = insert_llm_data(enhanced_rows)
