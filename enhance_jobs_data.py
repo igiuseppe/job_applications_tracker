@@ -95,21 +95,30 @@ def enhance_job_with_llm(job_row):
 
 def main(filters=None):
     logger.info("Starting LLM enhancement process for jobs data...")
+    ensure_llm_data_table_exists()
     existing_llm_job_ids = load_existing_llm_job_ids()
     jobs = query_jobs_with_filters(filters)
     jobs_to_process = [job for job in jobs if str(job.get("id")) not in existing_llm_job_ids]
     logger.info(f"Total jobs fetched: {len(jobs)}. To enhance: {len(jobs_to_process)}.")
     enhanced_rows = []
+    total_inserted = 0
     for i, job in enumerate(jobs_to_process):
         logger.info(f"Enhancing job {i+1}/{len(jobs_to_process)}: {job.get('id')}")
         enhanced = enhance_job_with_llm(job)
         if enhanced:
-            enhanced["job_id"]=job.get("id")
-            enhanced["created_at"]=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             enhanced_rows.append(enhanced)
+        if len(enhanced_rows) >= 100:
+            num_inserted = insert_llm_data(enhanced_rows)
+            total_inserted += num_inserted
+            logger.info(f"Inserted {num_inserted} rows into llm_data (batch of 100). Total inserted so far: {total_inserted}.")
+            enhanced_rows = []
         time.sleep(1)  # avoid rate limits
-    num_inserted = insert_llm_data(enhanced_rows)
-    logger.info(f"LLM enhancement complete. {num_inserted} new rows inserted into llm_data.")
+    # Insert any remaining rows
+    if enhanced_rows:
+        num_inserted = insert_llm_data(enhanced_rows)
+        total_inserted += num_inserted
+        logger.info(f"Inserted {num_inserted} rows into llm_data (final batch). Total inserted: {total_inserted}.")
+    logger.info(f"LLM enhancement complete. {total_inserted} new rows inserted into llm_data.")
 
 default_filters="""
 seniority_level in ('Associate','Entry level') 
