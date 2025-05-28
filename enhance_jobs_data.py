@@ -103,6 +103,7 @@ def enhance_job_with_llm(job_row):
         job_details["input_tokens"] = input_tokens
         job_details["output_tokens"] = output_tokens
         job_details["language_requirements"] = modify_lang(job_details["language_requirements"])
+        return job_details
     except Exception as e:
         logger.error(f"Error enhancing job {job_row.get('id')}: {e}")
         return None
