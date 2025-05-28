@@ -47,9 +47,12 @@ def build_response_format():
                 "description": "Details of the selection process for the job. If not specified, put 'None'."
             },
             "language_requirements": {
-                "type": "string",
-                "description": "Language requirements for the job. If there is only Italian, put 'Italian'. If there is only English, put 'English'. If there is both, put 'English'. If there is any other language as an hard requirement, put 'Other'.",
-                "enum": ["English", "Italian", "Other"]
+                "description": "Language requirements for the job. Put here only the hard requirements. If other languages not specified here are mandatory put 'Other'.",
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "enum": ["English", "Italian","French", "German", "Spanish", "Portuguese", "Other"]
+                }
             },
             "technical_requirements": {
                 "type": "string",
@@ -57,7 +60,7 @@ def build_response_format():
             },
             "real_job_title": {
                 "type": "string",
-                "description": "A concise job title that reflects the job description.",
+                "description": "A concise job title that reflects the job description. If possible, select the most appropriate job title from the following list: {job_titles}. If none of the titles are a good match, put 'Other'.",
                 "enum": job_titles
             },
             "salary": {
@@ -80,6 +83,17 @@ def build_response_format():
     }
     return response_format
 
+def modify_lang(lang_list):
+    if "Other" in lang_list or "French" in lang_list or "German" in lang_list or "Spanish" in lang_list or "Portuguese" in lang_list:
+        lang="Other"
+    elif "English" in lang_list:
+        lang="English"
+    elif "Italian" in lang_list:
+        lang="Italian"
+    else:
+        lang=str(lang_list)
+    return lang
+
 def enhance_job_with_llm(job_row):
     prompt = build_prompt(job_row)
     response_format = build_response_format()
@@ -88,7 +102,7 @@ def enhance_job_with_llm(job_row):
         job_details = json.loads(response_str)
         job_details["input_tokens"] = input_tokens
         job_details["output_tokens"] = output_tokens
-        return job_details
+        job_details["language_requirements"] = modify_lang(job_details["language_requirements"])
     except Exception as e:
         logger.error(f"Error enhancing job {job_row.get('id')}: {e}")
         return None
