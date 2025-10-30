@@ -1,6 +1,6 @@
 import openai
 from dotenv import load_dotenv
-
+from litellm import completion
 load_dotenv()
 
 LLM_MODEL = "gpt-4.1-nano"
@@ -26,12 +26,11 @@ def call_llm(prompt: str, response_format=None, model=LLM_MODEL,temperature=temp
     return response.choices[0].message.content,input_tokens,output_tokens
 
 # --- LiteLLM wrapper for Gemini 2.5 Pro with system+user prompts ---
-def call_llm_litellm(system_prompt: str, user_prompt: str, model: str = "gemini/gemini-2.5-pro", temperature: float = 0.2):
-    try:
-        # Lazy import to avoid hard dependency when unused
-        from litellm import completion
-    except Exception as e:
-        raise RuntimeError(f"LiteLLM is required for call_llm_litellm: {e}")
+def call_llm_litellm(system_prompt: str, user_prompt: str, model: str = "gemini/gemini-2.5-pro", temperature: float = 0.2, response_format=None):
+
+    kwargs = {}
+    if response_format is not None:
+        kwargs["response_format"] = response_format
 
     response = completion(
         model=model,
@@ -40,6 +39,7 @@ def call_llm_litellm(system_prompt: str, user_prompt: str, model: str = "gemini/
             {"role": "user", "content": user_prompt},
         ],
         temperature=temperature,
+        **kwargs,
     )
     # LiteLLM returns an OpenAI-compatible response schema
     content = response["choices"][0]["message"].get("content", "")

@@ -44,8 +44,10 @@ OUTREACH_CSV_COLUMNS = [
     'company name',
     'company linkedin url',
     'job url',
+    'upload date',
     'hiring manager name',
     'hiring manager linkedin url',
+    'fit',
     'message',
 ]
 

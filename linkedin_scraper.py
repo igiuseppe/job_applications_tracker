@@ -349,7 +349,8 @@ def fetch_public_profile(profile_url):
             'profile_subtitle': subtitle,
             'profile_location': location,
         }
-    except Exception:
+    except Exception as e:
+        logger.error(f"Error fetching public profile {profile_url}: {e}")
         return {
             'profile_headline': None,
             'profile_name': None,
