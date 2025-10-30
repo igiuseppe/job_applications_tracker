@@ -26,12 +26,27 @@ DELAY_BETWEEN_SEARCHES = 1  # seconds
 # File paths
 OUTPUT_DIR = "output"
 JSON_OUTPUT_PATH = f"{OUTPUT_DIR}/linkedin_jobs.json"
+OUTREACH_OUTPUT_DIR = f"{OUTPUT_DIR}/outreach"
+STATE_DIR = f"{OUTPUT_DIR}/state"
+PROCESSED_IDS_PATH = f"{STATE_DIR}/processed_job_ids.json"
 
 # Common field definitions for job data
 JOB_FIELDS = [
     'id', 'job_title', 'search_keyword_job_title', 'country', 'work_type', 'company', 'location', 'publishing_date',
     'posted_time_ago', 'seniority_level', 'employment_type', 'job_function',
     'industries', 'date_added', 'job_link', 'company_link', 'job_description'
+]
+
+# Outreach CSV columns (final output per run)
+OUTREACH_CSV_COLUMNS = [
+    'job title',
+    'description',
+    'company name',
+    'company linkedin url',
+    'job url',
+    'hiring manager name',
+    'hiring manager linkedin url',
+    'message',
 ]
 
 # BigQuery settings
@@ -42,5 +57,28 @@ BIGQUERY_TABLE_LLM_DATA = "llm_data"
 GOOGLE_CREDENTIALS_PATH = "credentials.json"  # Path to your Google API service account credentials, defaults to credentials.json
 
 # LinkedIn URL templates
-LINKEDIN_JOB_LIST_URL_TEMPLATE = "https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords={keywords}&location={location}&geoId={geoId}&f_E=2%2C3&f_WT={work_type}&start={start_position}"
+CONTRACT_TYPE_CODES = {
+    "Full-time": "F",
+    "Contract": "C",
+    "Part-time": "P",
+    "Temporary": "T",
+    "Internship": "I",
+    "Other": "O",
+}
+
+# Time posted filter codes for f_TPR
+# Empty string means no filter
+TIME_POSTED_CODES = {
+    "Any": "",
+    "Past 24 hours": "r86400",
+    "Past Week": "r604800",
+    "Past Month": "r2592000",
+}
+
+# Note: {contract_param} should be either an empty string or like 'f_JT=F%2CC'
+LINKEDIN_JOB_LIST_URL_TEMPLATE = (
+    "https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?"
+    "keywords={keywords}&location={location}&geoId={geoId}&f_WT={work_type}"
+    "{contract_param}{time_param}&start={start_position}"
+)
 LINKEDIN_JOB_DETAIL_URL_TEMPLATE = "https://www.linkedin.com/jobs-guest/jobs/api/jobPosting/{job_id}" 

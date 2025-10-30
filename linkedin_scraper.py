@@ -188,7 +188,7 @@ def extract_publishing_date(posted_time_ago):
     # If no match, fallback to now
     return now.strftime("%Y-%m-%d %H:%M:%S")
 
-def get_job_list_page(keywords, location, geoId, start_position, work_type):
+def get_job_list_page(keywords, location, geoId, start_position, work_type, contract_types=None, time_posted_code: str = ""):
     """
     Fetches a page of job listings from LinkedIn
     
@@ -201,11 +201,26 @@ def get_job_list_page(keywords, location, geoId, start_position, work_type):
     """
 
     
+    # Build optional contract types param f_JT=F%2CC (if provided)
+    contract_param = ""
+    if contract_types:
+        if isinstance(contract_types, (list, tuple, set)):
+            joined = "%2C".join(contract_types)
+        else:
+            joined = str(contract_types)
+        contract_param = f"&f_JT={joined}"
+
+    time_param = ""
+    if time_posted_code:
+        time_param = f"&f_TPR={time_posted_code}"
+
     list_url = config.LINKEDIN_JOB_LIST_URL_TEMPLATE.format(
         keywords=keywords,
         location=location,
         geoId=geoId,
         work_type=work_type,
+        contract_param=contract_param,
+        time_param=time_param,
         start_position=start_position
     )
     
@@ -244,7 +259,7 @@ def fetch_job_details(job_id, work_type=None, country=None, search_keyword_job_t
         logger.error(f"Error scraping job {job_id}: {str(e)}")
         return None, None
 
-def scrape_linkedin_jobs(keywords, location, geoId, work_type, jobs_per_page=25, max_pages=1, search_keyword_job_title=None):
+def scrape_linkedin_jobs(keywords, location, geoId, work_type, jobs_per_page=25, max_pages=1, search_keyword_job_title=None, contract_types=None, time_posted_code: str = ""):
     """
     Scrapes LinkedIn jobs for the specified search criteria
     Returns: List of job dictionaries
@@ -256,7 +271,7 @@ def scrape_linkedin_jobs(keywords, location, geoId, work_type, jobs_per_page=25,
 
     for page_num in range(max_pages):
         start_position = page_num * jobs_per_page
-        page_job_elements = get_job_list_page(keywords, location, geoId, start_position, work_type)
+        page_job_elements = get_job_list_page(keywords, location, geoId, start_position, work_type, contract_types, time_posted_code)
         if not page_job_elements:
             break
         for job_element in page_job_elements:
@@ -290,6 +305,57 @@ def scrape_linkedin_jobs(keywords, location, geoId, work_type, jobs_per_page=25,
             time.sleep(config.DELAY_BETWEEN_SEARCHES)
     logger.info(f"Scrape finished for keywords: '{keywords}', location: '{location}'. Found {len(all_jobs)} jobs.")
     return all_jobs
+
+def fetch_public_profile(profile_url):
+    """Fetch minimal public profile info from a LinkedIn profile URL (unauthenticated, best-effort)."""
+    try:
+        resp = requests.get(profile_url, headers=COMMON_HEADERS, timeout=15)
+        soup = BeautifulSoup(resp.text, 'lxml')
+        # Best-effort selectors across public profiles
+        # Headline fallback to <title>
+        title_tag = soup.find('title')
+        headline = title_tag.get_text(strip=True) if title_tag else None
+
+        # Try to capture a visible name element
+        name = None
+        h1 = soup.find('h1')
+        if h1:
+            name = h1.get_text(strip=True)
+
+        # Try to capture a subtitle/headline block
+        subtitle = None
+        possible_classes = [
+            'text-body-medium',
+            'pv-text-details__left-panel',
+            'pv-top-card--list',
+        ]
+        for cls in possible_classes:
+            el = soup.find(class_=cls)
+            if el:
+                subtitle = el.get_text(separator=' ', strip=True)
+                break
+
+        location = None
+        loc_candidates = soup.find_all('span')
+        for span in loc_candidates[:100]:
+            txt = span.get_text(strip=True)
+            if txt and any(k in txt.lower() for k in ["location", "based", "milan", "london", "remote"]):
+                location = txt
+                break
+
+        return {
+            'profile_headline': headline,
+            'profile_name': name,
+            'profile_subtitle': subtitle,
+            'profile_location': location,
+        }
+    except Exception:
+        return {
+            'profile_headline': None,
+            'profile_name': None,
+            'profile_subtitle': None,
+            'profile_location': None,
+        }
 
 def main():
     """Main function to test the scraper with example parameters."""

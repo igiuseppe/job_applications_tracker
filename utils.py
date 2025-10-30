@@ -24,3 +24,31 @@ def call_llm(prompt: str, response_format=None, model=LLM_MODEL,temperature=temp
     input_tokens = response.usage.prompt_tokens
     output_tokens = response.usage.completion_tokens
     return response.choices[0].message.content,input_tokens,output_tokens
+
+# --- LiteLLM wrapper for Gemini 2.5 Pro with system+user prompts ---
+def call_llm_litellm(system_prompt: str, user_prompt: str, model: str = "gemini/gemini-2.5-pro", temperature: float = 0.2):
+    try:
+        # Lazy import to avoid hard dependency when unused
+        from litellm import completion
+    except Exception as e:
+        raise RuntimeError(f"LiteLLM is required for call_llm_litellm: {e}")
+
+    response = completion(
+        model=model,
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt},
+        ],
+        temperature=temperature,
+    )
+    # LiteLLM returns an OpenAI-compatible response schema
+    content = response["choices"][0]["message"].get("content", "")
+    usage = response.get("usage", {})
+    return content, usage.get("prompt_tokens", 0), usage.get("completion_tokens", 0)
+
+def truncate(text: str, max_chars: int) -> str:
+    if text is None:
+        return ""
+    if len(text) <= max_chars:
+        return text
+    return text[: max_chars - 1].rstrip() + "…"

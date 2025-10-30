@@ -10,3 +10,4 @@ __pycache__/
 credentials.json
 *.json
 *.xlsx
+cv.txt

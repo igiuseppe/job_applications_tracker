@@ -12,36 +12,22 @@ logger = logging.getLogger(__name__)
 
 # Define common geo IDs for popular locations
 GEO_IDS = {
-    "Italia": "103350119",
-    "Francia": "105015875",
-    "Germania": "101282230",
-    "Spagna": "105646813",
-    "Portogallo": "100364837",
-    "Paesi Bassi": "102890719",
-    "Svizzera": "106693272",
-    "Regno Unito": "101165590",
-    "Irlanda": "104738515",
-    "Svezia": "105117694",
-    "Danimarca": "104514075",
-    "Finlandia": "100456013",
-    "Norvegia": "103819153",
+    "Italy": "103350119",
+    "France": "105015875",
+    "Germany": "101282230",
+    "Spain": "105646813",
+    "Portugal": "100364837",
+    "Netherlands": "102890719",
+    "Switzerland": "106693272",
+    "United Kingdom": "101165590",
+    "Ireland": "104738515",
+    "Sweden": "105117694",
+    "Denmark": "104514075",
+    "Finland": "100456013",
+    "Norway": "103819153",
     "Austria": "103883259"
 }
 
-# Common job titles with URL-safe formatting
-JOB_TITLES = {
-    "Solution Architect": "Solution%2BArchitect",
-    "Product Manager": "Product%2BManager",
-    "Sales Engineer": "Sales%2BEngineer",
-    "Business Analyst": "Business%2BAnalyst",
-    "ML Engineer": "ML%2BEngineer",
-    "AI Engineer": "AI%2BEngineer",
-    "Data Scientist": "Data%2BScientist",
-    "Data Analyst": "Data%2BAnalyst",
-    "Data Engineer": "Data%2BEngineer",
-    "Software Engineer": "Software%2BEngineer",
-    "Project Manager": "Project%2BManager",
-}
 
 # Work type definitions
 WORK_TYPES = {
