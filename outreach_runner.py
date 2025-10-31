@@ -17,22 +17,22 @@ from utils import call_llm_litellm, truncate
 CONFIG = {
     # Comma-separated keywords as list
     'keywords': [
-        'AI Engineer',
+        'AI Engineer', 'Data Engineer'
     ],
     # Countries must match keys in scrape_jobs.GEO_IDS
     'countries': [
-        'Germany'
+        'Germany', 'Switzerland','France', 'Italy'
     ],
     # Pages per keyword×country×work_type
-    'pages': 1,
+    'pages': 3,
     # Subset of {Remote, Hybrid, On-site}
     'work_types': ['Remote'],
     # Subset of {Full-time, Contract, Part-time, Temporary, Internship, Other}
-    'contract_types': ['Full-time'],
+    'contract_types': ['Full-time', 'Contract', 'Part-time', 'Temporary'],
     # Path to a txt/md file with your CV content
     'cv_file': 'cv.txt',
     # Time posted filter: one of {'Any','Past 24 hours','Past Week','Past Month'}
-    'time_posted': 'Past Week',
+    'time_posted': 'Past 24 hours',
     # Batch size for processing jobs (failures isolate to a single batch)
     'batch_size': 10,
     # Max parallel LLM calls
@@ -51,7 +51,16 @@ def load_processed_ids() -> set:
         try:
             with open(config.PROCESSED_IDS_PATH, 'r', encoding='utf-8') as f:
                 data = json.load(f)
-            return set(data if isinstance(data, list) else [])
+            # Support legacy list format and new dict format {run_ts: [ids]}
+            if isinstance(data, list):
+                return set(data)
+            if isinstance(data, dict):
+                all_ids = set()
+                for _, ids in data.items():
+                    if isinstance(ids, list):
+                        all_ids.update(ids)
+                return all_ids
+            return set()
         except Exception as e:
             print(f"ERROR load_processed_ids: {e}")
             print(traceback.format_exc())
@@ -59,10 +68,26 @@ def load_processed_ids() -> set:
     return set()
 
 
-def save_processed_ids(ids: set):
+def append_run_processed_ids(run_timestamp: str, ids: set):
+    """Persist processed IDs grouped by run timestamp. Overwrites the entry for this run timestamp."""
     ensure_dirs()
+    existing = {}
+    if os.path.exists(config.PROCESSED_IDS_PATH):
+        try:
+            with open(config.PROCESSED_IDS_PATH, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            if isinstance(data, dict):
+                existing = data
+            elif isinstance(data, list):
+                # migrate legacy list into a synthetic key
+                existing = {"legacy": data}
+        except Exception as e:
+            print(f"ERROR reading existing processed ids: {e}")
+            print(traceback.format_exc())
+            existing = {}
+    existing[run_timestamp] = sorted(list(ids))
     with open(config.PROCESSED_IDS_PATH, 'w', encoding='utf-8') as f:
-        json.dump(sorted(list(ids)), f)
+        json.dump(existing, f)
 
 
 def encode_keywords(keyword: str) -> str:
@@ -192,6 +217,10 @@ def main():
     csv_path, csv_file, csv_writer = open_csv_writer(timestamp_str)
     total_rows = 0
 
+    # High-level grid progress
+    total_combos = sum(1 for _ in [(kw, ct, wt) for ct in countries for wt in work_types for kw in keywords])
+    combo_idx = 0
+
     for country in countries:
         if country not in GEO_IDS:
             continue
@@ -201,6 +230,8 @@ def main():
             if work_type_name not in work_types:
                 continue
             for kw in keywords:
+                combo_idx += 1
+                print(f"[GRID] {combo_idx}/{total_combos} → kw='{kw}', country='{country}', work_type='{work_type_name}', pages={CONFIG['pages']}")
                 encoded_kw = encode_keywords(kw)
                 # scrape
                 jobs = scrape_linkedin_jobs(
@@ -215,9 +246,12 @@ def main():
                     time_posted_code=time_posted_code,
                 )
                 time.sleep(random.uniform(0.5, 1.0))
+                print(f"[SCRAPE] Found {len(jobs or [])} jobs for kw='{kw}', country='{country}', work_type='{work_type_name}'")
 
                 # Process in batches; if a batch fails, skip only that batch
                 for batch in chunked(jobs or [], CONFIG.get('batch_size', 10)):
+                    total_batches = max(1, (len(jobs or []) + CONFIG.get('batch_size', 10) - 1) // CONFIG.get('batch_size', 10))
+                    print(f"[BATCH] Start batch ({len(batch)} items) for kw='{kw}', country='{country}', work_type='{work_type_name}' [{combo_idx}/{total_combos}] -> size={CONFIG.get('batch_size',10)} total_batches={total_batches}")
                     try:
                         batch_rows = []
                         batch_new_ids = set()
@@ -303,7 +337,8 @@ def main():
                         # Persist processed ids incrementally
                         tmp_ids = set(processed_ids)
                         tmp_ids.update(new_ids)
-                        save_processed_ids(tmp_ids)
+                        append_run_processed_ids(timestamp_str, tmp_ids)
+                        print(f"[BATCH] Wrote {len(batch_rows)} rows | cumulative_rows={total_rows}")
                     except Exception as e:
                         print(f"ERROR writing batch to CSV: {e}")
                         print(traceback.format_exc())
@@ -311,7 +346,7 @@ def main():
     # close CSV and persist ids at end
     csv_file.close()
     processed_ids.update(new_ids)
-    save_processed_ids(processed_ids)
+    append_run_processed_ids(timestamp_str, processed_ids)
 
     print(f"Wrote {total_rows} rows to {csv_path}")
 
