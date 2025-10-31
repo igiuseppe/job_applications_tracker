@@ -20,6 +20,13 @@ WORK_TYPE_NAMES = {
     WORK_TYPE_ANY: "Any"
 }
 
+# Work type codes by name (for search)
+WORK_TYPES = {
+    "Remote": WORK_TYPE_REMOTE,
+    "Hybrid": WORK_TYPE_HYBRID,
+    "On-site": WORK_TYPE_ONSITE,
+}
+
 # Scraping settings
 DELAY_BETWEEN_SEARCHES = 1  # seconds
 
@@ -84,3 +91,26 @@ LINKEDIN_JOB_LIST_URL_TEMPLATE = (
     "{contract_param}{time_param}&start={start_position}"
 )
 LINKEDIN_JOB_DETAIL_URL_TEMPLATE = "https://www.linkedin.com/jobs-guest/jobs/api/jobPosting/{job_id}" 
+
+# Geo IDs (countries)
+GEO_IDS = {
+    "Italia": "103350119",
+    "Francia": "105015875",
+    "Germania": "101282230",
+    "Spagna": "105646813",
+    "Portogallo": "100364837",
+    "Paesi Bassi": "102890719",
+    "Svizzera": "106693272",
+    "Regno Unito": "101165590",
+    "Irlanda": "104738515",
+    "Svezia": "105117694",
+    "Danimarca": "104514075",
+    "Finlandia": "100456013",
+    "Norvegia": "103819153",
+    "Austria": "103883259",
+    # English names used in new configs
+    "Germany": "101282230",
+    "Switzerland": "106693272",
+    "France": "105015875",
+    "Italy": "103350119",
+}

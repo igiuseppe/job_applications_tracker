@@ -9,9 +9,9 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import traceback
 
 import config
+import prompts
 from linkedin_scraper import scrape_linkedin_jobs, fetch_public_profile
-from scrape_jobs import GEO_IDS, WORK_TYPES
-from utils import call_llm_litellm, truncate
+from utils import call_llm
 
 # In-script configuration (no CLI)
 CONFIG = {
@@ -115,19 +115,7 @@ def read_cv_text(cv_path: str) -> str:
 
 
 def build_system_prompt(cv_text: str) -> str:
-    prompt = (
-        "You are an expert freelance job outreach coach focused on LinkedIn. "
-        "Goal: maximize replies and book a short call. "
-        "Constraints: concise, specific, polite, no emojis, 4–6 lines. "
-        "Personalize using both the job description and hiring manager profile (role, domain, stack, location). "
-        "Avoid generic fluff; reference 1–2 concrete matches to my background. "
-        "If the job clearly mismatches my background, lower the fit score and suggest one pragmatic angle.\n\n"
-        "My CV (verbatim):\n" + cv_text + "\n\n"
-        "Output strictly a minified JSON object with two keys: "
-        "{\"fit\": <integer 1-10>, \"message\": \"<4-6 line tailored message>\"}. "
-        "Do not include any other text."
-    )
-    return prompt
+    return prompts.OUTREACH_SYSTEM_PROMPT.format(cv_text=cv_text)
 
 
 def build_user_prompt(job: dict, profile: dict, country: str, work_type_name: str, contract_types: List[str]) -> str:
@@ -222,10 +210,10 @@ def main():
     combo_idx = 0
 
     for country in countries:
-        if country not in GEO_IDS:
+        if country not in config.GEO_IDS:
             continue
-        geo_id = GEO_IDS[country]
-        for work_type_name, work_type_val in WORK_TYPES.items():
+        geo_id = config.GEO_IDS[country]
+        for work_type_name, work_type_val in config.WORK_TYPES.items():
             # filter only selected work types
             if work_type_name not in work_types:
                 continue
@@ -289,7 +277,7 @@ def main():
                                 user_prompt = build_user_prompt(job, profile or {}, country, work_type_name, contract_input)
                                 def _llm_call(sp=system_prompt, up=user_prompt):
                                     try:
-                                        content, _, _ = call_llm_litellm(
+                                        content, _, _ = call_llm(
                                             sp,
                                             up,
                                             response_format={"type": "json_object"},
