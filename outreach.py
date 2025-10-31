@@ -10,8 +10,7 @@ from linkedin_scraper import fetch_job_details, fetch_public_profile
 from utils import call_llm
 import prompts
 
-job="https://www.linkedin.com/jobs/view/4331434596/?refId=hhJRhqL4Q4KWjVQpWpGI7g%3D%3D&trackingId=hhJRhqL4Q4KWjVQpWpGI7g%3D%3D"
-
+job="https://de.linkedin.com/jobs/view/ai-engineer-at-pitch-4332989238?trk=public_jobs_topcard-title"
 
 CONFIG = {
     'job_url': job,  # Can be a single URL (str) or a list of URLs
@@ -26,9 +25,10 @@ def ensure_dirs():
 
 def load_processed_ids() -> set:
     ensure_dirs()
-    if os.path.exists(config.PROCESSED_IDS_PATH):
+    path = config.OUTREACH_PROCESSED_IDS_PATH
+    if os.path.exists(path):
         try:
-            with open(config.PROCESSED_IDS_PATH, 'r', encoding='utf-8') as f:
+            with open(path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
             if isinstance(data, list):
                 return set(data)
@@ -49,9 +49,10 @@ def load_processed_ids() -> set:
 def append_run_processed_ids(run_ts: str, ids: set):
     ensure_dirs()
     existing = {}
-    if os.path.exists(config.PROCESSED_IDS_PATH):
+    path = config.OUTREACH_PROCESSED_IDS_PATH
+    if os.path.exists(path):
         try:
-            with open(config.PROCESSED_IDS_PATH, 'r', encoding='utf-8') as f:
+            with open(path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
             if isinstance(data, dict):
                 existing = data
@@ -62,7 +63,7 @@ def append_run_processed_ids(run_ts: str, ids: set):
             print(traceback.format_exc())
             existing = {}
     existing[run_ts] = sorted(list(ids))
-    with open(config.PROCESSED_IDS_PATH, 'w', encoding='utf-8') as f:
+    with open(path, 'w', encoding='utf-8') as f:
         json.dump(existing, f)
 
 
@@ -127,7 +128,7 @@ def open_csv_writer_for_today():
     csv_path = os.path.join(config.OUTREACH_OUTPUT_DIR, f"outreach_{today}.csv")
     new_file = not os.path.exists(csv_path)
     f = open(csv_path, 'a', encoding='utf-8', newline='')
-    fieldnames = config.OUTREACH_CSV_COLUMNS + ['tailored cv']
+    fieldnames = config.OUTREACH_CSV_COLUMNS + ['tailored cv','message']
     writer = csv.DictWriter(f, fieldnames=fieldnames)
     if new_file:
         writer.writeheader()

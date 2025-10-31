@@ -17,14 +17,17 @@ from utils import call_llm
 CONFIG = {
     # Comma-separated keywords as list
     'keywords': [
-        'AI Engineer', 'Data Engineer'
+        'AI Engineer','Data Engineer'
     ],
     # Countries must match keys in scrape_jobs.GEO_IDS
     'countries': [
-        'Germany', 'Switzerland','France', 'Italy'
+        'Germany', 
+        'Switzerland',
+        'France',
+        'Italy',
     ],
     # Pages per keyword×country×work_type
-    'pages': 3,
+    'pages': 1,
     # Subset of {Remote, Hybrid, On-site}
     'work_types': ['Remote'],
     # Subset of {Full-time, Contract, Part-time, Temporary, Internship, Other}
@@ -137,8 +140,6 @@ def build_user_prompt(job: dict, profile: dict, country: str, work_type_name: st
         f"Job title: {job.get('job_title','')}\n"
         f"Company: {company}\n"
         f"Country: {country}\n"
-        f"Hiring manager name: {recruiter_name}\n"
-        f"Hiring manager profile: {profile_snippet}\n\n"
         f"Key details from job description:\n{bullets}\n\n"
     )
 
@@ -275,23 +276,23 @@ def main():
                             batch_rows.append(row)
                             batch_new_ids.add(jid)
 
-                            if recruiter_link:
-                                user_prompt = build_user_prompt(job, profile or {}, country, work_type_name, contract_input)
-                                def _llm_call(sp=system_prompt, up=user_prompt):
-                                    try:
-                                        content, _, _ = call_llm(
-                                            sp,
-                                            up,
-                                            response_format={"type": "json_object"},
-                                            model="gemini/gemini-2.5-flash",
-                                        )
-                                        return content
-                                    except Exception as e:
-                                        print(f"ERROR LLM call: {e}")
-                                        print(traceback.format_exc())
-                                        return ""
-                                future = executor.submit(_llm_call)
-                                llm_futures[future] = row
+                            # Always compute fit via LLM for every job (profile optional)
+                            user_prompt = build_user_prompt(job, profile or {}, country, work_type_name, contract_input)
+                            def _llm_call(sp=system_prompt, up=user_prompt):
+                                try:
+                                    content, _, _ = call_llm(
+                                        sp,
+                                        up,
+                                        response_format={"type": "json_object"},
+                                        model="gemini/gemini-2.5-flash",
+                                    )
+                                    return content
+                                except Exception as e:
+                                    print(f"ERROR LLM call: {e}")
+                                    print(traceback.format_exc())
+                                    return ""
+                            future = executor.submit(_llm_call)
+                            llm_futures[future] = row
 
                         # Collect LLM results
                         for fut in as_completed(llm_futures):

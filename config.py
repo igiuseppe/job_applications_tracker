@@ -35,7 +35,8 @@ OUTPUT_DIR = "output"
 JSON_OUTPUT_PATH = f"{OUTPUT_DIR}/linkedin_jobs.json"
 OUTREACH_OUTPUT_DIR = f"{OUTPUT_DIR}/outreach"
 STATE_DIR = f"{OUTPUT_DIR}/state"
-PROCESSED_IDS_PATH = f"{STATE_DIR}/processed_job_ids.json"
+PROCESSED_IDS_PATH = f"{STATE_DIR}/search_job_ids.json"
+OUTREACH_PROCESSED_IDS_PATH = f"{STATE_DIR}/outreach_job_ids.json"
 
 # Common field definitions for job data
 JOB_FIELDS = [
@@ -55,7 +56,6 @@ OUTREACH_CSV_COLUMNS = [
     'hiring manager name',
     'hiring manager linkedin url',
     'fit',
-    'message',
 ]
 
 # BigQuery settings
