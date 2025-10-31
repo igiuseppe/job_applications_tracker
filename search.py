@@ -271,7 +271,6 @@ def main():
                                 'hiring manager name': job.get('recruiter_name') or '',
                                 'hiring manager linkedin url': recruiter_link or '',
                                 'fit': '',
-                                'message': '',
                             }
                             batch_rows.append(row)
                             batch_new_ids.add(jid)
@@ -318,7 +317,7 @@ def main():
                         # skip this batch and continue
                         continue
 
-                    # If batch succeeded, persist rows and ids now
+                    # If batch succeeded, persist rows now and persist IDs
                     try:
                         for r in batch_rows:
                             csv_writer.writerow(r)
@@ -335,8 +334,33 @@ def main():
                         print(f"ERROR writing batch to CSV: {e}")
                         print(traceback.format_exc())
 
-    # close CSV and persist ids at end
+    # close CSV first
     csv_file.close()
+
+    # End-of-run resort: read, sort, and rewrite the CSV
+    try:
+        rows = []
+        with open(csv_path, 'r', encoding='utf-8', newline='') as f_in:
+            reader = csv.DictReader(f_in)
+            for r in reader:
+                rows.append(r)
+
+        def _fit_to_int(v: str) -> int:
+            try:
+                return int(''.join(ch for ch in str(v) if ch.isdigit()))
+            except Exception:
+                return -1
+        rows.sort(key=lambda r: ((r.get('company name') or '').lower(), -_fit_to_int(r.get('fit') or '')))
+
+        with open(csv_path, 'w', encoding='utf-8', newline='') as f_out:
+            writer = csv.DictWriter(f_out, fieldnames=config.OUTREACH_CSV_COLUMNS)
+            writer.writeheader()
+            for r in rows:
+                writer.writerow(r)
+        print(f"[WRITE] Final resorted file -> {csv_path}")
+    except Exception as e:
+        print(f"ERROR final resort write: {e}")
+        print(traceback.format_exc())
     processed_ids.update(new_ids)
     append_run_processed_ids(timestamp_str, processed_ids)
 
