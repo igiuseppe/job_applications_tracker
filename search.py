@@ -17,7 +17,10 @@ from utils import call_llm
 CONFIG = {
     # Comma-separated keywords as list
     'keywords': [
-        'AI Engineer','Data Engineer'
+        #'AI Engineer','Data Engineer', 
+        #'Data Architect, 'Software Engineer'
+        #'Data Scientist', 'Data Analyst', 
+        "Solution Architect", "Solution Engineer"
     ],
     # Countries must match keys in scrape_jobs.GEO_IDS
     'countries': [

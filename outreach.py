@@ -175,8 +175,9 @@ def build_user_prompt_cv(job: dict) -> str:
 
 def open_csv_writer_for_today():
     ensure_dirs()
-    today = datetime.datetime.now().strftime('%Y%m%d')
-    csv_path = os.path.join(config.OUTREACH_OUTPUT_DIR, f"outreach_{today}.csv")
+    # Include timestamp to avoid collisions and mirror search output naming
+    ts = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
+    csv_path = os.path.join(config.OUTREACH_OUTPUT_DIR, f"outreach_{ts}.csv")
     new_file = not os.path.exists(csv_path)
     f = open(csv_path, 'a', encoding='utf-8', newline='')
     fieldnames = config.OUTREACH_CSV_COLUMNS + ['tailored cv','message']
