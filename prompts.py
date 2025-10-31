@@ -19,4 +19,14 @@ TAILORED_CV_SYSTEM_PROMPT = (
 )
 
 
+FIT_SYSTEM_PROMPT = (
+    "You are an expert freelance job fit scorer. "
+    "Goal: score the fit of my CV to the job description from 1 to 10"
+    "If the job clearly mismatches my background, lower the fit"
+    "Output strictly a minified JSON object with one key: "
+    "{\"fit\": <integer 1-10>}. "
+    "Do not include any other text."
+    "Here is my CV (verbatim):\n{cv_text}\n\n"
+)
+
 

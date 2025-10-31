@@ -115,7 +115,8 @@ def read_cv_text(cv_path: str) -> str:
 
 
 def build_system_prompt(cv_text: str) -> str:
-    return prompts.OUTREACH_SYSTEM_PROMPT.format(cv_text=cv_text)
+    # Fit-only system prompt
+    return prompts.FIT_SYSTEM_PROMPT.format(cv_text=cv_text)
 
 
 def build_user_prompt(job: dict, profile: dict, country: str, work_type_name: str, contract_types: List[str]) -> str:
@@ -173,7 +174,8 @@ def parse_fit_and_message(content: str):
 
 def open_csv_writer(timestamp_str: str):
     ensure_dirs()
-    csv_path = os.path.join(config.OUTREACH_OUTPUT_DIR, f"outreach_{timestamp_str}.csv")
+    # Decoupled name for job search outputs to avoid overlap with outreach
+    csv_path = os.path.join(config.OUTREACH_OUTPUT_DIR, f"search_{timestamp_str}.csv")
     f = open(csv_path, 'w', encoding='utf-8', newline='')
     writer = csv.DictWriter(f, fieldnames=config.OUTREACH_CSV_COLUMNS)
     writer.writeheader()
@@ -281,6 +283,7 @@ def main():
                                             sp,
                                             up,
                                             response_format={"type": "json_object"},
+                                            model="gemini/gemini-2.5-flash",
                                         )
                                         return content
                                     except Exception as e:
@@ -296,17 +299,17 @@ def main():
                             content = fut.result()
                             if isinstance(content, dict):
                                 row['fit'] = str(content.get('fit', ''))
-                                row['message'] = content.get('message', '') or ''
+                                # message intentionally left empty in search phase
                             else:
                                 try:
                                     import json as _json
                                     parsed = _json.loads(content or '{}')
                                     fit_raw = parsed.get('fit')
                                     row['fit'] = str(fit_raw) if fit_raw is not None else ''
-                                    row['message'] = parsed.get('message', '') or ''
+                                    # message intentionally left empty in search phase
                                 except Exception:
                                     f, m = parse_fit_and_message(content)
-                                    row['fit'], row['message'] = f, m
+                                    row['fit'] = f
                         executor.shutdown(wait=True)
                     except Exception as e:
                         print(f"ERROR processing batch of size {len(batch)}: {e}")
