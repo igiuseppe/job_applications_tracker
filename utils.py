@@ -4,7 +4,7 @@ from litellm import completion
 load_dotenv()
 
 # --- LiteLLM wrapper for Gemini 2.5 Pro with system+user prompts ---
-def call_llm(system_prompt: str, user_prompt: str, model: str = "gemini/gemini-2.5-pro", temperature: float = 0, response_format=None):
+def call_llm(system_prompt: str, user_prompt: str, model: str = "gemini/gemini-2.5-flash", temperature: float = 0, response_format=None):
 
     kwargs = {}
     if response_format is not None:

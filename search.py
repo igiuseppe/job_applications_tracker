@@ -291,7 +291,6 @@ def main():
                                         sp,
                                         up,
                                         response_format={"type": "json_object"},
-                                        model="gemini/gemini-2.5-flash",
                                     )
                                     return content
                                 except Exception as e:
