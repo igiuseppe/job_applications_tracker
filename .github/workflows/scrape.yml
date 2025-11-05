@@ -1,0 +1,38 @@
+name: Daily Job Search and Outreach
+
+on:
+  schedule:
+    # Runs every day at 08:00 UTC. Adjust as needed.
+    - cron: '0 5 * * *'
+  workflow_dispatch: {}
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          else
+            pip install --upgrade pip
+            # Minimal deps commonly used by this project; adjust if you add a requirements.txt
+            pip install python-dotenv requests
+          fi
+
+      - name: Run search
+        run: python search.py
+
+      - name: Run outreach
+        run: python outreach.py
+
+

@@ -1,0 +1,51 @@
+﻿GIUSEPPE INTILLA
+Turin, Italy
+
+SUMMARY
+Proactive and entrepreneurial Data & AI Expert with a strong Engineering background. Seeking freelance opportunities as an AI Engineer, Data Engineer or Software Engineer. Proven experience in building end-to-end AI products, scaling data architectures for millions of users, and developing algorithms that deliver significant business impact.
+
+SKILLS
+	Generative AI
+	Data Architecture Design
+	Stakeholder Management
+	Machine Learning
+	System Scaling
+	Entrepreneurial Mindset
+	Mathematical Programming
+	Business Intelligence
+	Problem-Solving
+	Optimization Algorithms
+	Data Pipeline Management
+	Effective Communication
+	Data Analytics
+	AI Product Development
+	Product Management
+
+EXPERIENCE
+Co-Founder & CTO @ dama*
+Torino, Piemonte, Italia | Jul 2025 – Present
+* Leading the technical vision and development of a novel Business Intelligence platform.
+* Designing and implementing the core data architecture, product strategy, and AI-driven features.
+Founder in Residence @ Vento
+Torino, Piemonte, Italia | Jan 2025 – Jun 2025
+* Selected for the highly competitive Vento Venture Builder (5% acceptance rate) to develop, validate, and build a high-growth tech startup concept.
+Data Scientist @ Docsity
+Torino, Piemonte, Italia | 2024
+* AI Engineering: Developed and deployed AI-driven products that enhanced the learning experience for thousands of students.
+* Data Engineering: Maintained and scaled a robust data architecture to process and analyze data from millions of users, ensuring high availability and performance.
+* Data Analysis: Performed in-depth data analysis to derive actionable insights, directly influencing key business decisions and product strategy.
+Software Engineer @ Arm
+Sophia Antipolis, France | 2023
+* Data Engineering: Designed and built a new data architecture from the ground up to capture and analyze data from complex engineering simulations.
+* ML Engineering: Developed and implemented a novel algorithm using machine learning and optimization to automate bug discovery, resulting in a 3x increase in efficiency for my team.
+
+EDUCATION
+* Master of Science, Mathematical Engineering (2021 – 2023) | Politecnico di Torino – Turin, Italy
+* Master of Science, Industrial and Applied Mathematics (2022 – 2023) | INP Ensimag – Grenoble, France
+* Bachelor's degree, Electronic Engineering (2018 – 2021) | Politecnico di Torino – Turin, Italy
+
+LANGUAGES
+* Italian (Native)
+* English (Professional)
+* French (Elementary)
+* Spanish (Elementary)

@@ -1,7 +1,6 @@
 .env
 .venv/
 notes.txt
-output/outreach/
 output/debug_html/
 __pycache__/
 *.pyc
@@ -11,4 +10,3 @@ __pycache__/
 credentials.json
 *.json
 *.xlsx
-cv.txt
