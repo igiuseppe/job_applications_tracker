@@ -47,6 +47,7 @@ JOB_FIELDS = [
 
 # Outreach CSV columns (final output per run)
 OUTREACH_CSV_COLUMNS = [
+    'id',
     'job title',
     'description',
     'company name',

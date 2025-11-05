@@ -12,56 +12,8 @@ from linkedin_scraper import fetch_job_details, fetch_public_profile
 from utils import call_llm
 import prompts
 
-job="""
-https://de.linkedin.com/jobs/view/ai-engineer-at-pitch-4332989238?trk=public_jobs_topcard-title
-https://de.linkedin.com/jobs/view/ml-engineer-fully-remote-at-mercor-4320047628?trk=public_jobs_topcard-title
-https://de.linkedin.com/jobs/view/machine-learning-engineer-at-mercor-4320007615?trk=public_jobs_topcard-title
-https://de.linkedin.com/jobs/view/ai-engineer-m-w-d-at-neue-osnabr%C3%BCcker-zeitung-gmbh-co-kg-4320066609?trk=public_jobs_topcard-title
-https://de.linkedin.com/jobs/view/ai-software-engineer-ab-januar-2026-teilzeit-remote-und-m%C3%BCnster-m-w-d-at-emagine-4319362730?trk=public_jobs_topcard-title
-https://de.linkedin.com/jobs/view/ai-engineer-team-lead-at-pitch-4333118758?trk=public_jobs_topcard-title
-https://de.linkedin.com/jobs/view/machine-learning-engineer-remote-at-mercor-4319934863?trk=public_jobs_topcard-title
-https://de.linkedin.com/jobs/view/machine-learning-engineer-ai-systems-at-mercor-4319857894?trk=public_jobs_topcard-title
-https://de.linkedin.com/jobs/view/data-science-and-machine-learning-engineer-m-f-d-at-gaia-4332966867?trk=public_jobs_topcard-title
-https://de.linkedin.com/jobs/view/deep-learning-engineer-at-mercor-4319977774?trk=public_jobs_topcard-title
-https://de.linkedin.com/jobs/view/analytics-engineer-at-codex-4333106180?trk=public_jobs_topcard-title
-https://de.linkedin.com/jobs/view/data-engineer-m-f-d-at-carl-remigius-fresenius-education-group-4333294527?trk=public_jobs_topcard-title
-https://de.linkedin.com/jobs/view/business-intelligence-analyst-at-codex-4333036387?trk=public_jobs_topcard-title
-https://de.linkedin.com/jobs/view/junior-devops-engineer-at-eurobase-people-4333422697?trk=public_jobs_topcard-title
-https://de.linkedin.com/jobs/view/sql-database-architect-at-net2source-n2s-4312037994?trk=public_jobs_topcard-title
-https://ch.linkedin.com/jobs/view/senior-analytics-engineer-at-seeq-corporation-4333177346?trk=public_jobs_topcard-title
-https://ch.linkedin.com/jobs/view/software-engineer-80%25-100%25-bern-at-code-compass-%F0%9F%A7%AD-4319878206?trk=public_jobs_topcard-title
-https://ch.linkedin.com/jobs/view/agentic-and-openai-automation-expert-at-qi-talance-4333210620?trk=public_jobs_topcard-title
-https://ch.linkedin.com/jobs/view/business-analyst-at-digify-experts-4319878770?trk=public_jobs_topcard-title
-https://ch.linkedin.com/jobs/view/data-visualization-specialist-at-at8-media-4319978752?trk=public_jobs_topcard-title
-https://ch.linkedin.com/jobs/view/customer-insights-analyst-at-eden-development-4320090797?trk=public_jobs_topcard-title
-https://ch.linkedin.com/jobs/view/rust-engineer-80%25-100%25-%E2%80%93-zurich-at-code-compass-%F0%9F%A7%AD-4319968119?trk=public_jobs_topcard-title
-https://ch.linkedin.com/jobs/view/backend-engineer-at-calyptus-4333274315?trk=public_jobs_topcard-title
-https://ch.linkedin.com/jobs/view/data-architect-at-infinity-quest-4319273790?trk=public_jobs_topcard-title
-https://ch.linkedin.com/jobs/view/data-architect-aws-redshift-at-eures-limited-4319878741?trk=public_jobs_topcard-title
-https://fr.linkedin.com/jobs/view/ai-machine-learning-r-d-engineer-at-welocalize-4333411973?trk=public_jobs_topcard-title
-https://fr.linkedin.com/jobs/view/ing%C3%A9nieur-ia-h-f-nb-at-silae-4331130570?trk=public_jobs_topcard-title
-https://fr.linkedin.com/jobs/view/senior-machine-learning-engineer-at-photoroom-4333109684?trk=public_jobs_topcard-title
-https://fr.linkedin.com/jobs/view/machine-learning-engineer-relocation-to-spain-required-at-brainrocket-4331445955?trk=public_jobs_topcard-title
-https://fr.linkedin.com/jobs/view/data-scientist-at-datadome-4307674764?trk=public_jobs_topcard-title
-https://fr.linkedin.com/jobs/view/data-engineer-at-digital-forge-4319878535?trk=public_jobs_topcard-title
-https://fr.linkedin.com/jobs/view/freelancer-full-stack-django-react-developer-remote-europe-at-guestready-4319912109?trk=public_jobs_topcard-title
-https://fr.linkedin.com/jobs/view/senior-backend-engineer-kotlin-fincrime-at-mlabs-4333108408?trk=public_jobs_topcard-title
-https://fr.linkedin.com/jobs/view/backend-engineer-at-calyptus-4333382942?trk=public_jobs_topcard-title
-https://it.linkedin.com/jobs/view/junior-ai-engineer-remote-europe-at-jobgether-4319887489?trk=public_jobs_topcard-title
-https://it.linkedin.com/jobs/view/artificial-intelligence-engineer-at-mashfrog-group-4318904342?trk=public_jobs_topcard-title
-https://it.linkedin.com/jobs/view/machine-learning-engineer-relocation-to-spain-required-at-brainrocket-4331457193?trk=public_jobs_topcard-title
-https://it.linkedin.com/jobs/view/data-analyst-0-experience-required-at-peroptyx-4332497564?trk=public_jobs_topcard-title
-https://it.linkedin.com/jobs/view/junior-ai-engineer-for-martech-at-joinrs-4333304599?trk=public_jobs_topcard-title
-https://it.linkedin.com/jobs/view/ai-software-engineer-italy-at-ekona-ai-4319924868?trk=public_jobs_topcard-title
-https://it.linkedin.com/jobs/view/senior-backend-engineer-python-italy-remote-at-plentific-4320066993?trk=public_jobs_topcard-title
-https://it.linkedin.com/jobs/view/data-engineer-at-amaris-consulting-4331702126?trk=public_jobs_topcard-title
-https://it.linkedin.com/jobs/view/data-engineer-at-ul-solutions-4278803239?trk=public_jobs_topcard-title
-https://it.linkedin.com/jobs/view/senior-data-engineer-at-agap2-italia-4331434596?trk=public_jobs_topcard-title
-https://it.linkedin.com/jobs/view/platform-developer-analyst-at-equis-founding-team-at-founders-factory-4333220924?trk=public_jobs_topcard-title
-"""
-
 CONFIG = {
-    'job_url': job,  # Can be a single URL (str) or a list of URLs
+    'job_url': None,  # Can be a single URL (str) or a list of URLs
     'cv_file': 'cv.txt',
     # Parallelization controls
     'batch_size': 5,
@@ -215,6 +167,44 @@ def main():
         split_lines = [u.strip() for u in urls.splitlines()]
         urls = [u for u in split_lines if u and (u.startswith('http://') or u.startswith('https://'))]
 
+    # Fallback: if no URLs, use today's search output with fit>3
+    if not urls:
+        try:
+            today_prefix = datetime.datetime.now().strftime('%Y%m%d')
+            dir_path = config.OUTREACH_OUTPUT_DIR
+            candidates = []
+            for name in os.listdir(dir_path):
+                if name.startswith(f"search_{today_prefix}") and name.endswith('.csv'):
+                    candidates.append(os.path.join(dir_path, name))
+            urls = []
+            for csv_file in candidates:
+                try:
+                    with open(csv_file, 'r', encoding='utf-8') as f:
+                        reader = csv.DictReader(f)
+                        for row in reader:
+                            fit_raw = str(row.get('fit') or '')
+                            # extract integer from string, default 0
+                            digits = ''.join(ch for ch in fit_raw if ch.isdigit())
+                            fit_val = int(digits) if digits else 0
+                            if fit_val > 3:
+                                u = (row.get('job url') or '').strip()
+                                if u:
+                                    urls.append(u)
+                except Exception:
+                    pass
+            # Deduplicate preserving order
+            seen = set()
+            deduped = []
+            for u in urls:
+                if u not in seen:
+                    seen.add(u)
+                    deduped.append(u)
+            urls = deduped
+            print(f"[FALLBACK] Selected {len(urls)} URLs from today's search CSVs with fit>3")
+        except Exception as e:
+            print(f"[FALLBACK] ERROR collecting today's URLs: {e}")
+            print(traceback.format_exc())
+
     cv_text = read_cv_text(CONFIG['cv_file'])
     csv_path, fh, writer = open_csv_writer_for_today()
 
@@ -342,6 +332,7 @@ def main():
                 print(traceback.format_exc())
 
             row = {
+                'id': job_id,
                 'job title': job_details.get('job_title') or '',
                 'description': job_details.get('job_description') or '',
                 'company name': job_details.get('company') or '',

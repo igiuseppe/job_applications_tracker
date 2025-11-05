@@ -1,7 +1,8 @@
 .env
 .venv/
 notes.txt
-output/
+output/outreach/
+output/debug_html/
 __pycache__/
 *.pyc
 *~

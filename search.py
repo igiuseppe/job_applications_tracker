@@ -17,17 +17,21 @@ from utils import call_llm
 CONFIG = {
     # Comma-separated keywords as list
     'keywords': [
-        #'AI Engineer','Data Engineer', 
-        #'Data Architect, 'Software Engineer'
-        #'Data Scientist', 'Data Analyst', 
-        "Solution Architect", "Solution Engineer"
+        'AI Engineer',
+        # 'Data Engineer', 
+        #'Data Architect, 
+        # 'Software Engineer'
+        #'Data Scientist', 
+        # 'Data Analyst', 
+        #"Solution Architect",
+        # "Solution Engineer"
     ],
     # Countries must match keys in scrape_jobs.GEO_IDS
     'countries': [
         'Germany', 
-        'Switzerland',
-        'France',
-        'Italy',
+        #'Switzerland',
+        #'France',
+        #'Italy',
     ],
     # Pages per keyword×country×work_type
     'pages': 1,
@@ -40,7 +44,7 @@ CONFIG = {
     # Time posted filter: one of {'Any','Past 24 hours','Past Week','Past Month'}
     'time_posted': 'Past 24 hours',
     # Batch size for processing jobs (failures isolate to a single batch)
-    'batch_size': 10,
+    'batch_size': 5,
     # Max parallel LLM calls
     'max_workers': 5,
 }
@@ -265,6 +269,7 @@ def main():
 
                             # Prepare row; LLM to be filled later (parallel)
                             row = {
+                            'id': jid,
                                 'job title': job.get('job_title') or '',
                                 'description': job.get('job_description') or '',
                                 'company name': job.get('company') or '',
