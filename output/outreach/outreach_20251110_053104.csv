@@ -1,0 +1,1387 @@
+id,job title,description,company name,company linkedin url,job url,upload date,hiring manager name,hiring manager linkedin url,fit,tailored cv,message
+4338008670,Senior Javascript Runtime Engineer,"Company Description
+
+A Crane Team is an innovative IT consulting collective specializing in designing, securing, and optimizing digital ecosystems. We transform complex systems into scalable, efficient, and secure infrastructures, enabling businesses to thrive in a connected world. Our multidisciplinary team includes experts in application and system architecture, process optimization, security testing, and AI-driven innovation. At A Crane Team, we tackle enterprise challenges, modernize legacy technologies, and implement transformative solutions with precision and clarity.
+
+
+
+Role Description
+
+This is a contract-based, remote position for a Senior JavaScript Runtime Engineer. The engineer will be responsible for developing, optimizing, and securing JavaScript runtime systems. Day-to-day tasks include analyzing runtime performance, implementing runtime extensions, contributing to security measures, and collaborating with cross-functional teams to ensure seamless integration of runtime solutions with existing architectures.
+
+
+
+Qualifications
+
+- Advanced proficiency in JavaScript, TypeScript, and runtime system design
+- Hands-on experience with runtime optimization, debugging, and memory management tools
+- Knowledge of runtime security practices and implementing secure runtime environments
+- Experience in scalable architecture design, system performance testing, and deployment strategies
+- Exceptional analytical skills, problem-solving capabilities, and attention to detail
+- Experience collaborating with multidisciplinary teams in a remote environment
+- Relevant certifications or experience with modern runtime frameworks is a plus
+- Strong communication skills with the ability to convey complex concepts clearly",A Crane Team,https://it.linkedin.com/company/acraneteam?trk=public_jobs_topcard-org-name,https://it.linkedin.com/jobs/view/senior-javascript-runtime-engineer-at-a-crane-team-4338008670?trk=public_jobs_topcard-title,2025-11-09 13:28:29,,,,"Proven Senior Engineer with a strong background in optimizing complex systems and designing scalable architectures, seeking contract opportunities. Expert in developing novel optimization algorithms, including one that delivered a 3x increase in efficiency for bug discovery. Successfully designed and scaled robust data architectures to support millions of users, ensuring high availability and performance. Adept at building new systems from the ground up and leading technical vision for innovative platforms. Combines advanced analytical and problem-solving skills with effective communication for seamless cross-functional collaboration.",
+4262287995,Fullstack Developer,,AccessiWay,https://it.linkedin.com/company/accessiway?trk=public_jobs_topcard-org-name,https://it.linkedin.com/jobs/view/fullstack-developer-at-accessiway-4262287995?trk=public_jobs_topcard-title,2025-11-09 13:27:41,,,,"Proactive and entrepreneurial Fullstack Developer with a strong background in AI and data engineering. Proven success in designing and deploying end-to-end AI-driven products for thousands of users and scaling robust data architectures to support millions. As Co-Founder & CTO, led technical vision, product strategy, and the integration of AI-driven features. Expertise includes building new data architectures from the ground up and developing novel ML/optimization algorithms that delivered a 3x increase in efficiency.",
+4286559841,"Staff Software Engineer, Events","- Lead the design and delivery of complex, cross-team projects, ensuring the API is robust, scalable, and easy to integrate.
+- Rapidly onboard to an existing, production-grade codebase, and help your team do the same.
+- Shape architectural decisions that impact not just the Events team, but multiple teams across Algolia.
+- Mentor engineers, helping them grow their technical skills and confidence while fostering a collaborative, high-trust culture. This role offers a unique opportunity for personal and professional growth.
+- Remove bottlenecks and ensure the team operates without single points of failure.
+- Work closely with product managers, frontend engineers, and infrastructure teams to align priorities and deliver features that delight our customers. This collaborative approach is at the heart of our success.
+
+- Proven experience in backend systems at scale, ideally in Go.
+- Strong understanding of distributed systems, APIs, and event ingestion pipelines.
+- Demonstrated ability to navigate and improve existing large-scale codebases quickly.
+- Experience leading cross-team projects with clear technical strategy and measurable outcomes.
+- Track record of mentoring and uplifting engineering teams.
+
+- Experience with GCP and Kubernetes in production environments.
+- Exposure to React, Typescript, and Ruby on Rails.
+- Familiarity with analytics, telemetry, or personalization data flows.
+- Experience in migrating or re-architecting existing systems.
+
+- GRIT - Problem-solving and perseverance capability in an ever-changing and growing environment.
+- TRUST - Willingness to trust our co-workers and to take ownership.
+- CANDOR - Ability to receive and give constructive feedback.
+- CARE - Genuine care about other team members, our clients and the decisions we make in the company.
+- HUMILITY - Aptitude for learning from others, putting ego aside.
+
+- Our open positions may appear on third-party job boards, but the best way to apply safely is directly through our careers page.
+- All genuine communication from Algolia will come from an @algolia.com email address. If you receive an email from someone claiming to work at Algolia who does not have an @algolia.com email address, please do not respond or share any personal information.
+- We’ll never ask for payments, purchases, or financial details during the hiring process.",Algolia,https://www.linkedin.com/company/algolia?trk=public_jobs_topcard-org-name,https://fr.linkedin.com/jobs/view/staff-software-engineer-events-at-algolia-4286559841?trk=public_jobs_topcard-title,2025-11-09 11:25:23,,,,"Proactive Data & AI expert with Co-Founder/CTO experience, specializing in designing and scaling robust backend and event-driven systems.
+Led the development of a novel AI-driven Business Intelligence platform, demonstrating strong technical vision and product strategy.
+Successfully scaled data architectures to support millions of users and designed new data architectures from the ground up.
+Developed a novel ML/optimization algorithm that delivered a 3x increase in efficiency, directly addressing bottlenecks and driving measurable outcomes.
+Proven ability to lead complex, cross-team projects, shaping architectural decisions and fostering collaboration across product and engineering teams.
+A track record of deploying end-to-end AI-driven products that enhance user experience and deliver significant business impact.",
+4338129788,Head of Engineering,"ALPHA Augmented is a Swiss startup using AI and advanced optimization algorithms to transform logistics. Our solutions help Fortune 500 companies cut logistics costs by over 20% while reducing CO₂ emissions through smarter packing and freight utilization. Join a mission-driven team where innovation meets impact, transforming global supply chains for a sustainable future.
+
+
+
+Role Summary
+
+As Head of Engineering , you lead ALPHA Augmented’s engineering organization , driving the development of our AI-driven logistics platform . In close partnership with the CEO and COO , you translate business and customer requirements into a focused technology roadmap, oversee architecture and infrastructure, and scale a high-performing engineering team. You are accountable for the company’s technology strategy, reliability, security, and cost efficiency , as well as for fostering an engineering culture that delivers measurable business impact.
+
+This is a unique opportunity to lead a proven technology organization that already serves live enterprise customers and to elevate our platform, processes, and engineering practices to enterprise-grade quality and reliability. Your mandate is to sharpen focus, accelerate delivery, and grow people while strengthening ALPHA’s IP and data assets.
+
+
+
+Your Responsibilities
+
+- Develop and implement ALPHA’s technology and data strategies in line with company goals.
+- Translate business and customer needs into an outcome-driven technology roadmap.
+- Own system architecture and cloud infrastructure; select the tech stack, make build-vs-buy decisions, and manage vendors.
+- Define and uphold engineering standards for code quality, testing, CI/CD, observability, security, and documentation.
+- Ensure platform reliability, scalability, and performance through monitoring, incident reviews, and continuous improvement.
+- Lead, coach, and retain a high-performing engineering organization that operates with clarity, accountability, and continuous improvement.
+- Manage the full recruitment pipeline for engineering roles, from sourcing to onboarding.
+- Collaborate with Operations and Commercial teams to align priorities, delivery timelines, and business outcomes.
+- Engage with key customers on integrations, performance, and security topics to inform technical direction.
+- Oversee budgets and drive cost-efficient architectural and operational decisions.
+- Plan and manage system changes and upgrades to minimize disruption and technical risk.
+- Maintain a strong security posture and ensure compliance with internal and customer requirements.
+
+
+
+Your Qualifications
+
+- 8+ years of experience in software, data, or platform engineering, including several years in a senior leadership role.
+- Proven ability to define and execute technology strategy that supports measurable business outcomes.
+- Strong architectural judgment across modern web platforms, APIs, data systems, and cloud infrastructure (preferably Azure).
+- Experience leading cross-functional engineering teams across backend, frontend, data, and algorithms.
+- Deep understanding of security, networking, and compliance in cloud environments, including identity, secrets, network boundaries, and SDLC controls.
+- Track record of improving delivery performance through strong process design, documentation, and clear technical standards.
+- Demonstrated success hiring, developing, and retaining high-performing engineers and technical leads.
+- Experience managing budgets, vendor relationships, and cost optimization without compromising quality.
+- Hands-on familiarity with modern development practices (CI/CD, observability, IaC) and a pragmatic approach to technical debt.
+- Excellent communication skills ; able to translate between business, logistics, and technical domains.
+
+Nice to Have
+
+- Background in logistics, optimization, operations research, or machine learning .
+- Experience with data governance, MDM, and analytics platforms for enterprise customers.
+
+
+
+How You’ll Work
+
+- Remote-first, CET-aligned. Collaboration hours optimized for deep work and team overlap.
+- Startup pace. Intensity varies by phase; we communicate clearly and solve problems together.",ALPHA Augmented Services,https://ch.linkedin.com/company/alpha-augmented-services?trk=public_jobs_topcard-org-name,https://de.linkedin.com/jobs/view/head-of-engineering-at-alpha-augmented-services-4338129788?trk=public_jobs_topcard-title,2025-11-09 13:16:24,,,,"Entrepreneurial Co-Founder & CTO with a proven track record in leading engineering organizations and defining technology strategy for AI-driven platforms.
+Successfully translated complex business requirements into outcome-driven technology roadmaps, designing and scaling robust data architectures to support millions of users.
+Expert in developing novel ML/optimization algorithms that delivered a 3x increase in efficiency, and building end-to-end AI products with enterprise-grade quality.
+Adept at overseeing architecture, cloud infrastructure, and fostering high-performing, cross-functional engineering teams across data and algorithms.
+Skilled in driving measurable business impact, ensuring platform reliability, security, and cost efficiency.
+Committed to transforming global supply chains through innovation, aligning with ALPHA Augmented's mission.",
+4338139282,App Project Coordinator (remote - m/f/d),"Seek a new challenge in an autonomous position with the power to achieve quick results. Arise is a popular weight loss app that's active worldwide, with 8M+ downloads and a 4.7 average rating on the App Store. Join our team and be a part of our mission: changing lives by empowering our users to become healthier and happier. We are searching for a candidate who can help Arise reach its full potential and become a leader in the Health & Fitness category. Read on if autonomous work in a young, international team is your calling and you love working remotely on a flexible schedule!
+
+- Development and maintenance of the product roadmap - Definition of product requirements (user stories, specifications) - Collaboration with UX/UI designers for an optimal user experience - Interface between development, design, marketing, and management - Conducting market and competitive analyses - Identification of new features and improvements based on user feedback - Creation and prioritization of backlogs - Management of releases and feature rollouts - Optimization of internal processes and procedures (e.g., support, QA, deployment) - Development and maintenance of standard operating procedures (SOPs) - Collaboration with customer support to analyze and resolve issues - Monitoring app performance and operational KPIs - Introduction and maintenance of process automation tools - Coordination with external service providers or partners - Analysis of user behavior (e.g., via Mixpanel, Google Analytics, Firebase) - Creation and presentation of reports and dashboards - Measurement and optimization of KPIs (e.g., B. Retention, Conversion, Churn) - A/B testing to validate product decisions - Close coordination with management on strategy and goals - Organization and management of sprint and planning meetings - Communication with stakeholders on status, risks, and milestones - Translation of business requirements into technical requirements - Monitoring and management of app stores (updates, descriptions, ratings) - Release planning and rollout strategies for new versions - Management of bugs, user reports, and hotfixes - Ensuring compatibility with new OS versions (iOS/Android) - Participation in the monetization strategy (e.g., subscriptions, in-app purchases) - Analysis of growth opportunities and expansion into new markets - Development of user acquisition and retention measures - Collaboration with marketing for campaigns and product launches
+
+- At least 2 years of professional experience in a similar business environment (app experience is an advantage)
+- Bachelor's Degree in a business or management-related field preferred
+- Great command of English, German or Russian is considered a plus
+
+We're a great match if you:
+
+- Love the idea of turning a company's operational processes into a well-oiled machine
+- Like to ""get your hands dirty"" actually doing the work, not delegating
+- Value the quick results that come from autonomous work
+- Work in a structured manner, always maintain an overview and can prioritize important tasks if required
+- Are flexible, committed, independent and determined
+- Don't like wasting time on needless bureaucracy and meetings that could have been emails
+
+- A job that's challenging but stress-free, with a lot of creative freedom
+- Flat hierarchies, short decision-making processes and close collaboration with CEO
+- A friendly, international, and highly committed team that operates with mutual trust and efficient decision-making processes
+- The opportunity to contribute to an established, financially stable start-up with a 5-year Health & Fitness legacy
+- Flexible part-time work schedule and fully remote position
+- Paid annual leave
+
+Get in touch! Convince us that you're a match for the position and that we can't miss out on you by applying with: Your CV An informal cover letter detailing why you are a great fit for the position. Are you looking for a challenge and ready to achieve something great with us? Then we cant wait to hear from you! Bernhard and Team",Arise App,https://www.linkedin.com/company/app-arise?trk=public_jobs_topcard-org-name,https://de.linkedin.com/jobs/view/app-project-coordinator-remote-m-f-d-at-arise-app-4338139282?trk=public_jobs_topcard-title,2025-11-09 07:17:47,,,,"Proactive and entrepreneurial Data & AI Expert with a proven track record in delivering high-impact app features and scaling user experiences.
+Successfully developed and deployed AI-driven products that enhanced the learning experience for thousands of students and scaled data architectures to support millions of users.
+As Co-Founder/CTO, I led technical vision, product strategy, and AI-driven feature development, translating business requirements into actionable roadmaps.
+Adept at optimizing operational processes, analyzing user behavior, and leveraging data for KPI optimization and strategic product decisions.
+Thrives in autonomous, hands-on environments, driving quick results and efficient product rollouts for user-centric applications.",
+4338169542,Co-founder startup aste online,"Per un progetto imprenditoriale ambito aste on-line tra privati sto cercando uno/due co-founder. Il core business di questo progetto è la realizzazione di una piattaforma informatica sito/APP per le aste online tra privati. Non abbiamo competitor perché noi non faremo aste online di beni immobiliari ma di oggetti presenti nelle case di ognuno di noi.
+
+
+
+Il progetto prevede che all’ora di inizio asta, la gente si collega tramite la nostra piattaforma e vengono banditi i beni di cui uno se ne vuole liberare. Ogni pezzo può essere con prezzo di riserva oppure senza prezzo di riserva a partire da 1€. Per oggetti di “valore” ci avvaleremo di esperti per la valutazione andando proprio a casa del Cliente per la valutazione del bene.
+
+Il pagamento avviene attraverso la piattaforma è innovativo (concrete opportunità di essere iscritti nel registro delle startup innovative). Il progetto è definitivo ma si ricercano persone in grado di dare quel quid e valore aggiunto all’idea.
+
+
+
+LAVORI FATTI:
+
+1) Indagini sul mercato delle aste
+
+2) Sondaggi fatti di persona (per lo più ad amici e ne ho raggranellati una 50ina)
+
+3) Business model canvas
+
+4) Analisi SWOT
+
+5) Marketing plan
+
+6) Funzionalità piattaforma (per web agency) e descrizione progetto (discorsivo per tutti)
+
+
+
+COMPOSIZIONE TEAM:
+
+1) Fondatore ed ideatore (ho lavorato nel mondo delle aste di immobili con e senza incanto)
+
+2) Possibile partner di una società di aste
+
+
+
+CHI STO CERCANDO?
+
+Sto cercando due co-founder in grado di:
+
+1) dare una visione strategica all’azienda
+
+2) ottimizzare l’idea portando valore aggiunto e portarla sul mercato
+
+3) rappresentare l’azienda con gli stakeholders cercando di far conoscere e rafforzare il brand sempre di più
+
+4) tutte quelle mansioni previste per un socio fondatore con suddivisione equa di quote
+
+
+
+E’ gradito chi ha esperienza nel mondo startup e in maniera particolare nel mondo delle aste/valutazioni.
+
+",Aste,https://www.linkedin.com/company/freshhhh?trk=public_jobs_topcard-org-name,https://it.linkedin.com/jobs/view/co-founder-startup-aste-online-at-aste-4338169542?trk=public_jobs_topcard-title,2025-11-09 13:27:44,,,,"Entrepreneurial Co-Founder & CTO with a proven track record in leading the technical vision and development of novel, AI-driven platforms. Successfully designed and deployed end-to-end AI products for thousands of users and scaled data architectures to support millions. Brings a strategic mindset to product development, data architecture design, and the integration of innovative AI/ML solutions, ready to optimize and launch a new online auction platform, driving market entry and stakeholder engagement.",
+4338089745,.NET Developer Junior Avanzato,"Chi Siamo
+
+
+
+Begear è una delle più importanti realtà italiane nel mondo Tech e dei servizi ICT, partner dei principali player internazionali.
+
+Siamo specializzati nella formazione e consulenza di professionisti del settore ICT, supportando le aziende nella loro Digital Business Transformation.
+
+Collaboriamo con grandi realtà Enterprise e team altamente qualificati, orientati all’innovazione e all’eccellenza tecnologica.
+
+
+
+Chi ricerchiamo
+
+
+
+Siamo alla ricerca di un .NET Developer Junior (avanzato) con almeno un anno di esperienza nello sviluppo di applicazioni web o enterprise basate su tecnologie Microsoft .NET .
+
+La risorsa entrerà a far parte di un team di sviluppo presso un nostro cliente partner , contribuendo alla progettazione, realizzazione e manutenzione di applicazioni performanti e scalabili.
+
+Il profilo ideale possiede solide basi di programmazione, capacità di lavorare su codice esistente e attitudine a collaborare in contesti strutturati e metodologicamente organizzati.
+
+
+
+Non saranno valutati profili Entry Level o Beginner.
+
+
+
+La posizione è riservata a figure con esperienza comprovata, di almeno un anno, e autonoma nello sviluppo .NET.
+
+
+
+Requisiti
+
+
+
+- Esperienza di almeno 1 anno come .NET Developer su progetti reali (non esclusivamente formativi o accademici)
+- Buona conoscenza di C# e del framework .NET / .NET Core
+- Esperienza nello sviluppo di applicazioni web con ASP.NET MVC / ASP.NET Core
+- Conoscenza dei principali pattern di progettazione (OOP, MVC, Dependency Injection)
+- Esperienza nell’uso di Entity Framework / LINQ
+- Buona conoscenza di HTML5, CSS3, JavaScript, e librerie front-end (ad es. jQuery, Bootstrap)
+- Familiarità con REST API / Web Services
+- Esperienza con SQL Server o database relazionali equivalenti
+- Conoscenza base di strumenti di versioning (Git) e ambienti Visual Studio / Visual Studio Code
+- Buona conoscenza dell’inglese tecnico (documentazione, repository, issue tracking)
+
+
+
+Titolo preferenziale:
+
+
+
+- Laurea o diploma in discipline STEM (Informatica, Ingegneria o affini)
+- Conoscenza di Azure DevOps , Docker o CI/CD pipelines
+
+
+
+Soft Skill e Mindset
+
+
+
+- Approccio analitico e orientato alla qualità del codice
+- Attitudine al problem solving e alla collaborazione in team
+- Capacità di apprendere nuove tecnologie in autonomia
+- Curiosità e propensione al miglioramento continuo
+- Precisione e attenzione ai dettagli nella scrittura e manutenzione del codice
+
+
+
+Altre informazioni
+
+
+
+- Sede delle attività: Remoto
+- Modalità di lavoro: Full remote (eventuale disponibilità a incontri periodici presso il cliente)
+- Orario: Full-time
+- Contratto: CCNL Metalmeccanico (RAL commisurata all’esperienza)
+
+
+
+Candidatura
+
+
+
+Se sei un .NET Developer Junior avanzato e desideri entrare a far parte di un ambiente stimolante, tecnologicamente all’avanguardia e in continua crescita, inviaci la tua candidatura per entrare nel team Begear!
+
+
+
+Per candidarsi all’offerta, invitiamo gli interessati ambosessi (L.903/77) e le persone appartenenti alle categorie protette (L.68/99) ad inviare il proprio CV, specificando il consenso al trattamento dei dati personali nel rispetto del Regolamento GDPR 2016/679.",BEGEAR,https://it.linkedin.com/company/begear?trk=public_jobs_topcard-org-name,https://it.linkedin.com/jobs/view/net-developer-junior-avanzato-at-begear-4338089745?trk=public_jobs_topcard-title,2025-11-09 09:28:25,Claudio Cavallo,https://it.linkedin.com/in/claudiocavallo1988,,,"Dear Claudio,
+
+I saw your search for a .NET Developer. While my core expertise is in AI and Data Engineering, I specialize in helping companies rapidly solve complex data and AI challenges as a freelance expert.
+
+I've scaled data architectures for millions of users and developed end-to-end AI-driven products. If your team ever needs immediate support in data strategy, AI integration, or system scaling, I'd be happy to discuss how I can deliver impact.
+
+Would you be open to a brief call to explore potential synergies?"
+4338189022,Senior Software Engineer - Backend (m/w/d),"- Du entwirfst, implementierst und betreibst robuste Backend-Services und APIs, die die Grundlage unserer digitalen Plattform bilden.
+- Du entwickelst und pflegst eine ereignisgesteuerte Architektur (event-driven architecture) auf Basis von Kafka und Messaging-Patterns.
+- Du übernimmst Verantwortung für Architekturentscheidungen, technische Richtung und Betrieb der Systeme.
+- Du bringst dein Wissen über die Integration von AI-Services ein um unsere Plattform voranzutreiben.
+- Du stellst hohe Codequalität, saubere Architektur und zuverlässige Betriebsprozesse sicher.
+- Du arbeitest direkt mit Stakeholdern zusammen, um komplexe Geschäftsprozesse in effiziente Backend-Lösungen zu überführen.
+
+- Erfolgreich abgeschlossenes Studium in Informatik, Wirtschaftsinformatik oder vergleichbarer Qualifikation.
+- Mindestens 5 Jahre relevante Berufserfahrung in der Softwareentwicklung mit Fokus auf Backend-Systeme.
+- Fundierte Kenntnisse in modernen JVM-Technologien – idealerweise Kotlin mit Ktor oder Spring Boot.
+- Erfahrung mit event-driven Architekturen und Messaging-Systemen wie Kafka.
+- Sicherer Umgang mit relationalen Datenbanken (z. B. PostgreSQL).
+- Verständnis für sauberes API-Design, effiziente Datenstrukturen und performante Systeme.
+- Freude an enger Zusammenarbeit mit Stakeholdern und eigenverantwortlicher Produktgestaltung.
+- Erste praktische Erfahrungen in der Nutzung von AI-Tools zur Softwareentwicklung und in der Integration von AI-Services in ein Produkt.
+- Starke Problemlösungskompetenz, Teamgeist und Eigeninitiative.
+- Sehr gute Deutschkenntnisse (B2) und Englischkenntnisse (C1).
+
+- Virtuelle Beteiligung am Unternehmen.
+- Home-Office First – keine Präsenzpflicht im Büro.
+- Unternehmerische Position mit Verantwortung, Freiheit und Gestaltungsspielraum.
+- Erstklassige IT-Ausstattung und Entwicklungsumgebung deiner Wahl.
+- Strukturierte Einarbeitung, regelmäßiges Feedback und offene Kommunikationskultur.
+- Möglichkeiten zur fachlichen und persönlichen Weiterentwicklung.
+- Offene, positive Unternehmenskultur ohne Egos und Politik.
+- Direkte Zusammenarbeit mit einem erfahrenen, eingespielten C-Level-Team.
+- 30 Urlaubstage, Benefitsy-Gutschein (50 € monatlich), Zuschuss zur bAV.",bex technologies,https://de.linkedin.com/company/bextechnologies?trk=public_jobs_topcard-org-name,https://de.linkedin.com/jobs/view/senior-software-engineer-backend-m-w-d-at-bex-technologies-4338189022?trk=public_jobs_topcard-title,2025-11-09 09:17:12,,,,"Highly accomplished Co-Founder & CTO with a strong background in designing, implementing, and operating robust backend services and scalable data architectures.
+
+Proven leader in technical vision, having successfully scaled data architectures to support millions of users and developed a novel ML/optimization algorithm that delivered a 3x efficiency increase.
+
+Expert in integrating AI services and deploying end-to-end AI-driven products, adept at translating complex business requirements into high-performance, clean architectural solutions through direct stakeholder collaboration.",
+4335107718,"Founding Software Engineer, remote (m/w/d) in GenAI-Startup","- Software-Entwicklung, vorrangig Backend, in TypeScript mit Python-Anteilen
+- Erarbeitung von GenAI-Lösungen für unsere Kunden
+- Ansprechpartner:in für die technischen Anforderungen unserer Projekte
+- Unterstützung bei der Implementierung von DevOps-Prozessen
+- Coaching und Anleitung des Werkstudententeams
+- eigenverantwortliches Deployen von Software-Lösungen in die Infrastruktur unserer Kunden
+- APIs von Drittsystemen nutzen, um Daten für KI-Lösungen bereitzustellen
+- Wenn du also Bock hast, mit GenAI die Software-Lösungen von morgen mit zu entwickeln, Verantwortung übernehmen willst und immer wieder neue Herausforderungen suchst, bist du bei uns genau richtig!
+
+- Du hast bereits professionelle Erfahrungen in modernen IT-Projekten gesammelt haben
+- Du hast Erfahrungen mit modernen Backend-Frameworks und -Technologien wie Express.js, NestJS oder ähnlichen
+- Du hast Kenntnisse im Umgang mit Datenbanktechnologien wie MongoDB, PostgreSQL oder MySQL
+- Du hast ein Verständnis von RESTful API Design und GraphQL
+- Im besten Fall kannst du auch in Frontend-Projekten (React) einspringen und unterstützen
+- Du sprichst fließend Deutsch und Englisch und hast eine sehr gute Ausdrucksweise
+- Zu guter Letzt: Du bist Pragmatiker:in → Du packst Dinge einfach an und willst nicht lange diskutieren!
+- Bonus: Dein letztes Studium liegt maximal 2 Jahre zurück (kann auch Fernstudium gewesen sein)
+
+- Wachstumsmentalität und hohe Qualität: Werde Teil eines ambitionierten Teams in einem schnell wachsenden Umfeld
+- Echte Verantwortung: Du darfst von Anfang an Entscheidungen über Tech Stack, Architektur und AI Algorithmen treffen
+- Arbeit mit neuester GenAI-Technologie: Unser Anspruch ist, die neuesten Entwicklungen zu verstehen und anzuwenden
+- Stetige Weiterentwicklung: Durch die Diversität an Projekten lernst du immer wieder neue Technologien und Tätigkeiten kennen
+- Flache Hierarchien und offene Kommunikation: Wir sind jederzeit bereit für offene Gespräche
+- Equipment: Firmenlaptop nach Wahl",catchHR Jobs,https://www.linkedin.com/showcase/catch-hr-jobs/?trk=public_jobs_topcard-org-name,https://de.linkedin.com/jobs/view/founding-software-engineer-remote-m-w-d-in-genai-startup-at-catchhr-jobs-4335107718?trk=public_jobs_topcard-title,2025-11-09 22:16:27,,,,"Proactive Co-Founder & CTO with a proven track record in GenAI and backend development, ideal for a Founding Software Engineer role.
+Led the technical vision and development of a novel, AI-driven Business Intelligence platform, encompassing product strategy and core architecture.
+Designed and deployed impactful, end-to-end AI-driven products, including a novel ML/optimization algorithm that delivered a 3x efficiency increase.
+Expert in building and scaling robust data architectures to support millions of users, from ground-up design to high-performance deployment.
+Combines deep technical expertise in Generative AI and Machine Learning with an entrepreneurial drive to deliver innovative software solutions.",
+4335029191,"Founding Software Engineer, remote (m/w/d) in GenAI-Startup","- Software-Entwicklung, vorrangig Backend, in TypeScript mit Python-Anteilen
+- Erarbeitung von GenAI-Lösungen für unsere Kunden
+- Ansprechpartner:in für die technischen Anforderungen unserer Projekte
+- Unterstützung bei der Implementierung von DevOps-Prozessen
+- Coaching und Anleitung des Werkstudententeams
+- eigenverantwortliches Deployen von Software-Lösungen in die Infrastruktur unserer Kunden
+- APIs von Drittsystemen nutzen, um Daten für KI-Lösungen bereitzustellen
+- Wenn du also Bock hast, mit GenAI die Software-Lösungen von morgen mit zu entwickeln, Verantwortung übernehmen willst und immer wieder neue Herausforderungen suchst, bist du bei uns genau richtig!
+
+- Du hast bereits professionelle Erfahrungen in modernen IT-Projekten gesammelt haben
+- Du hast Erfahrungen mit modernen Backend-Frameworks und -Technologien wie Express.js, NestJS oder ähnlichen
+- Du hast Kenntnisse im Umgang mit Datenbanktechnologien wie MongoDB, PostgreSQL oder MySQL
+- Du hast ein Verständnis von RESTful API Design und GraphQL
+- Im besten Fall kannst du auch in Frontend-Projekten (React) einspringen und unterstützen
+- Du sprichst fließend Deutsch und Englisch und hast eine sehr gute Ausdrucksweise
+- Zu guter Letzt: Du bist Pragmatiker:in → Du packst Dinge einfach an und willst nicht lange diskutieren!
+- Bonus: Dein letztes Studium liegt maximal 2 Jahre zurück (kann auch Fernstudium gewesen sein)
+
+- Wachstumsmentalität und hohe Qualität: Werde Teil eines ambitionierten Teams in einem schnell wachsenden Umfeld
+- Echte Verantwortung: Du darfst von Anfang an Entscheidungen über Tech Stack, Architektur und AI Algorithmen treffen
+- Arbeit mit neuester GenAI-Technologie: Unser Anspruch ist, die neuesten Entwicklungen zu verstehen und anzuwenden
+- Stetige Weiterentwicklung: Durch die Diversität an Projekten lernst du immer wieder neue Technologien und Tätigkeiten kennen
+- Flache Hierarchien und offene Kommunikation: Wir sind jederzeit bereit für offene Gespräche
+- Equipment: Firmenlaptop nach Wahl",catchHR Jobs,https://www.linkedin.com/showcase/catch-hr-jobs/?trk=public_jobs_topcard-org-name,https://de.linkedin.com/jobs/view/founding-software-engineer-remote-m-w-d-in-genai-startup-at-catchhr-jobs-4335029191?trk=public_jobs_topcard-title,2025-11-09 22:16:25,,,,"Proactive Co-Founder & CTO with a proven track record in GenAI and backend development, ideal for a Founding Software Engineer role.
+Led the technical vision and development of a novel, AI-driven Business Intelligence platform, encompassing product strategy and core architecture.
+Designed and deployed impactful, end-to-end AI-driven products, including a novel ML/optimization algorithm that delivered a 3x efficiency increase.
+Expert in building and scaling robust data architectures to support millions of users, from ground-up design to high-performance deployment.
+Combines deep technical expertise in Generative AI and Machine Learning with an entrepreneurial drive to deliver innovative software solutions.",
+4339650135,Senior AI Engineer,"Our client works on very challenging and exciting projects and is looking for a Senior AI Engineer.
+
+
+
+Skills and Experience:
+
+- Programming: Python (TensorFlow, PyTorch, Scikit-learn)
+- Advanced ML: Deep Learning, NLP, LLM fine-tuning, Hugging Face Transformers Proven experience deploying LLMs (e.g., OpenAI, Anthropic, Mistral) into production environments at scale Cloud & MLOps: AWS/Azure/GCP, MLflow, Kubeflow, containerization.
+- Strong knowledge of distributed systems and data engineering.
+- Strong knowledge of orchestration tools such as LangChain, LlamaIndex, and experience with agent-based systems.
+
+
+
+Further Information:
+
+- Duration: Long term contract (B2B)
+- Workload: Remote",Cavendish Professionals,https://uk.linkedin.com/company/cavendish-professionals?trk=public_jobs_topcard-org-name,https://it.linkedin.com/jobs/view/senior-ai-engineer-at-cavendish-professionals-4339650135?trk=public_jobs_topcard-title,2025-11-09 15:27:32,,,,"Highly accomplished Senior AI Engineer and Co-Founder/CTO with a proven track record of deploying end-to-end AI-driven products and scaling robust data architectures to support millions of users.
+
+Expert in Generative AI, Machine Learning, and optimization algorithms, including developing a novel ML algorithm that delivered a 3x efficiency increase.
+
+Adept at designing and building distributed data architectures from the ground up, leading technical vision, and product strategy for AI-driven platforms, with a strong focus on production-grade deployment and system scalability.",
+4332342077,Senior Data Engineer,"At Corsearch, we are dedicated to creating a world where consumers can trust the choices they make.
+
+As a global leader in Trademark and Brand Protection, we partner with businesses to safeguard their most valuable assets in an increasingly complex digital environment.
+
+Our comprehensive solutions, powered by AI-driven data and deep analytics, enable brands to establish, monitor, and protect their presence against infringement and counterfeiting.
+
+
+
+Why Choose Corsearch?
+
+- Innovative Solutions: We combine cutting-edge technology with expert judgment to deliver market-leading services in trademark clearance, brand protection, and anti-counterfeiting.
+- Global Impact: Trusted by over 5,000 customers worldwide, including 73 of Fortune's Top 100 companies, our work has a meaningful impact on businesses and consumers alike.
+- Collaborative Culture: With a team of over 1,900 professionals across multiple global offices, you'll be joining an inclusive environment where diverse perspectives thrive.
+- Mission-Driven Purpose: Our commitment to protecting consumers and their trust in brands drives everything we do, making Corsearch a force for good in the world.
+
+
+
+✅The Role
+
+The Analytics and Reporting team at Corsearch plays a critical role in delivering data solutions across the business.
+
+This team is responsible for designing, automating, and optimizing standard reports for clients, consulting on custom data feeds, maintaining metric definitions and canonical queries, and building data pipelines that combine information from Finance, Marketing, Sales, Products, and Operations into a common data lakehouse for internal reporting and analysis.
+
+We are seeking a skilled Data Engineer to join this team and contribute to these data initiatives, ensuring robust and scalable data infrastructure for reporting and analytics.
+
+
+
+
+
+✅Responsibilities And Duties
+
+
+
+Data Pipeline Development & Optimization
+
+- Design, build, and maintain scalable data pipelines to integrate data from various business units into a unified data lakehouse.
+- Automate data workflows to ensure accurate, timely, and efficient data availability for reporting and analytics.
+- Optimize database performance, ensuring efficient data retrieval and fast query execution across large datasets.
+- Develop robust ETL/ELT processes to support both internal analytical needs and external client data feeds.
+
+Reporting & Analytics Support
+
+- Work closely with analysts, data scientists, and business stakeholders to deliver optimized standard reports and custom data feeds for clients.
+- Maintain and enforce consistent metric definitions and canonical queries across all reports and analytics to ensure data consistency and accuracy.
+- Collaborate with cross-functional teams to maximize the effective use of tools like Power BI, Snowflake, ClickHouse, and Looker for reporting and visualization purposes.
+
+Technology & Infrastructure Evolution
+
+- Evaluate and recommend new technologies, tools, and best practices for data storage, transformation, and reporting to keep the data platform modern and efficient.
+- Contribute to the ongoing evolution of the team’s data stack and infrastructure, implementing improvements that enhance performance, scalability, and reliability
+- Ensure data integrity, security, and governance protocols are upheld across all data assets and pipelines, aligning with company and regulatory standards.
+
+
+
+
+
+✅Essential
+
+- Strong experience in SQL and database management (e.g., PostgreSQL, ClickHouse, Snowflake), with a track record of writing efficient queries and managing large datasets.
+- Proficiency in data pipeline development and ETL/ELT processes, including experience with workflow automation and orchestration tools (e.g., Apache Airflow, dbt, Airbyte, or similar).
+- Familiarity with business intelligence tools such as Power BI, Looker, or other BI platforms for reporting and data visualization.
+- Experience working with cloud-native data warehouse and lakehouse architectures, and knowledge of data modeling and schema design.
+- Ability to work both independently and collaboratively in a fast-paced, evolving environment, demonstrating strong problem-solving skills and attention to detail.
+
+
+
+
+
+Corsearch is an equal opportunity and inclusive employer and does not tolerate discrimination of any kind. We are committed to creating a diverse and inclusive workplace where all employees feel valued, respected, and supported. We welcome applications from all individuals regardless of race, nationality, religion, gender, gender identity or expression, sexual orientation, age, disability, or any other protected characteristic. Together, we are working proactively to build a workplace where everyone can belong and be at their best selves. Together, we make an Impact.
+
+
+
+
+
+#UKFrance
+
+
+
+Trusted by over 5,000 customers worldwide, Corsearch delivers AI-powered data, deep analytics, and professional services that support brands to market their assets, drive growth, and optimise brand presence against infringement.
+
+Corsearch enables brand owners to discover, monitor and control the use and misuse of their brands and associated products and services online and is the industry market leader.
+
+Corsearch does this in an increasingly complex global digital environment, with online brand protection solutions that cover everything from anti-counterfeiting to anti-piracy.",Corsearch,https://uk.linkedin.com/company/corsearchinc?trk=public_jobs_topcard-org-name,https://fr.linkedin.com/jobs/view/senior-data-engineer-at-corsearch-4332342077?trk=public_jobs_topcard-title,2025-11-09 22:24:22,,,,"Highly accomplished Data & AI Expert with Co-Founder/CTO experience, specializing in building and scaling robust data architectures.
+Proven track record of scaling data infrastructure to support millions of users and designing new data architectures from the ground up.
+Expert in developing and optimizing data pipelines, including novel ML/optimization algorithms that delivered a 3x efficiency increase.
+Adept at leading the technical vision for AI-driven Business Intelligence platforms and deploying end-to-end AI products,
+ensuring scalable data solutions and impactful analytics for diverse stakeholders.",
+4339541023,Spezialist:in für Datenanalyse und KI-Entwicklung gesucht,"Diese Mission setzen wir gemeinsam um
+
+Wir bauen den Energieversorger der Zukunft und ermöglichen 24/7 grünen Strom für den Mittelstand. Gemeinsam dekarbonisieren wir Deutschland – Kilowattstunde für Kilowattstunde.
+
+Willkommen bei ECO2GROW
+
+Mit unserer innovativen Vollversorgungslösung stehen wir im Zentrum dieser Transformation. Wir sind die Pioniere, die den Grünstrom-Bezug für mittelständische Unternehmen revolutionieren und die Energiewende vorantreiben. Um das zu erreichen, bauen wir die neue Generation der Stromversorger auf Basis von intelligenten Systemen, die Unternehmen bei ihrer Energiebeschaffung sowie dem Energiemanagement unterstützen und Beschaffungsstrategien optimieren.
+
+Wie du uns vervollständigst
+
+Du bist ein Zahlenmagier und legst direkt Hand an unserem Herz und Hirn an. Du entwickelst unsere Machine Learning Algorithmen und Agentic AIs, die unsere internen Prozesse steuern. Mit deinem unvergleichlichen Auge fürs Detail und deiner Präzision ermöglichst du so die Energielieferverträge, die den deutschen Mittelstand mit unvergleichlich günstigem Grünstrom beliefern. Dein Gespür für die Zusammenhänge zwischen Daten, und die Fähigkeit, diese einfach und verständlich zu visualisieren, hilft unseren Kunden den Energiemarkt besser zu verstehen und klügere Entscheidungen zu treffen.
+
+- Planung und Umsetzung neuer KI-Agenten und ML-Modelle.
+- Analyse vielfältiger Datenströme von aktuellen Marktpreisen bis hin zu Wetterdaten und Kundenlastgängen.
+- Training unserer KI-Agenten und ML Modelle um die bestmöglichen Ergebnisse für unsere Kunden zu generieren.
+- Hyperparametertuning zur Verschärfung der Aussagefähigkeit unserer KI-Agenten und ML Modelle.
+- Quality Assurance durch kontinuierliche Tests, Plausibilitätsanalysen und Leistungsmonitoring.
+- Deployment der KI-Agenten und ML-Modelle in der Produktionsumgebung.
+
+Das bringst du mit :
+
+- Abgeschlossenes Studium in Informatik, Data Science , Mathematik oder einem verwandten Bereich
+- Mindestens 3 Jahre Erfahrung mit ML-Frameworks und Bibliotheken wie TensorFlow, PyTorch, Keras, scikit-learn, etc.
+- Erfahrung in der Arbeit mit Datenbanken und großen Datensätzen (SQL, NoSQL, Big Data).
+- Erfahrung im Umgang mit Python
+- Erfahrung mit CI/CD Tools (Docker, AWS/Hetzner und GIT Pipelines) von Vorteil.
+- Gute Kommunikationsfähigkeiten und die Fähigkeit zur Zusammenarbeit in interdisziplinären Teams.
+
+Wer du bist :
+
+- Verantwortung : Du brennst dafür, 100% Ownership zu übernehmen und bist bereit, einen Impact beim Aufbau von ECO2GROW zu leisten.
+- Proaktivität: Du erreichst Ziele eigenständig, erarbeitest selbstständig innovative Lösungswege und stellst dich jeder Herausforderung.
+- Innovationsgeist : Du teilst deine innovativen Ideen gerne mit deinem Team und liebst es, Dinge auch einfach mal auszuprobieren. #FearlessExplorer
+
+- Impact : Jeder Erfolg den wir zusammen verbuchen wirkt sich nicht nur auf das Unternehmen sondern auch direkt auf die CO² Bilanz aus. Damit du auch direkt etwas davon spürst bieten wir für Top Talente auch attraktive VSOP Optionen an
+- Wachstum : Du bist von Anfang an dabei. Forme die Entwicklung unserer KI-Agenten und ML Modelle von Grund auf. Als Teil unseres neuen AI-Teams hast du freie Entfaltungsmöglichkeiten um in Zukunft auch zu unserem Head of AI zu werden.
+- Weiterbildung : Wir bieten dir die Möglichkeit dich und dein Skillset stets weiterzuentwickeln. Hierfür räumen wir Zeit für Weiterbildungen und Coachings ein, die wir für dich auch finanzieren.
+- Flexibilität: Freie Wahl deines Arbeitsplatzes (innerhalb Europas), deines Arbeitsmodus und deiner Arbeitsmittel – wir schreiben dir nicht vor wie du zu arbeiten hast!
+
+Lass uns gemeinsam die Energieversorgung der Zukunft bauen!",ECO2GROW,https://de.linkedin.com/company/eco2grow?trk=public_jobs_topcard-org-name,https://de.linkedin.com/jobs/view/spezialist-in-f%C3%BCr-datenanalyse-und-ki-entwicklung-gesucht-at-eco2grow-4339541023?trk=public_jobs_topcard-title,2025-11-09 22:16:35,,,,"Highly proactive and entrepreneurial Data & AI Expert with a strong engineering background, specializing in the development and deployment of intelligent systems.
+
+As Co-Founder/CTO, I led the technical vision and implementation of a novel AI-driven Business Intelligence platform. My experience includes designing and scaling robust data architectures for millions of users, and developing impactful ML/optimization algorithms, such as one that delivered a 3x efficiency increase.
+
+I excel in end-to-end AI product development, from complex data analysis and model training to production deployment, eager to drive innovation in green energy solutions.",
+4262475861,Senior Data Engineer (w/m/d) - 100% Remote innerhalb Deutschlands,"Jedes Team bei Finanzguru trifft täglich datengetriebene Entscheidungen. Im Data Engineering Team stellen wir sicher, dass jedes Team die Tools und Ressourcen hat, selbstständig Datenprodukte zu erstellen und zu maintainen. Wenn du Lust hast, unsere Datenplattform und -architektur auf das nächste Level zu bringen und echte Verantwortung zu übernehmen, dann freuen wir uns auf deine Bewerbung!
+
+
+
+Deine Mission 🚀
+
+- Du bist verantwortlich dafür, die Datenplattform von Finanzguru technisch und architektonisch auf das nächste Level zu bringen – und damit die Grundlage für alle Datenprodukte weiter zu verbessern.
+- Du analysierst und hinterfragst bestehende Architekturen und entwickelst sie gezielt weiter.
+- Du arbeitest im Data-Engineering-Team eng mit Produkt, Backend, Analytics und Machine Learning zusammen und stellst sicher, dass Daten jederzeit zuverlässig, performant und in hoher Qualität zur Verfügung stehen.
+- Du entwickelst robuste ETL/ELT-Pipelines – vom Raw-Ingest bis zum Gold-Layer. Dabei verstehst du die Datenplattform als Produkt, das es Domänenteams ermöglicht, selbstständig Datenprodukte zu erstellen und zu ownen.
+- Du ownst unsere CI/CD-Pipelines und sorgst für reibungslose und sichere Deployments – von Development bis Production.
+
+
+
+Deine magischen Kräfte 💫
+
+- Du hast mindestens 5 Jahre Erfahrung als Data Engineer (w/m/d) mit Fokus auf Big-Data-Technologien wie Spark ( Databricks ) und AWS .
+- Du kennst verschiedene Big-Data-Architekturen und weißt, wann welche Architektur sinnvoll ist.
+- Du beherrschst SQL, Python und Scala . Du nutzt Spark optimal zur Verarbeitung großer Datenmengen.
+- Du hast Erfahrung mit CI/CD-Pipelines und Infrastructure-as-Code.
+- Du sorgst mit Monitoring und Logging dafür, dass Datenpipelines langfristig stabil und performant bleiben.
+- Du bringst die Skills mit, um unsere Datenplattform so weiterzuentwickeln, dass sie von Product Analysts und Developers selbstständig genutzt werden kann – mit Fokus auf gute UX, klare Namenskonventionen und verlässliche Data Contracts.
+- Du verfügst über verhandlungssichere Deutsch-Sprachkenntnisse (min. C1)
+- Ebenso verfügst du über eine ausgeprägte Kommunikationsstärke, ein ausgeprägtes Ownership-Mindset und eine sehr proaktive Arbeitsweise.
+
+
+
+Unser Versprechen ✅
+
+- Gestalte mit uns die Zukunft der Finanzwelt – bringe deine Ideen ein und setze neue Standards!
+- Lernen und Wachsen – Arbeite mit Expert*innen zusammen und entwickle dich kontinuierlich weiter.
+- 100% Homeoffice – arbeite flexibel von dort, wo du am produktivsten bist.
+- Attraktive Vergütung & Entwicklungschancen – dein Engagement zahlt sich aus.
+- Teamspirit – eine offene und transparente Unternehmenskultur, die Zusammenhalt und Spaß großschreibt.",Finanzguru,https://de.linkedin.com/company/dwins?trk=public_jobs_topcard-org-name,https://de.linkedin.com/jobs/view/senior-data-engineer-w-m-d-100%25-remote-innerhalb-deutschlands-at-finanzguru-4262475861?trk=public_jobs_topcard-title,2025-11-09 14:17:00,Christian Ramrath,https://de.linkedin.com/in/christianramrath,,,"Dear Christian,
+
+I saw your post for a Senior Data Engineer focused on elevating Finanzguru's data platform. While I'm not seeking a full-time position, my freelance expertise in scaling data architectures for millions of users and building new data platforms from the ground up could offer immediate impact.
+
+I specialize in rapidly enhancing data infrastructure and enabling teams to build robust data products. If you're open to a freelance expert to accelerate your platform's evolution, I'd welcome a brief call."
+4334968968,Freelance Java Developer (m/w/d),"For an AI lab we are looking for Java Developer to train an AI model (Large Language Model - LLM).
+
+
+
+You help AI to make sense of the world. As consultant, you may be invited to take part in online projects to train the model in your domain of expertise.
+
+
+
+This flexible role accommodates both experts seeking part-time engagement (minimum few hours/week) and those interested in full-time opportunities.
+
+
+
+Your Tasks
+
+
+
+- Code generation and code review
+- Prompt evaluation and complex data annotation
+- Training and evaluation of large language models
+- Benchmarking and agent-based code execution in sandboxed environments
+- Working across multiple programming languages
+- Adapting guidelines for new domains and use cases
+- Following project-specific rubrics and requirements
+- Collaborating with project leads, solution engineers, and supply managers on complex or experimental projects
+
+
+
+Requirements
+
+
+
+- You hold a Bachelor's or Master’s Degree in Computer Science, Software Engineering, Software Development, Computer Engineering, Mobile App Development, Cloud Computing, Data Science, Big Data or other related fields.
+- You have at least 3 years of professional experience in Java 17+, including streams API and concurrent programming.
+- Your level of English is advanced (C1) or above.
+- Hands-on experience with JUnit 5, TestNG, Mockito, and TestContainers.
+- Proficiency with build tools (Maven, Gradle), IDEs (IntelliJ IDEA), and CI/CD pipelines (Jenkins, GitHub Actions, GitLab CI).
+- Experience with the Spring ecosystem (Spring Boot, Spring Data, Spring Security), JPA/Hibernate.
+- Strong understanding of JVM internals, garbage collection, performance optimization, and design patterns.
+- Experience with messaging systems (Kafka, RabbitMQ) and microservices architectures.
+- Practical use of AI-assisted tools for refactoring, performance analysis, and test generation.
+- Familiarity with cloud platforms (AWS, Azure), containers, and Kubernetes.
+- Strong skills in JVM profiling (JProfiler, VisualVM) and debugging.
+- You are ready to learn new methods, able to switch between tasks and topics quickly and sometimes work with challenging, complex guidelines.",FRATCH,https://de.linkedin.com/company/fratch?trk=public_jobs_topcard-org-name,https://de.linkedin.com/jobs/view/freelance-java-developer-m-w-d-at-fratch-4334968968?trk=public_jobs_topcard-title,2025-11-09 18:18:12,,,,"Highly accomplished Data & AI Expert with a strong engineering background, adept at developing and deploying AI-driven solutions with significant business impact.
+
+As Co-Founder/CTO, led the technical vision for a novel AI-driven Business Intelligence platform, demonstrating expertise in AI product strategy and feature implementation.
+
+Proven track record in optimizing complex systems, including developing a novel ML/optimization algorithm that delivered a 3x increase in efficiency. Skilled in scaling robust data architectures for millions of users and designing new data infrastructures from the ground up.
+
+Eager to leverage a strong foundation in AI Engineering, problem-solving, and adaptable programming skills to contribute to training large language models and enhancing AI capabilities.",
+4335058747,AI Agent Evaluation Analyst,"For an AI lab we are looking for AI Agent Evaluation Analyst to train an AI model (Large Language Model - LLM) in various domains.
+
+
+
+You help AI to make sense of the world. As consultant, you may be invited to take part in online projects to train the model in your domain of expertise.
+
+
+
+This flexible role accommodates both experts seeking part-time engagement (minimum few hours/week) and those interested in full-time opportunities
+
+
+
+Tasks
+
+
+
+- Reviewing evaluation tasks and scenarios for logic, completeness, and realism.
+- Identifying inconsistencies, missing assumptions, or unclear decision points.
+- Helping define clear expected behaviors (gold standards) for AI agents.
+- Annotating cause-effect relationships, reasoning paths, and plausible alternatives.
+- Thinking through complex systems and policies as a human would to ensure agents are tested properly.
+- Working closely with QA, writers, or developers to suggest refinements or edge case coverage.
+
+
+
+Requirements
+
+
+
+- Excellent analytical thinking: Can reason about complex systems, scenarios, and logical implications.
+- Strong attention to detail: Can spot contradictions, ambiguities, and vague requirements.
+- Familiarity with structured data formats: Can read, not necessarily write JSON/YAML.
+- Can assess scenarios holistically: What's missing, what’s unrealistic, what might break?
+- Experience with policy evaluation, logic puzzles, case studies, or structured scenario design.
+- Background in consulting, academia, olympiads (e.g. logic/math/informatics), or research.
+- Exposure to LLMs, prompt engineering, or AI-generated content.
+- Familiarity with QA or test-case thinking (edge cases, failure modes, “what could go wrong”).
+
+",FRATCH,https://de.linkedin.com/company/fratch?trk=public_jobs_topcard-org-name,https://de.linkedin.com/jobs/view/ai-agent-evaluation-analyst-at-fratch-4335058747?trk=public_jobs_topcard-title,2025-11-09 18:16:22,,,,"Highly analytical and entrepreneurial Data & AI Expert with a Master's in Mathematical Engineering, adept at evaluating complex systems and defining optimal behaviors. Proven track record of developing a novel ML/optimization algorithm that delivered a 3x efficiency increase by automating bug discovery, showcasing a strong ability to identify inconsistencies and refine processes. Experienced in designing and deploying end-to-end AI-driven products and leading technical vision for AI-centric platforms, with direct exposure to Generative AI and a keen focus on holistic scenario assessment and edge case identification.",
+4305767468,Software Developer (m/w/d),"- Als Teil unseres Software-Entwicklungsteams entwickelst Du zentrale Betriebssystem-Komponenten des Mainframe-Betriebssystems BS2000 weiter und unterstützt den Software-Lifecycle von der Spezifikation über Implementierung, Test, Maintenance bis hin zum Service Support
+- Mitarbeit bei Konzepten für innovative und komplexe IT Architekturen auf Basis von Kundenanforderungen
+- Arbeiten in großen Entwicklungsteams sowie in Zusammenarbeit mit unseren internationalen strategischen Partnern
+- Mitarbeit bei der Bereitstellung technischer Dokumentationen sowie Erstellung der Inhalte für Anwender-Manuale
+- Technische Unterstützung unserer Service- und Sales Kollegen/innen, Back Level-Wartungssupport, einschließlich Problemlösung für die eigenen Module und von 3rd Party Komponenten
+
+- Erfolgreich abgeschlossenes Studium (z.B. der Informatik) oder vergleichbare Berufsausbildung im IT-Umfeld
+- Erste Berufserfahrung in der Software-Entwicklung, Erfahrung in Programmiersprachen (bevorzugt Assembler, C/C++, und Scriptsprachen) und dem Debugging von Systemen
+- Erfahrung im Development Lifecycle (inkl. Sourceverwaltung und Continuous Integration)
+- Hohe analytische Fähigkeiten, Flexibilität, Kreativität sowie eine ausgeprägte Kunden- und Serviceorientierung sind für Dich selbstverständlich
+- sehr gute Deutsch- und gute Englischkenntnisse
+
+- Flexible Arbeitszeiten und mobiles Arbeiten ermöglichen dir die optimale Vereinbarung von Familie, Freizeit und Beruf. Wir setzen auf Eigenverantwortung und Vertrauen – ohne feste Bürotage.
+- Genieße 30 Tage Urlaub plus Sonderurlaub für besondere Anlässe und nutze unser Zeitwertkonto für deine persönlichen Projekte und längere Auszeiten.
+- Mit unseren ausgezeichneten Gesundheits- und Well-being-Angeboten unterstützen wir dich dabei, fit, gesund und ausgeglichen zu bleiben.
+- Wir honorieren deinen Einsatz mit einem leistungsgerechten und attraktiven Gehalt.
+- Profitiere von exklusiven Vergünstigungen und Mitarbeiterrabatten (z.B. Corporate Benefits, Urban Sports Club, etc.).
+- Und vieles mehr: Entdecke weitere attraktive Benefits bei Fujitsu!",Fujitsu,https://jp.linkedin.com/company/fujitsu?trk=public_jobs_topcard-org-name,https://de.linkedin.com/jobs/view/software-developer-m-w-d-at-fujitsu-4305767468?trk=public_jobs_topcard-title,2025-11-09 13:18:23,,,,"Highly analytical Software Engineer with a robust background in developing and optimizing complex systems. Proven ability to design and implement innovative IT architectures, including building a new data architecture from the ground up at Arm. Developed a novel ML/optimization algorithm that delivered a 3x increase in efficiency for bug discovery, demonstrating strong problem-solving skills. Experienced in scaling high-performance systems to support millions of users and managing the full software lifecycle from specification and implementation to maintenance and support for critical components.",
+4339740183,Senior DevOps Engineer * - Smart City Open Source,"Teilzeit oder Vollzeit (30 – 40 Stunden) | Startdatum: zumnächstmöglichen Zeitpunkt | Remote
+
+Städte smarter, nachhaltiger + sicherer zu machen, ist Teil deiner Mission? Unsere auch! Bewirb dich als Senior DevOps Engineer * um Teil unseres Start-ups zu werden und die Mission in die Tat umzusetzen!
+
+- Gestalte aktiv die Zukunft eines jungen und innovativen Unternehmens mit Fokus auf Open Source und nachnutzbare Softwarelösungen mit.
+- Bringe deine Begeisterung für Smart Home oder Automatisierung auf das nächste Level und unterstütze unsere Kunden mit Fokus auf Smart Cities bei der Lösung von Herausforderungen in vielfältigen Bereichen, wie z.B. Datenmanagement, Mobilität, Energie und Klima.​
+- Konzipiere gemeinsam mit einem starken Team innovative Softwarearchitekturen und implementiere sie mit der Nutzung von aktuellen Technologien.
+- Begleite den gesamten Lebenszyklus der entstehenden Lösungen ​– vom Prototypen bis zum Produktiveinsatz.​
+- Remote-Arbeit nicht nur als Option, sondern als feste Unternehmenskultur.
+
+Must-Haves
+
+- Mind. 3 Jahre Berufserfahrung in der IT, optimalerweise mit Fokus auf Entwicklung und Betrieb von Software
+- Du hast ein Studium der Informatik, Wirtschaftsinformatik, Elektrotechnik oder eine IT-bezogene Ausbildung abgeschlossen. Quereinsteiger mit passenden Weiterbildungen oder zusätzlicher Berufserfahrung ebenfalls möglich.
+- Deutsch beherrscht Du mind. auf C1 Niveau und kannst es erfolgreich im Berufsalltag verwenden
+- Kontakt mit Kunden ist für dich kein Problem und Du bist bereit Schulungen und Workshops zu leiten (unregelmäßig ca. 2x pro Monat - Remote)
+- Du hast bereits DevOps-Tools benutzt, mit Microservices in der Cloud gearbeitet und kennst dich im agilen Entwicklungsumfeld aus
+- Erfahrungen im Umgang mit Software as a Service, Containern, Kubernetes oder automatisiertem Deployment, gerne auch in privaten Projekten.
+- Deine analytischen Fähigkeiten machen es dir einfach, dich schnell in neue Projekte einzubringen und gemeinsam mit Kunden passgenaue Lösungen zu entwickeln
+- Du bringst Begeisterung für die systematische Lösungsfindung von technischen Herausforderungen mit. Treu nach dem Prinzip: Geht nicht, gibt’s (eigentlich) nicht!
+
+Idealerweise
+
+- hast du schon Erfahrungen mit Open Source durch eigene Projekte gesammelt
+- entwickelst du in verschiedenen Skripten oder Sprachen wie z. B. Java, JavaScript, Python, Go, C# oder auch Shell Scripts und bist motiviert, dich schnell in neue Programmiersprachen einzuarbeiten.
+- CI/CD, GitOps, Helm, Ansible oder Terraform sind dir nicht komplett fremd.
+- hast du kein Problem damit, auch mal einen Bereitschaftsdienst am Wochenende zu übernehmen (nur tagsüber und mit Vergütung)
+
+Wir bieten dir
+
+- hoch aktuelle, spannende Herausforderungen in einer Arbeitsumgebung mit neuesten Technologien, flachen Organisationsstrukturen und kurzen Entscheidungswegen.
+- die Möglichkeit, schnell Verantwortung zu übernehmen und am Erfolg des Unternehmens direkt zu partizipieren.
+- eine Start-Up Umgebung, wo wir alle eng zusammenarbeiten.
+- soziale Nachhaltigkeit durch unseren Fokus auf Open Source Entwicklungen.
+- öffentliche Auftraggeber mit Smart City Projekten, die unseren Alltag nachhaltig verändern werden.
+
+Benefits, über die du dich bald freuen kannst
+
+- Bei uns bist du nicht an einen Standort gebunden und kannst innerhalb von Deutschland überall arbeiten ( 100% Home Office )
+- Gleichzeitig hast Du die Möglichkeit Hybrid zu arbeiten, wenn dir das wichtig ist. (Wir können dir, über die UNITY Innovation Alliance, Standorte in Berlin, Hamburg, München, Frankfurt am Main, Stuttgart, Nürnberg oder Paderborn/Lippstadt anbieten)
+- 28 Urlaubstage für deine Erholung
+- Vor Ort Events , um unseren Team-Spirit zu stärken
+- Wir bieten dir persönliches Coaching & Mentoring für deinen perfekten Start in die Arbeitswelt.
+- Ein umfassendes Lernmanagement System , mit dem Du dich persönlich und fachlich weiterentwickeln kannst.
+- Mitarbeiter Rabatte über unseren Corporate Benefits Partner
+- Und selbstverständlich wirst du mit einem eigenen Laptop ausgestattet.* Bei uns ist jede:r unabhängig von Herkunft, Geschlecht, sexueller Orientierung, Handicap, Religion und Alter willkommen.
+
+HYPERTEGRITY entwickelt innovative, hoch zuverlässige und sichere Lösungen für Smart Cities und urbane Daten – von IoT-Sensornetzen bis zu automatisierten Plattform-Infrastrukturen in der Cloud. Unsere Produkte basieren auf über 20 Jahren Erfahrung in der Entwicklung und dem Betrieb verteilter Systeme.
+
+Wir arbeiten umfassend nach dem Open Source Grundsatz und veröffentlichen gemeinsam mit unseren Kunden unsere Softwareentwicklungen. Wir sind Teil der UNITY Innovation Alliance, die Unternehmen mit umfassender Expertise bei der Digitalisierung von Geschäftsmodellen, Produkten und Services begleitet.
+
+Wenn du Lust hast, in unserem Team zu arbeiten und HYPERTEGRITY mit uns weiterzuentwickeln, dann bewirb dich jetzt!",Hypertegrity AG,https://de.linkedin.com/company/hypertegrity-ag?trk=public_jobs_topcard-org-name,https://de.linkedin.com/jobs/view/senior-devops-engineer-smart-city-open-source-at-hypertegrity-ag-4339740183?trk=public_jobs_topcard-title,2025-11-10 03:17:10,,,,"Proactive and entrepreneurial Data & AI Expert with a strong engineering background, adept at scaling robust data architectures to support millions of users and designing innovative solutions from the ground up.
+
+As Co-Founder/CTO, I've led technical vision and product strategy, designing core data architectures and AI-driven features for novel platforms. Experienced in developing and deploying end-to-end AI-driven products, ensuring high availability and performance, and driving significant efficiency gains, including a 3x increase in bug discovery efficiency.
+
+My expertise in data architecture design, system scaling, and problem-solving, combined with an entrepreneurial mindset, is ideal for shaping innovative Open Source solutions for Smart Cities.",
+4284444546,Software Developer Core Development Team,"- Erfahrung in PHP, idealerweise mit Symfony
+- Sichere Deutsch- und Englischkenntnisse in Wort und Schrift
+- Erfahrung mit agiler Teamarbeit und sauberen, getesteten Code
+- Eigeninitiative und Qualitätsbewusstsein
+
+- Erfahrung mit TDD
+- Kenntnisse moderner Webtechnologien, Datenbanken und Webserver
+- Interesse an Softwarearchitektur
+- Erfahrung mit Codeception oder PHPUnit für automatisiertes Testing
+
+- Mitarbeit an Konzeption, Entwicklung und Testing neuer Features für unsere E-Commerce-Software
+- Umsetzung von sauberen, wartbaren Lösungen mit objektorientiertem PHP (Symfony)
+- Arbeit in einer Continuous-Integration-Umgebung mit automatisierten Unit-, Integrations- und Akzeptanztests
+- Enge Zusammenarbeit mit einem internationalen, agilen Team
+- Beteiligung an Code-Reviews, Architekturentscheidungen und Optimierung bestehender Komponenten
+
+- Arbeit mit automatisierten Tests (Unit-, Integrations- und Akzeptanztests)
+- Einsatz von Tools wie PHPUnit und Codeception
+- Testing als fester Bestandteil des Entwicklungsprozesses (Continuous Integration)
+- Ziel: Hohe Codequalität, Stabilität und schnelle Fehlererkennung",Instaffo,https://de.linkedin.com/company/instaffo-gmbh?trk=public_jobs_topcard-org-name,https://de.linkedin.com/jobs/view/software-developer-core-development-team-at-instaffo-4284444546?trk=public_jobs_topcard-title,2025-11-09 12:18:27,,,,"Experienced Software Engineer with a proven track record in delivering high-impact solutions and robust system architectures.
+Developed a novel ML/optimization algorithm that delivered a 3x increase in efficiency, demonstrating a strong commitment to quality and problem-solving.
+Expert in designing and building scalable data architectures from the ground up, including systems supporting millions of users.
+Proactive and entrepreneurial, adept at developing clean, maintainable solutions and collaborating effectively in agile, international teams.",
+4339621011,Principal Business Analyst Data Analytics & AI Remote EU/USA,"- Lead end-to-end design and delivery of AI-powered tools, automation, and advanced analytics solutions across business functions
+- Partner with stakeholders to identify, prioritize, and shape data-driven use cases aligned with strategic goals
+- Drive adoption of scalable data platforms, modernize legacy systems, and enable self-service analytics across the organization
+- Ensure data readiness, quality, and governance for AI and analytics initiatives, leveraging enterprise platforms such as Salesforce, SAP, and Databricks
+- Establish principles for responsible AI use and develop KPIs to measure AI adoption, business impact, and ROI
+- Execute enablement programs, ""AI Quick Start"" initiatives, and foster a culture of data literacy and experimentation
+- Monitor emerging AI technologies, evaluate partnerships, and promote continuous innovation across teams
+
+- Bachelor's degree in Computer Science, Engineering, Data Science, or related field; advanced degree (MBA, MS, or equivalent) preferred
+- 10+ years of experience in data and analytics leadership, digital product management, or applied AI roles in complex organizations
+- Proven track record delivering measurable business outcomes through AI, automation, or digital transformation
+- Hands-on experience with large language models (LLMs), prompt engineering, Python scripting, or workflow automation
+- Strong knowledge of data systems (Databricks, Snowflake, Azure Synapse, SAP, Salesforce) and data governance principles
+- Exceptional communication and influence skills to align stakeholders and inspire adoption of AI-driven solutions
+- Preferred: experience in manufacturing, supply chain, sales & operations planning, or shop floor data; knowledge of modern cloud architectures and AI ethics frameworks
+
+- Competitive salary and performance-based incentives
+- Comprehensive healthcare coverage including medical, dental, vision, and mental health support
+- Employer-contributed health savings accounts (HSA), life, and disability insurance
+- Flexible remote work options across the United States and European Union locations
+- Paid time off, holidays, and parental leave programs
+- Professional development opportunities, including AI literacy programs and technical training
+- Access to cutting-edge tools, platforms, and collaborative technologies to support innovation",Jobgether,https://be.linkedin.com/company/jobgether?trk=public_jobs_topcard-org-name,https://fr.linkedin.com/jobs/view/principal-business-analyst-data-analytics-ai-remote-eu-usa-at-jobgether-4339621011?trk=public_jobs_topcard-title,2025-11-10 05:21:46,,,,"Proven Co-Founder/CTO with a track record of leading the end-to-end design and delivery of AI-powered solutions and advanced analytics. Spearheaded the development of a novel AI-driven Business Intelligence platform and deployed AI products enhancing learning for thousands. Expert in scaling data architectures to support millions of users and building robust data platforms from the ground up. Developed a novel ML/optimization algorithm that delivered a 3x increase in efficiency, demonstrating a strong focus on measurable business outcomes. Adept at stakeholder partnership, driving adoption of data-driven initiatives, and ensuring data readiness and governance. Hands-on experience with Generative AI, Python, and modern data systems.",
+4339730396,Principal Business Analyst Data Analytics & AI Remote EU/USA,"- Lead end-to-end design and delivery of AI-powered tools, automation, and advanced analytics solutions across business functions
+- Partner with stakeholders to identify, prioritize, and shape data-driven use cases aligned with strategic goals
+- Drive adoption of scalable data platforms, modernize legacy systems, and enable self-service analytics across the organization
+- Ensure data readiness, quality, and governance for AI and analytics initiatives, leveraging enterprise platforms such as Salesforce, SAP, and Databricks
+- Establish principles for responsible AI use and develop KPIs to measure AI adoption, business impact, and ROI
+- Execute enablement programs, ""AI Quick Start"" initiatives, and foster a culture of data literacy and experimentation
+- Monitor emerging AI technologies, evaluate partnerships, and promote continuous innovation across teams
+
+- Bachelor's degree in Computer Science, Engineering, Data Science, or related field; advanced degree (MBA, MS, or equivalent) preferred
+- 10+ years of experience in data and analytics leadership, digital product management, or applied AI roles in complex organizations
+- Proven track record delivering measurable business outcomes through AI, automation, or digital transformation
+- Hands-on experience with large language models (LLMs), prompt engineering, Python scripting, or workflow automation
+- Strong knowledge of data systems (Databricks, Snowflake, Azure Synapse, SAP, Salesforce) and data governance principles
+- Exceptional communication and influence skills to align stakeholders and inspire adoption of AI-driven solutions
+- Preferred: experience in manufacturing, supply chain, sales & operations planning, or shop floor data; knowledge of modern cloud architectures and AI ethics frameworks
+
+- Competitive salary and performance-based incentives
+- Comprehensive healthcare coverage including medical, dental, vision, and mental health support
+- Employer-contributed health savings accounts (HSA), life, and disability insurance
+- Flexible remote work options across the United States and European Union locations
+- Paid time off, holidays, and parental leave programs
+- Professional development opportunities, including AI literacy programs and technical training
+- Access to cutting-edge tools, platforms, and collaborative technologies to support innovation",Jobgether,https://be.linkedin.com/company/jobgether?trk=public_jobs_topcard-org-name,https://de.linkedin.com/jobs/view/principal-business-analyst-data-analytics-ai-remote-eu-usa-at-jobgether-4339730396?trk=public_jobs_topcard-title,2025-11-10 05:11:20,,,,"Proven Co-Founder/CTO with a track record of leading the end-to-end design and delivery of AI-powered solutions and advanced analytics. Spearheaded the development of a novel AI-driven Business Intelligence platform and deployed AI products enhancing learning for thousands. Expert in scaling data architectures to support millions of users and building robust data platforms from the ground up. Developed a novel ML/optimization algorithm that delivered a 3x increase in efficiency, demonstrating a strong focus on measurable business outcomes. Adept at stakeholder partnership, driving adoption of data-driven initiatives, and ensuring data readiness and governance. Hands-on experience with Generative AI, Python, and modern data systems.",
+4339680690,Senior Software Engineer fullstack (Remote - Europe),"- Collaborate closely with product managers, designers, and engineering leads to build high-quality, scalable features for a B2B platform
+- Write clean, maintainable, and testable code across front-end and back-end systems using technologies such as Node.js, TypeScript, and React
+- Design and optimize APIs, microservices, and CI/CD pipelines for performance, reliability, and maintainability
+- Drive continuous improvement by implementing engineering best practices, including TDD/BDD, code reviews, and observability tools
+- Ensure service scalability and security through proactive monitoring, risk management, and documentation
+- Support technical decision-making, guide architectural proposals, and mentor team members to strengthen overall engineering maturity
+- Collaborate with cross-functional stakeholders to align development efforts with business goals and user needs
+
+- 7+ years of experience in software engineering, with strong fullstack capabilities
+- Proficiency in Node.js, TypeScript, and React, with solid experience in API development and integration
+- Strong background working with microservices, CI/CD (GitHub Actions, Jenkins), Docker, and Kubernetes
+- Experience with cloud environments and system monitoring using Grafana or Kibana
+- Solid understanding of software design principles, testing strategies, and documentation standards
+- Excellent communication and collaboration skills in English (French is a plus)
+- Proven ability to work independently in distributed teams and manage multiple priorities effectively
+- Strong product mindset and ability to balance technical quality with business outcomes
+- Experience mentoring peers and promoting a culture of learning and inclusion
+- Bonus points for experience with RabbitMQ, PostgreSQL, authentication protocols (JWT, OAuth2), AI-driven features, or high-availability systems
+
+- Competitive salary with performance-based bonuses
+- Permanent contract and flexible hybrid working environment (2 days remote per week, with seasonal full-remote flexibility)
+- Meal vouchers and transport allowance
+- Comprehensive health insurance and life/disability coverage fully paid by the company
+- Generous parental and caregiver leave policies
+- Continuous learning and career development programs
+- Lifestyle benefits covering fitness, family, and leisure expenses
+- Inclusive and multicultural workplace spanning several European offices
+- Free access to mental well-being apps and regular team-building events",Jobgether,https://be.linkedin.com/company/jobgether?trk=public_jobs_topcard-org-name,https://de.linkedin.com/jobs/view/senior-software-engineer-fullstack-remote-europe-at-jobgether-4339680690?trk=public_jobs_topcard-title,2025-11-10 04:18:10,,,,"Highly accomplished Co-Founder & CTO with a robust engineering background, adept at leading technical vision and delivering high-impact, scalable solutions.
+Proven expertise in designing and deploying end-to-end AI-driven products, including a novel Business Intelligence platform, and scaling data architectures to support millions of users with high availability.
+Skilled in driving product strategy, optimizing system efficiency (e.g., 3x increase via ML algorithms), and fostering cross-functional collaboration to align technical efforts with business goals.
+Eager to leverage a strong product mindset and leadership experience to contribute to scalable B2B platform development.",
+4338149831,Solutions Architect,"CHI SIAMO
+
+Keplero AI è una startup fondata a fine 2023 con forti ambizioni di crescita. Stiamo rivoluzionando il modo in cui le aziende parlano con i propri clienti.
+
+Addestriamo modelli di intelligenza artificiale con i dati delle aziende e li installiamo su tutti i canali di comunicazione, incluso il telefono. Tutto viene gestito da un’unica potente piattaforma che conta già ad oggi oltre 400 clienti all’attivo.
+
+Keplero AI aiuta migliaia di consumatori accelerando i tempi di risoluzione dei loro dubbi e problematiche, e fa risparmiare centinaia di ore ai nostri clienti.
+
+
+
+COSA FARAI
+
+Il tuo ruolo sarà fondamentale per portare i nostri clienti online il più velocemente possibile . Non sarai un semplice esecutore, ma il ponte tra tecnologia e business:
+
+- Sviluppo di integrazioni custom : MCP, API REST, flussi N8N e automazioni su sistemi dei clienti.
+- Ottimizzazione dei flussi di onboarding : ogni minuto risparmiato qui vale oro per noi e per i clienti.
+- Sviluppo di tool interni : crea strumenti che semplifichino il lavoro di tutto il team - dalla vendita al supporto.
+- Interazione diretta con i clienti : parlerai con persone di varia provenienza - dal CTO di una banca al responsabile customer service di una compagnia aerea.
+- Problem solving : i clienti hanno bisogno di soluzioni, velocemente.
+- Gestione ticket custom : ogni cliente è diverso, ogni richiesta è una sfida nuova.
+
+Le soluzioni che troverai non sono il fine ma il mezzo . L'obiettivo è attivare i nostri clienti, non scrivere codice perfetto.
+
+
+
+COME LAVORIAMO (E PERCHÉ)
+
+Il nostro obiettivo è tagliare i tempi per portare i clienti online . Questo significa:
+
+- Velocità sopra tutto: usiamo l'AI per sviluppare e lavorare più velocemente
+- Gestione totale del cliente: seguiamo il cliente dall'onboarding al supporto continuo
+- Grande autonomia: essendo il team snello, ciascuno può portare e argomentare nuove idee
+- Zero burocrazia interna: se c'è un modo migliore per fare qualcosa, lo facciamo
+
+
+
+HARD SKILLS
+
+- Sviluppo tramite strumenti AI : la velocità è cruciale. Se non usi Claude, ChatGPT, Cursor o simili per accelerare lo sviluppo, non facciamo match.
+- JavaScript e TypeScript : conoscenza base solida. Non devi essere un guru, ma devi essere a tuo agio.
+- Grande creatività : spesso non esiste la soluzione pronta, devi inventarla.
+- Capacità di astrarre : creare soluzioni riusabili ti farà risparmiare ore o giorni di lavoro.
+- Buona conoscenza di Git
+
+
+
+SOFT SKILLS
+
+- Empatia verso i clienti : capirai rapidamente che dietro ogni ticket c'è una persona che ha bisogno di aiuto.
+- Capacità di cambiare vocabolario : con un CTO parli di API, con un responsabile customer service parli di ""come risponde il bot"".
+- Grande autonomia : totale fiducia nelle proprie skill. Non avrai qualcuno che ti dice cosa fare step-by-step.
+- Proattività : se vedi un problema, lo risolvi. Se hai un'idea, la proponi.
+
+
+
+NICE TO HAVE
+
+- Goal-centered mindset : se c'è un modo per fare ciò che si vuole, lo si trova. Sempre.
+- Entrepreneurial background : ci vuole fame. Vogliamo persone che hanno voglia di costruire qualcosa di grande.
+- Progetti personali : side projects, esperimenti, weekend hacks - tutto quello che mostra creatività e passione.
+
+
+
+COSA OFFRIAMO
+
+- €35.000-€50.000 di RAL . Sappiamo che tutto questo impegno deve essere retribuito adeguatamente.
+- Crescita reale : essendo tra i primi del team, garantiamo una crescita professionale e di RAL in relazione alla crescita aziendale.
+- Impatto concreto : ogni integrazione che costruisci, ogni tool che crei, ogni cliente che onbordi fa la differenza.
+- Ambiente startup reale : in pochi mesi vedrai e imparerai cose che altrove vedresti in anni. Alto livello di responsabilità e coinvolgimento.
+- Team che dà valore al risultato : lavorerai con persone che tengono alla qualità di ciò che producono.
+- Possibilità di esplorare : il ruolo non è esclusivo. Se vorrai, potrai esplorare anche Backend, DevOps, o altre aree del prodotto. Crediamo che un vero professionista non sia una persona settorializzata.
+
+
+
+PROCESSO DI SELEZIONE
+
+
+
+COME CANDIDARSI
+
+Per candidarti compila questo modulo: https://forms.gle/dcqWcsWrnUHBgxFj7",Keplero AI,https://it.linkedin.com/company/keplero-ai?trk=public_jobs_topcard-org-name,https://it.linkedin.com/jobs/view/solutions-architect-at-keplero-ai-4338149831?trk=public_jobs_topcard-title,2025-11-09 12:28:56,,,,"Entrepreneurial Co-Founder & CTO with a proven track record in designing and deploying AI-driven platforms and products, including a novel Business Intelligence solution. Expert in leveraging Generative AI and advanced ML/optimization algorithms to achieve significant business impact, such as a 3x efficiency increase in bug discovery.
+
+Skilled in building scalable data architectures from the ground up and delivering end-to-end AI solutions for thousands of users. Adept at bridging technology and business, with strong client-facing communication and problem-solving abilities crucial for rapid client activation and custom integration development.",
+4339660041,AI/LLM Trainers (Italy),"Company Description
+
+As a trusted Oracle Partner, MillionLogics stands as a global powerhouse in IT solutions, merging innovation, expertise, and strategic vision. With offices in London, UK, and a development hub in Hyderabad, India, MillionLogics bridges sharp business foresight with world-class technical talent. Our mission is to transform enterprises through smart, scalable IT solutions, including Data & AI services, Cloud solutions, and IT consulting. We empower organisations to evolve and lead, delivering tailored, results-driven technology solutions backed by our team of 25+ Oracle experts.
+
+
+
+Role Description
+
+This is a contract remote role for AI/LLM Trainer (Italian language Specialist) at MillionLogics. This position is within a project with one of the reputed clients, which is an LLM company based in the USA. The goal is to assist the clients in enhancing their large language models.
+
+
+
+One way we help these companies improve their models is by providing them with high-quality proprietary data. This data serves two main purposes: first, as a basis for fine-tuning their models, and second, as an evaluation set to benchmark the performance of their models or competitor models.
+
+
+
+For example, in the case of Agent Completion (AC) data generation, your task will be to simulate high-quality multi-turn conversations between a user and a smart assistant that utilises function-calling tools to accomplish user goals. You will craft these dialogues by playing both the assistant and the user, while simulating tool use where necessary to guide the assistant through complex decision-making and real-world reasoning scenarios.
+
+
+
+What does day-to-day look like:
+
+- Design multi-turn conversations that simulate real interactions between users and AI assistants using apps like Calendar, email, maps, and Drive.
+- Emulate both the user and the assistant, including the assistant's tool calls (only when corrections are needed).
+- Carefully select when and how the assistant uses available tools, ensuring logical flow and proper usage of function calls.
+- Craft dialogues that demonstrate natural language, intelligent behaviour, and contextual understanding across multiple turns.
+- Generate examples that showcase the assistant’s ability to gracefully complete feasible tasks, recognise infeasible ones, and maintain engaging general chat when tools aren’t required.
+- Ensure all conversations adhere to defined formatting and quality guidelines, using an internal playbook.
+- Iterate on conversation examples based on feedback to continuously improve realism, clarity, and value for training purposes.
+- Collaborate with peers and reviewers to maintain consistency and high standards in deliverables.
+
+
+
+Requirements:
+
+- 3+ years of overall professional experience in a technical or analytical field
+- Experience in any programming language or tech stack is acceptable; a strong grasp of APIs, data formats (e.g., JSON), and logical thinking is more critical than specific toolsets
+- Strong general technical reasoning skills and the ability to model real-world assistant behaviour using tool-based APIs
+- Ability to break down complex tasks and simulate realistic dialogues that reflect user expectations and assistant limitations
+- Excellent written communication skills in English, with a focus on clarity, tone, and instructional coherence
+- Creativity and attention to detail in crafting realistic scenarios and responses
+- Experience working with or around LLMs, virtual assistants, or function-calling frameworks is a plus.
+- Ability to follow detailed guidelines and formatting standards with high consistency
+- Excellent English communication and interpersonal skills
+- Ability to work independently and remotely
+- Native or professional proficiency in Italian and English languages
+
+
+
+Perks of Working With MillionLogics:
+
+- Work in a fully remote environment
+- Opportunity to work on cutting-edge AI projects with a leading LLM client based in the U.S.
+
+
+
+Offer Details:
+
+- Commitments Required: 8 hours per day and 40 hours per week with an overlap of 4 hours with PST.
+- Engagement Type: Contractor assignment (no medical/paid leave)
+- Duration of the Contract: 9 months
+- Compensation: Competitive
+
+Number of Openings: 15
+
+
+
+Urgent requirement, please apply here on LinkedIn or email us your updated CV at careers@millionlogics.com",MillionLogics,https://uk.linkedin.com/company/millionlogics?trk=public_jobs_topcard-org-name,https://it.linkedin.com/jobs/view/ai-llm-trainers-italy-at-millionlogics-4339660041?trk=public_jobs_topcard-title,2025-11-09 15:27:29,,,,"Proactive Data & AI Expert with a strong engineering background, specializing in AI product development and complex system design.
+Proven experience in developing and deploying AI-driven products that enhanced user experiences for thousands of students, demonstrating a deep understanding of AI interaction and functionality.
+Skilled in Generative AI, Machine Learning, and optimization algorithms, including developing a novel ML algorithm that delivered a 3x efficiency increase.
+Possesses strong technical reasoning, logical thinking, and a firm grasp of API integration, crucial for modeling AI assistant behavior and function-calling tools.
+Native Italian and professional English speaker, adept at following detailed guidelines to generate high-quality data for LLM enhancement.",
+4338129709,Co-Founder & Full Stack Developer,"We're not hiring — we're co-founding. 💫 This isn't a job offer. It's a call to talented full stack developers ready to build their next company with us, not for us.
+
+
+
+About Neutrone.com
+
+Neutrone.com is a platform designed to revolutionize consumer product manufacturing. Our mission is to empower the Future 5,000,000 small and medium-sized companies (SMEs) by establishing local Makers and Digital Fabricators as the default, accessible manufacturing solution for everyday consumer goods.
+
+We enable proximity-based matching between local fabricators and their customers, facilitating small-batch production without large minimum orders. This P2P approach speeds up creativity and partnership, by supporting same-timezone collaboration, eliminating cross-border logistics hurdles, and driving faster product iteration.
+
+
+
+The Role
+
+As we move to the next stage of the MVP phase, we are actively seeking a passionate and experienced Technical Co-Founder to lead the technological development and scaling of Neutrone.com.
+
+As a Technical Co-Founder, you will play a pivotal role in shaping the core architecture, functionality, and long-term technical vision of the platform. You will be responsible for building a robust, scalable, and user-friendly system that facilitates seamless connections between local manufacturers and their customers. You will work closely with the Commercial Co-Founder to define the product roadmap, drive innovation, and ensure the platform's stability and growth.
+
+
+
+Key Responsibilities
+
+- Define and implement the platform's technical architecture and infrastructure
+- Lead the full-stack development of core platform features
+- Ensure platform security, scalability, and performance as we grow
+- Plan and execute the integration of new features, including AI-powered tools
+- Collaborate on product strategy and user experience design
+- Build and manage a high-performing technical team as the company scales
+
+
+
+Desired Profile
+
+- Strong background in software development and technical leadership, preferably in fast-paced environments
+- Experience with full-stack development, database design, and cloud infrastructure
+- Ability to translate business requirements into technical solutions
+- Strategic thinking combined with hands-on development skills
+- Excellent communication and problem-solving abilities
+- Comfortable with the uncertainty and rapid iteration of early-stage startups
+- Long-term mindset and a passion for creating a net positive impact on the world
+
+
+
+Key Competencies
+
+- Software Architecture & System Design
+- Performance & Scalability Planning
+- Security & Data Management
+- Product Innovation & Problem Solving
+
+
+
+Location & Work Arrangement
+
+- Based in Milan (Italy) or remote within the European Union
+- Flexible arrangement based on candidate needs
+
+
+
+What We Offer
+
+This is a true Co-Founder opportunity with meaningful equity ownership. We're looking for someone who is financially positioned to commit fully to this venture for approximately 12 months as we build toward our next funding milestone.
+
+Initial compensation is equity-based, reflecting the early-stage nature of the venture and your foundational role in the company's future.
+
+
+
+Why Join Neutrone.com?
+
+This opportunity is for an individual ready to build a transformative platform with significant societal and economic impact. You will have a direct influence from day one, contributing to a project poised to truly democratize manufacturing and foster a new era of local, sustainable production.
+
+
+
+Are you the person we're looking for? Join us in reshaping the future of manufacturing. 🚀",Neutrone,https://it.linkedin.com/company/neutrone?trk=public_jobs_topcard-org-name,https://it.linkedin.com/jobs/view/co-founder-full-stack-developer-at-neutrone-4338129709?trk=public_jobs_topcard-title,2025-11-09 11:27:37,,,,"Entrepreneurial Co-Founder & CTO with a proven track record in building and scaling innovative tech platforms. Led the technical vision and development of a novel AI-driven Business Intelligence platform, encompassing core data architecture, product strategy, and AI-driven features. Expert in designing and deploying end-to-end AI products for thousands of users and scaling robust data architectures to support millions. Adept at translating business requirements into robust technical solutions, with hands-on experience in architecting systems from the ground up and developing algorithms that delivered a 3x efficiency increase. Seeking to leverage strategic thinking and full-stack development capabilities to co-found and scale Neutrone.com.",
+4334994558,"ERPNext Developer (Remote, Freelance oder Teilzeit)","Über Uns
+
+Wir sind eine aufstrebende Schweizer Plattform für den Verkauf von Luxusgütern darunter exklusive Designmöbel (z. B. Knoll, USM, Cassina, Vitra), hochwertige Accessoires und Lifestyle-Produkte.
+
+Um unsere Vision und unseren Anspruch visuell zu kommunizieren, möchten wir ein hochwertiges Animationsvideo produzieren, das zeigt, was Nextloop ist und wofür wir stehen.
+
+
+
+Detaillierte Angaben zu unserem Konzept und Angebot folgen im weiteren Verlauf des Auswahlverfahrens.
+
+
+
+Deine Aufgabe
+
+Du bist verantwortlich für die Implementierung, Anpassung und Erweiterung unseres ERPNext-Systems. Dazu gehört:
+
+- Aufbau und Konfiguration der ERP-Struktur (z. B. Artikel, Lager, Kunden, Rechnungen)
+- Entwicklung individueller Module, Workflows und Automatisierungen
+- Integration mit externen Systemen (Shop, Zahlungsanbieter etc.)
+- Sicherstellen von Stabilität, Performance und Datenintegrität
+
+
+
+Was wir erwarten (deine Skills & Erfahrung)
+
+- Mindestens 3 Jahre Erfahrung in der Entwicklung mit ERPNext / Frappe Framework
+- Solide Kenntnisse in Python, JavaScript, MariaDB / MySQL
+- Erfahrung in der Anpassung von Doctypes, Workflows und Reports
+- Verständnis für Datenmodelle, ERP-Prozesse und Business-Logik
+- Fähigkeit, selbstständig und remote zu arbeiten
+- Erfahrung mit E-Commerce- oder Marketplace-Integrationen
+
+
+
+Was dich erwartet
+
+· Remote & flexibel: Arbeite wann und wo du willst
+
+· Faire Bezahlung oder Beteiligung: Wähle zwischen Honorar oder Firmenanteilen
+
+· Kreative Freiheit: Deine Arbeit prägt die visuelle Identität von Nextloop
+
+· Persönliche Zusammenarbeit: Direkter Austausch mit dem Gründerteam
+
+· Wachsendes Schweizer Brand: Gestalte mit, wie Luxus digital neu gedacht wird
+
+
+
+
+
+",Nextloop,https://www.linkedin.com/company/thenextloop?trk=public_jobs_topcard-org-name,https://de.linkedin.com/jobs/view/erpnext-developer-remote-freelance-oder-teilzeit-at-nextloop-4334994558?trk=public_jobs_topcard-title,2025-11-09 15:16:32,,,,"Entrepreneurial Data & AI Expert with a robust engineering background, adept at designing and scaling complex data architectures for millions of users. As Co-Founder/CTO, I've led technical vision, built core data infrastructures from the ground up, and developed custom, AI-driven solutions that significantly enhanced efficiency and user experience. My expertise includes developing novel algorithms, automating processes, and integrating diverse systems to ensure stability and performance. Proven ability to independently implement, customize, and extend sophisticated platforms, leveraging strong problem-solving skills and a deep understanding of business logic for impactful results in a remote, freelance capacity.",
+4313868759,Mid Level AI Engineer,"- You should possess the right to work in Ireland as a citizen of the European Union.
+
+- Design and implement AI/ML model deployment pipelines on Azure (Azure ML, AKS, Azure Functions)
+- Build scalable REST APIs and microservices for AI model serving using C#/.NET and Python
+- Implement monitoring and automated retraining systems for production AI models
+- Integrate AI solutions with Microsoft enterprise technologies (Entra ID, Microsoft 365)
+- Optimize model inference performance and deployment costs
+- Mentor junior team members and contribute to AI best practices
+
+- Bachelor's degree in Computer Science, Engineering, or related field
+- 5+ years of software engineering experience with AI/ML focus
+- Strong experience with Python and C#/.NET development
+- Hands-on experience with Azure ML, containerization (Docker, Kubernetes), and CI/CD
+- Understanding of machine learning model deployment and MLOps practices
+
+- Experience with Azure OpenAI and Cognitive Services
+- Knowledge of infrastructure-as-code (Terraform, ARM templates)
+- Experience with microservices architecture
+
+- Competitive pay, annual bonuses, and top-performer recognition.
+- Comprehensive health, family, and retirement benefits.
+- Flexible work options, generous PTO, and wellness programs.
+- Professional growth through learning platforms, mentorship, and leadership programs.
+- Inclusive teams that reflect the world we serve, supported by Employee Resource Groups and our Equality & Inclusion Council.",One Identity,https://www.linkedin.com/company/one-identity?trk=public_jobs_topcard-org-name,https://fr.linkedin.com/jobs/view/mid-level-ai-engineer-at-one-identity-4313868759?trk=public_jobs_topcard-title,2025-11-09 12:23:48,,,,"Highly effective AI Engineer with a strong engineering background and a proven track record in developing and deploying impactful AI/ML solutions.
+
+Successfully designed and implemented a novel ML/optimization algorithm that delivered a 3x increase in efficiency.
+
+Expert in building and scaling robust data architectures to support millions of users, and developing end-to-end AI-driven products.
+
+Possesses leadership experience as a Co-Founder/CTO, driving technical vision and product strategy for AI platforms.
+
+A proactive EU citizen with strong Python skills, eager to apply expertise in MLOps and scalable systems to contribute to One Identity.",
+4313864846,Mid Level AI Engineer,"- You should possess the right to work in Ireland as a citizen of the European Union.
+
+- Design and implement AI/ML model deployment pipelines on Azure (Azure ML, AKS, Azure Functions)
+- Build scalable REST APIs and microservices for AI model serving using C#/.NET and Python
+- Implement monitoring and automated retraining systems for production AI models
+- Integrate AI solutions with Microsoft enterprise technologies (Entra ID, Microsoft 365)
+- Optimize model inference performance and deployment costs
+- Mentor junior team members and contribute to AI best practices
+
+- Bachelor's degree in Computer Science, Engineering, or related field
+- 5+ years of software engineering experience with AI/ML focus
+- Strong experience with Python and C#/.NET development
+- Hands-on experience with Azure ML, containerization (Docker, Kubernetes), and CI/CD
+- Understanding of machine learning model deployment and MLOps practices
+
+- Experience with Azure OpenAI and Cognitive Services
+- Knowledge of infrastructure-as-code (Terraform, ARM templates)
+- Experience with microservices architecture
+
+- Competitive pay, annual bonuses, and top-performer recognition.
+- Comprehensive health, family, and retirement benefits.
+- Flexible work options, generous PTO, and wellness programs.
+- Professional growth through learning platforms, mentorship, and leadership programs.
+- Inclusive teams that reflect the world we serve, supported by Employee Resource Groups and our Equality & Inclusion Council.",One Identity,https://www.linkedin.com/company/one-identity?trk=public_jobs_topcard-org-name,https://it.linkedin.com/jobs/view/mid-level-ai-engineer-at-one-identity-4313864846?trk=public_jobs_topcard-title,2025-11-09 12:27:34,,,,"Highly effective AI Engineer with a strong engineering background and a proven track record in developing and deploying impactful AI/ML solutions.
+
+Successfully designed and implemented a novel ML/optimization algorithm that delivered a 3x increase in efficiency.
+
+Expert in building and scaling robust data architectures to support millions of users, and developing end-to-end AI-driven products.
+
+Possesses leadership experience as a Co-Founder/CTO, driving technical vision and product strategy for AI platforms.
+
+A proactive EU citizen with strong Python skills, eager to apply expertise in MLOps and scalable systems to contribute to One Identity.",
+4304753622,Principal Cloud Architect – HPC/GPU & AI Platform Solutions,"- Architect and deploy large-scale GPU/HPC infrastructure on OCI using tools like Terraform, Ansible, Slurm and Kubernetes.
+- Build automated solutions for cluster provisioning, software deployment, and infrastructure as code.
+- Collaborate with Oracle’s largest enterprise customers to define and tailor solutions that meet high-performance compute and AI requirements.
+- Support LLM-based solutions, agentic AI systems, and robotic AI platforms from design through deployment.
+- Act as a trusted technical advisor, guiding customers on best practices, cloud migration strategies, and deployment patterns.
+- Conduct customer training, workshops, and technical deep dives to enable successful cloud adoption.
+- Collaborate cross-functionally with product, support, and engineering to close technical gaps and influence product roadmaps.
+- Develop and share technical assets including competitive differentiators, code samples, demos, blogs, and white papers.
+- Identify and work with key AI Partners to support customer requirements from design to deployments.
+
+- Hands-on expertise with GPU and HPC architecture in cloud and on-prem environments.
+- Proficiency in scripting and automation: Python, Bash, PowerShell, Terraform, Ansible.
+- Experience with cluster managers (SLURM, PBS, Bright), Kubernetes, and container orchestration.
+- Knowledge of RDMA, Infiniband, MPI, and distributed file systems.
+- Core Cloud Native experience
+- Familiarity with AI/ML platforms, large language models (LLMs), and inference serving stacks.
+
+- 5+ years in pre-sales, technical consulting, or customer-facing solution architecture.
+- Strong communication and presentation skills for both technical and executive audiences.
+- Passion for working with top-tier customers and partners to deliver innovative cloud solutions.
+- Ability to translate complex technical capabilities into business-aligned strategies.
+
+- Bachelor’s or Master’s degree in Computer Science, Engineering, Mathematics, or related field.
+- Demonstrated thought leadership through publications, speaking engagements, or community contributions.
+- Experience working with Oracle Cloud Infrastructure (OCI) or similar cloud platforms.
+- Language skills: English and German.",Oracle,https://www.linkedin.com/company/oracle?trk=public_jobs_topcard-org-name,https://ch.linkedin.com/jobs/view/principal-cloud-architect-%E2%80%93-hpc-gpu-ai-platform-solutions-at-oracle-4304753622?trk=public_jobs_topcard-title,2025-11-09 10:20:49,Alexandra Albu (Matei),https://ro.linkedin.com/in/alexandramateioracle,,,"Hi Alexandra,
+
+I saw your post for a Principal Cloud Architect focusing on HPC/GPU & AI Platform Solutions. While I'm not seeking a full-time role, I specialize in rapidly architecting and deploying advanced AI solutions.
+
+My experience leading the technical vision for a novel AI-driven Business Intelligence platform and designing/deploying end-to-end AI products for millions of users could immediately support your team in tailoring high-performance AI solutions for Oracle's enterprise customers.
+
+Could a brief call next week be valuable to discuss how my freelance expertise can accelerate your AI platform initiatives?"
+4321605150,Tech Lead (Contract),"We are looking for experienced Senior Software Developers with leadership experience to join our team on a long-term contract basis. You will play a pivotal role in building and integrating a scalable, enterprise-grade commerce platform within a corporate environment. The work focuses on seamless interoperability between Commercetools and key enterprise systems, including SAP and Salesforce.
+
+
+
+Responsibilities
+
+- Design and implement composable commerce solutions that integrate with ERP and CRM platforms, especially SAP and Salesforce.
+- Develop and maintain backend services using .NET, C#, and Dapr to manage complex integration flows across systems.
+- Build front-end applications using Javascript, Typescript, React, and Next.js that interact effectively with enterprise APIs.
+- Collaborate with business analysts and solution architects to align commerce functionality with ERP and CRM data models.
+- Engineer robust APIs and middleware enabling order management, pricing, and customer data synchronization across Commercetools, SAP, and Salesforce.
+- Deploy and manage cloud environments through Terraform and Azure, ensuring scalability, security, and compliance.
+- Participate in design reviews, perform code reviews, and uphold corporate engineering standards and governance.
+- Document integration patterns, data flows, and architectural decisions to maintain transparency and traceability.
+
+
+
+Qualifications
+
+- Bachelor’s degree in Computer Science, Software Engineering, or related field.
+- 7+ years of experience developing enterprise software solutions.
+- Advanced proficiency in .NET, C#, and cloud-native architectures.
+- Strong skills in Javascript, Typescript, React, and Next.js.
+- Proven experience integrating SAP ERP systems (ECC or S/4HANA) with commerce or middleware platforms.
+- Working knowledge of Salesforce CRM integration patterns and APIs.
+- Familiarity with Dapr, event-driven services, and asynchronous message handling.
+- Experience with Terraform and Azure environment management.
+- Understanding of composable and headless commerce architectures, particularly Commercetools.
+- Ability to work effectively in corporate contract environments with structured delivery frameworks and stakeholder governance.
+
+",Paw à Peau,https://de.linkedin.com/company/pawapeau?trk=public_jobs_topcard-org-name,https://de.linkedin.com/jobs/view/tech-lead-contract-at-paw-%C3%A0-peau-4321605150?trk=public_jobs_topcard-title,2025-11-09 15:19:39,,,,"Highly proactive and entrepreneurial Tech Lead with a proven track record in designing and scaling enterprise-grade data architectures. As Co-Founder/CTO, I led the technical vision and product strategy for a novel Business Intelligence platform, demonstrating strong leadership in complex system development.
+
+Successfully scaled data architectures to support millions of users and designed new data architectures from the ground up, ensuring robust and high-performance systems. Adept at building end-to-end solutions and managing complex data flows, with a focus on seamless interoperability and stakeholder alignment crucial for integrating enterprise platforms.",
+4231719276,DataOps / Azure - H/F,"- Parce que Scalian vous accompagne dans le développement de votre carrière : programme d'onboarding complet sur 1 an avec votre manager et votre RH, programmes de formation personnalisés, communautés techniques, événements internes
+- Parce que Scalian favorise la Qualité de Vie au Travail : certifications Great Place to Work® et Best Workplaces for Women, prime de cooptation, prime vacances, accord télétravail
+- Parce que Scalian développe une politique RSE concrète et ambitieuse : mobilité durable, actions environnementales, accord Handicap et mission handicap avec temps dédié
+
+- Participer à l’industrialisation des chaînes de traitement de données
+- Déployer et maintenir les pipelines de données dans des environnements hybrides (On-premise / Azure / Databricks)
+- Automatiser les déploiements et intégrations avec des outils CI/CD
+- Assurer la gestion des flux et la surveillance des traitements
+- Collaborer étroitement avec les équipes data, data science et infrastructure
+- Garantir la conformité avec les bonnes pratiques DevOps, RGPD et de sécurité
+
+- Azure, Databricks, Hadoop (Cloudera), OpenShift, VMware, BareMetal
+- Kafka, CFT, Spark, NIFI, AWX/Ansible
+
+- Python, Scala, Shell/Linux
+- Ansible, Jenkins, Git/GitLab, Docker, Kubernetes, Nexus, Nginx
+- Format de données : JSON, CSV, XML, Parquet
+
+- Hive, MySQL, PostgreSQL, Oracle, MariaDB
+
+- Airflow, Centreon, Dynatrace, Prometheus, Grafana
+
+- Dataiku, Tableau, Hue, Dremio
+- Connaissance des principes RGPD et des outils de cybersécurité (Cyberwatch)",Scalian,https://fr.linkedin.com/company/scaliangroup?trk=public_jobs_topcard-org-name,https://fr.linkedin.com/jobs/view/dataops-azure-h-f-at-scalian-4231719276?trk=public_jobs_topcard-title,2025-11-09 15:24:28,,,,"Proactive Data & AI expert with a strong engineering background, adept at industrializing data processing and optimizing data operations. Proven experience in scaling robust data architectures to support millions of users and designing new data systems from the ground up. Successfully developed and deployed end-to-end AI-driven products and novel ML/optimization algorithms, achieving a 3x increase in efficiency. Skilled in managing complex data pipelines, automating deployments, and collaborating with data, data science, and infrastructure teams to ensure high availability and performance in diverse environments.",
+4338159446,Senior Cloud Engineer / Cloud Architect (m/w/d),"Als Senior Cloud Engineer / Cloud Architect (m/w/d) bei der SelectLine Group Holding gestaltest du die Cloud-Strategie und -Architektur unserer gesamten Unternehmensgruppe maßgeblich mit. Du erkennst das große Ganze innerhalb der Holding-Struktur und bringst mit viel Eigeninitiative deine Expertise ein, um Cloud-Infrastrukturen nachhaltig, sicher und effizient aufzubauen. Dein Arbeitsort: remote innerhalb von Deutschland.
+
+- Du designst und implementierst Azure Landing Zones für verschiedene Standorte und Geschäftsbereiche.
+- Du entwickelst eine einheitliche Cloud-Architektur unter Berücksichtigung von Governance, Security und Compliance.
+- Du führst Infrastructure as Code (IaC) mit Tools wie Terraform, ARM Templates oder Bicep ein und entwickelst diese weiter.
+- Du implementierst Zero-Trust-Security-Konzepte und integrierst Security-Tools wie Defender for Cloud oder Sentinel.
+- Du planst und steuerst die Cloud-First-Strategie sowie die Integration von Microsoft 365-Workloads
+
+- Du hast ein Studium der Informatik, Wirtschaftsinformatik oder eine vergleichbare Qualifikation abgeschlossen.
+- Du hast nachweisbare Erfahrung in der Entwicklung und Umsetzung von Enterprise-Cloud-Architekturen.
+- Du verfügst über Hands-on-Erfahrung mit Azure-Services und Infrastructure as Code.
+- Du hast Erfahrung in der Migration komplexer On-Premises-Workloads nach Azure.
+- Du arbeitest eigenverantwortlich, strukturiert und lösungsorientiert und erkennst technische Zusammenhänge schnell.
+- Du verfügst über sehr gute Deutsch- und Englischkenntnisse in Wort und Schrift.
+
+- Du profitierst von 30 Tagen Urlaub, unserem Mobilitätspaket mit JobRad, spannenden Teamevents wie Sommerfesten, moderner Hardware und der Sicherheit einer zukunftsstarken Unternehmensgruppe.
+- Abwechslungsreiche Aufgaben mit Raum für Eigeninitiative und Verantwortung.
+- Ein motiviertes Team mit offener Kommunikation und kurzen Entscheidungswegen.
+- Remote-Arbeiten: flexible Möglichkeit, vollständig remote innerhalb von Deutschland zu arbeiten.",SelectLine Holding GmbH,https://www.linkedin.com/company/selectline-group?trk=public_jobs_topcard-org-name,https://de.linkedin.com/jobs/view/senior-cloud-engineer-cloud-architect-m-w-d-at-selectline-holding-gmbh-4338159446?trk=public_jobs_topcard-title,2025-11-09 08:19:52,,,,"Proactive Co-Founder & CTO with a strong engineering background, adept at shaping technical vision and designing scalable, robust architectures.
+Proven experience in building data architectures from the ground up and scaling them to support millions of users, demonstrating a deep understanding of system design and efficiency.
+Expert in leading the development and deployment of end-to-end solutions, I bring an entrepreneurial mindset and a strategic approach to defining and implementing complex cloud infrastructures and driving cloud-first initiatives.",
+4286924679,Reinforcement Learning Research Intern for Game AI,"- Conduct research using deep RL techniques within game AI contexts.
+- Explore novel algorithms and methodologies to address AI challenges in modern PlayStation games.
+- Develop code to support research endeavors, primarily using Python.
+- Prepare reports and deliver presentations for diverse audiences within the organization.
+- Collaborate closely with a multidisciplinary team of AI researchers and developers on ambitious demonstration projects.
+
+- Currently pursuing a Ph.D. with a focus on reinforcement learning or possessing equivalent practical experience.
+- Proficiency in designing and troubleshooting neural networks.
+- Enthusiasm for integrating AI solutions into gaming applications.
+- Strong communication skills, both written and verbal, with the ability to convey complex ideas to technical and non-technical stakeholders.
+
+- Fully remote possible from Switzerland, Spain, UK, France, Germany, Sweden, and Italy (Hybrid opportunities in the Zurich office)
+- Flexible duration ranging from 3 to 6 months in 2026.",Sony Europe,https://uk.linkedin.com/company/sony-europe?trk=public_jobs_topcard-org-name,https://fr.linkedin.com/jobs/view/reinforcement-learning-research-intern-for-game-ai-at-sony-europe-4286924679?trk=public_jobs_topcard-title,2025-11-09 13:23:50,Mike Collett,https://uk.linkedin.com/in/michaelcollett,,,"Dear Mike,
+
+I saw your post for the Reinforcement Learning Research Intern role at Sony Europe. While my background as a freelance AI & Data Engineer doesn't align with an internship, I wanted to connect regarding your team's broader AI challenges.
+
+My expertise lies in developing novel ML/optimization algorithms, like the one that delivered a 3x efficiency increase at Arm, and deploying end-to-end AI-driven products. If you ever need a senior expert to tackle complex AI or data engineering problems, I'd be happy to discuss how I could contribute immediately.
+
+Best regards,
+Giuseppe Intilla"
+4338159088,Web Developer – Car Sales Services (Urgent),"- Design and develop a responsive website optimized for car sales services
+- Implement features such as inventory listings, search and filter options, and contact forms
+- Integrate user authentication and secure data handling
+- Ensure cross-browser compatibility and mobile responsiveness
+- Provide basic documentation for site management and updates
+- Deliver the completed project within one week
+
+- Proficiency in web development languages such as HTML, CSS, JavaScript, and a modern framework (e.g., React, Vue, or Angular)
+- Experience with backend technologies (e.g., Node.js, PHP, or Python) and database integration
+- Strong understanding of UI/UX principles for automotive or e-commerce platforms
+- Ability to work independently and meet tight deadlines
+- Excellent communication skills and attention to detail
+- Availability for remote, part-time contract work
+- Prior experience with car sales or similar service websites is a plus",Twine,https://uk.linkedin.com/company/twine-net?trk=public_jobs_topcard-org-name,https://ch.linkedin.com/jobs/view/web-developer-%E2%80%93-car-sales-services-urgent-at-twine-4338159088?trk=public_jobs_topcard-title,2025-11-09 05:20:35,,,,"Highly accomplished Co-Founder & CTO with a strong engineering background, adept at delivering end-to-end web solutions and scalable data architectures. Led the development of a novel AI-driven Business Intelligence platform and deployed AI-driven products for thousands of users, demonstrating expertise in UI/UX and feature implementation. Proven ability to design and scale robust data architectures supporting millions of users, ensuring high availability and secure data handling. My entrepreneurial mindset drives independent work and timely project delivery, making me ideal for developing a responsive car sales service website within tight deadlines.",
+4339520382,Senior Software Engineer (Flink Ecosystem),"We are looking for full-time Senior Software Engineers to join our Connectors & Catalogs team. In this role, you will:
+
+- Design and implement new connectors and catalogs for Flink's enterprise-grade engine (VERA), expanding the ecosystem and enabling more users to integrate VERA into their data infrastructure
+- Contribute to the core technology of our products, focusing on enterprise-level extensibility, reliability, and maintainability
+- Automate and maintain the release pipeline for both the Flink engine and its connectors/catalogs, ensuring a smooth and reliable release process across teams
+- Tackle challenging data engineering and stream processing problems for a wide range of enterprise customers
+- Take end-to-end responsibility for new features and improvements: from design and implementation to testing and documentation
+- Own and shape key components of the product, ensuring long-term technical direction and maintainability
+- Mentor junior developers, share knowledge, and help cultivate an environment of learning and growth
+- (If interested) Speak and write about your work, both internally and externally, to evangelize new solutions and best practices
+
+You will thrive in this role if you:
+
+- Have a solid understanding of Apache Flink or a similar distributed stream processing platform
+- Bring several years of industry or academic experience , with a strong foundation in Java and JVM mechanics
+- Possess deep knowledge of distributed systems , data integration , and database systems
+- Have hands-on experience building and maintaining data-intensive applications , connectors, or similar infrastructure components
+- Write clean, testable, and maintainable code and are comfortable with designing modular, extensible APIs
+- Are experienced with CI/CD tools and can build robust automated release pipelines for complex distributed systems
+- Can debug and fix problems in distributed, performance-sensitive environments
+- Are eager to mentor and collaborate , promoting knowledge sharing and strong team practices
+- Value open source and community involvement , and understand the impact of ecosystem growth
+
+At Ververica, you'll be part of a passionate team at the forefront of real-time stream processing technology. Our Connectors & Catalogs team plays a critical role in enabling seamless integration with the Flink ecosystem. We foster a collaborative, creative work environment where your contributions directly shape the future of our products and impact the global data infrastructure landscape. If you're excited about building the foundations of data connectivity at scale, we'd love to hear from you.",Ververica | Original creators of Apache Flink®,https://de.linkedin.com/company/ververica?trk=public_jobs_topcard-org-name,https://de.linkedin.com/jobs/view/senior-software-engineer-flink-ecosystem-at-ververica-original-creators-of-apache-flink%C2%AE-4339520382?trk=public_jobs_topcard-title,2025-11-09 11:17:08,,,,"Highly accomplished Data & AI Expert with a strong engineering background, specializing in scalable data infrastructure and AI-driven product development. Proven track record of designing and scaling robust data architectures to support millions of users and complex engineering simulations. Led the end-to-end development and deployment of AI-driven products, delivering significant business impact and enhancing user experience. As Co-Founder/CTO, shaped technical vision and product strategy for a novel Business Intelligence platform. Developed a novel ML/optimization algorithm that increased efficiency by 3x, demonstrating expertise in tackling challenging data engineering problems and driving innovation in distributed environments.",
+4338169545,Remote Senior Data & Analytics Architekt (m/w/d),"Wir haben es uns zur Aufgabe gemacht, aus den Daten unserer Kunden mehr zu machen – wir wollen sie nutzbar machen, um neue Erkenntnisse aus ihnen zu gewinnen und einen Mehrwert zu schaffen. Deshalb bieten wir unseren Kunden nicht nur eine umfassende strategische Beratung, sondern sind zudem vor allem ExpertInnen in der technischen operativen Umsetzung und Implementierung . Unser Anliegen ist es, Daten verwendbar zu machen, weshalb wir in allen Bereichen rund um Data & Analytics tätig sind: Business Intelligence-Strategie, Reporting & Analyse, Planung & Budgeting sowie Data Warehousing.
+
+130 Consultants im Bereich Data & Analytics bringen tagtäglich ihr Knowhow in das jeweilige Projekt ein und können sich in der gesamten Business Intelligence-Landschaft in verschiedene Richtungen weiterentwickeln.
+
+Als Senior Data & Analytics Architekt (m/w/d) analysierst du fachliche und technische Anforderungen unserer Kunden und überführst sie in skalierbare Datenarchitekturen mit SAP, Azure oder Databricks. Du verantwortest die technische Konzeption, definierst Governance-Strukturen und begleitest die Umsetzung als zentraler Ansprechpartner im Projekt.
+
+Neben unserer fachlichen Expertise sind wir ein Arbeitgeber, der Vielfalt fördert und sicherstellt, dass alle Mitarbeitenden fair behandelt werden. Teile uns mit, wenn wir auf etwas besonders Rücksicht nehmen sollen - wie z. B. die Verwendung eines geschlechtsneutralen Pronomens, deine Situation im Privatleben oder deine Bedürfnisse am Arbeitsplatz.
+
+Klingt nach einem Traumjob? Dann jetzt Teil des Teams werden!
+
+- Gemeinsam mit deinem Team analysierst du die fachlichen und technischen Anforderungen unserer Kunden und überführst diese in eine ganzheitliche Data & Analytics Architektur.
+- Dein Fokus liegt auf der Konzeption von modernen, skalierbaren und zukunftssicheren Datenplattformen mit SAP (BW/4HANA, Datasphere), Microsoft Azure und Databricks.
+- Du entwickelst und orchestrierst Datenprodukte, die es ermöglichen, geschäftsrelevante Erkenntnisse effizient bereitzustellen und zu nutzen.
+- Du definierst die notwendige Governance, Prozesse sowie Architekturrichtlinien als Blaupause für die spätere Implementierung.
+- In der Funktion des Senior Architekten übernimmst du die technische Verantwortung für Projekte und koordinierst interdisziplinäre Teams.
+- Du bist Sparringspartner für Kunden, berätst bei der Auswahl passender Technologien und unterstützt bei der Integration in bestehende IT-Landschaften.
+- Dein Wissen teilst du aktiv – sei es durch Schulungen, interne Knowledge-Sessions oder Vorträge auf Fachveranstaltungen.
+
+- Du hast (mehrjährige) Erfahrung in der Architektur und Umsetzung von Data & Analytics Lösungen, idealerweise mit SAP BW, Datasphere, Microsoft Azure und Databricks.
+- Du hast Erfahrung in der Entwicklung und Bereitstellung von Datenprodukten sowie in der Umsetzung eines datengetriebenen Ansatzes innerhalb von Unternehmen.
+- Du verfügst über fundierte Kenntnisse in modernen Data-Warehouse- und Data-Lake-Architekturen sowie in den relevanten Modellierungs- und ETL-Methoden.
+- Du denkst analytisch, handelst eigenverantwortlich und kommunizierst souverän – sowohl innerhalb des Teams als auch mit Kunden.
+- Fließende Deutsch- und gute Englischkenntnisse runden dein Profil ab.
+
+Du erfüllst nicht alle Anforderungen oder hast bisher mit anderen Tools als den oben genannten gearbeitet? Bewirb dich trotzdem und lass uns gemeinsam herausfinden, wie du deine Stärken bei uns einbringen kannst.
+
+- Wir stellen standortunabhängig ein. Du kannst zu 90 % von zuhause aus oder an einem unserer Standorte arbeiten, wenn dieser für dich gut erreichbar ist. Zu gelegentlichen Kundenterminen und Teamevents startest du von deinem Lebensmittelpunkt aus, egal wo in Deutschland du wohnst.
+- 130 Data & Analytics Consultants zum Austausch sowie eine interne Weiterbildungsacademy
+- Langfristige Projekte mit wechselnden technologischen Herausforderungen
+- Ein attraktives, projektunabhängiges Gehalt und Beteiligung am Firmenerfolg
+- Ein festes Budget für Weiterbildungsmöglichkeiten sowie persönliche und fachliche Entwicklungsperspektiven
+- Eine gute Work-Life-Balance durch flexible Arbeitszeiten, Überstundenausgleich sowie bis zu 40 Tagen Urlaub
+- Sowohl erstklassige Hard- und Softwareausstattung als auch Leasingangebote für Firmenwagen, IT-Hardware und Fahrräder
+- Kurze Wege im Unternehmen, ein fairer Umgang miteinander sowie unterhaltsame Teamevents
+
+Du verfügst über die gewünschten Erfahrungen und suchst eine neue Herausforderung? Du bist flexibel, lösungsorientiert und kommunikationsfähig?
+
+Nutze deine Chance: Wir bieten das passende Umfeld für deine Karriere.
+
+Deine Ansprechpartnerin Julia Beer Recruiting | Personalmarketing +49 (0) 25 42 / 95 59 18 https://www.linkedin.com/in/julia-beer-b7b281109/",Windhoff Group,https://de.linkedin.com/company/windhoff?trk=public_jobs_topcard-org-name,https://de.linkedin.com/jobs/view/remote-senior-data-analytics-architekt-m-w-d-at-windhoff-group-4338169545?trk=public_jobs_topcard-title,2025-11-09 13:17:02,,,,"Highly accomplished Data & AI Expert with Co-Founder/CTO experience, specializing in architecting and scaling robust data platforms to deliver significant business value.
+
+Proven leader in developing novel, AI-driven Business Intelligence platforms, designing core data architectures, and defining product strategies. Successfully scaled data architectures to support millions of users and deployed end-to-end AI-driven products that enhanced user experience for thousands.
+
+Expert in translating complex technical requirements into modern, scalable data architectures and developing data products for actionable insights. Adept at defining governance structures, coordinating interdisciplinary teams, and acting as a key technical sparring partner for clients, ensuring seamless integration and optimal technology selection.
+
+Combines deep expertise in Data Architecture Design, AI Product Development, and System Scaling with an entrepreneurial mindset to drive innovation and efficiency.",
