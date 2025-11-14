@@ -32,13 +32,23 @@ CONFIG = {
         'Switzerland',
         'France',
         'Italy',
+        "Spagna",
+        "Portogallo",
+        "Paesi Bassi",
+        "Regno Unito",
+        "Irlanda",
+        "Svezia",
+        "Danimarca",
+        "Finlandia",
+        "Norvegia",
+        "Austria",
     ],
     # Pages per keyword×country×work_type
     'pages': 1,
     # Subset of {Remote, Hybrid, On-site}
     'work_types': ['Remote'],
     # Subset of {Full-time, Contract, Part-time, Temporary, Internship, Other}
-    'contract_types': ['Full-time', 'Contract', 'Part-time', 'Temporary'],
+    'contract_types': ['Contract'],
     # Path to a txt/md file with your CV content
     'cv_file': 'cv.txt',
     # Time posted filter: one of {'Any','Past 24 hours','Past Week','Past Month'}
