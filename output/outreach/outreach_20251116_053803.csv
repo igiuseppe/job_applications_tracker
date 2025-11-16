@@ -1,0 +1,727 @@
+id,job title,description,company name,company linkedin url,job url,upload date,hiring manager name,hiring manager linkedin url,fit,tailored cv,message
+4299352274,"Manager, Software Engineering (Servicing Engineering)","- You will take ownership of your team's process, set aspirational goals, and hold everyone, including yourself, accountable for their delivery.
+- You will support your cross-functional partners in trade-off discussions and ensure that any misalignment within your peers or across the broader organization is managed.
+- You will be a calming presence for your team, supporting them through difficult, high-pressure situations without compromising psychological safety.
+- You will be a champion of operational excellence for your team by developing priorities, goals, expectations, and metrics that center your team on the definition of success.
+- You will help your team network and build relationships across Affirm, ensuring that everyone has access to the information they need to perform.
+- You will champion the career growth of your team by putting everyone in the right role, providing individual feedback and guidance, and leading by example.
+- You will ensure that your team develops simple, maintainable solutions and ensure that you are managing technical risks & protecting the business.
+- On-Call Rotation - There would be an on-call rotation for this role as a requirement
+
+- You have over 8 years of engineering experience, including at least 2 in a people management role.
+- You have managed all aspects of the talent lifecycle for your team — recruiting, growth, and performance management.
+- You can point to specific examples of business impact that you were able to deliver through your team.
+- You have experience developing strategy and influencing stakeholders beyond your team’s scope.
+- You have developed major new features or systems, or overseen a significant technical change with significant contribution from your team.
+- You have strong verbal and written communication skills that support effective collaboration with our global engineering team.
+
+- Type of employment: Contract of Employment
+- Flexible Spending Wallets for tech, food and lifestyle
+- Away Days - wellness days to take off work and recharge
+- Learning & Development programs
+- Parental leave
+- Employee Resource & Community Groups
+- This role is eligible for creative tax benefits, subject to applicable law and company policy
+
+- This job description is not a contractual document, and is not intended to have binding force.**
+
+- Health care coverage - Affirm covers all premiums for all levels of coverage for you and your dependents
+- Flexible Spending Wallets - generous stipends for spending on Technology, Food, various Lifestyle needs, and family forming expenses
+- Time off - competitive vacation and holiday schedules allowing you to take time off to rest and recharge
+- ESPP - An employee stock purchase plan enabling you to buy shares of Affirm at a discount",Affirm,https://www.linkedin.com/company/affirm?trk=public_jobs_topcard-org-name,https://es.linkedin.com/jobs/view/manager-software-engineering-servicing-engineering-at-affirm-4299352274?trk=public_jobs_topcard-title,2025-11-15 11:28:06,,,,"Entrepreneurial Co-Founder & CTO with a strong record of leading technical vision and driving the development of novel AI-driven platforms. Proven expertise in designing and scaling robust data architectures to support millions of users, and deploying impactful AI products for thousands. Successfully delivered a 3x increase in efficiency through innovative ML/optimization algorithms and influenced key business decisions by defining product strategy and leveraging data-driven insights. Adept at establishing technical priorities, managing risks, and championing operational excellence to ensure simple, maintainable solutions.",
+4336238152,Développeur·se Full-Stack - Mission Freelance (Remote),"🚀 Développeur·se Full-Stack – Mission Freelance (Remote)
+
+📍 100% Remote | ⏰ Immédiat | 🗓️ 3 semaines
+
+
+
+🎯 Le projet
+
+Refonte technique d'un software POC fonctionnel vers une v1.2 production-ready . Mission : moderniser le stack et sécuriser l'application.
+
+
+
+🧰 Stack
+
+Actuelle :
+
+- Backend : Python / Flask + PostgreSQL
+- Frontend : HTML / CSS / JS vanilla + Jinja2
+
+Cible (migration) :
+
+- Frontend : Next.js + TypeScript + Tailwind CSS + Shadcn/ui
+- Backend : Flask optimisé (ou Next.js API)
+- Infra : Supabase (optionnel) + Vercel
+
+
+
+📋 Missions
+
+Phase 1 – Frontend (2 semaines) → Migration complète vers Next.js + TypeScript + Tailwind → Intégration Shadcn/ui et refonte UX/UI → Architecture composants modulaires
+
+Phase 2 – Backend & déploiement (1 semaine) → Optimisation et sécurisation API → Déploiement Vercel + CI/CD
+
+
+
+👤 Profil
+
+Must-have :
+
+- 3+ ans d'expérience full-stack
+- Expertise Next.js + TypeScript + Tailwind
+- Bases Python / Flask
+- Expérience refactoring / migration
+- Disponible immédiatement
+
+Nice-to-have :
+
+- Shadcn/ui, Supabase, Vercel
+
+
+
+📬 Pour postuler
+
+→ Message LinkedIn ou email : lea.rastello@datafreak.fr
+
+Envoie :
+
+⏱️ Sélection sous 72h – démarrage immédiat
+
+
+
+#NextJS #TypeScript #TailwindCSS #ShadcnUI #Python #Flask #Supabase #Vercel #FullStack #Freelance #Remote",DATAFREAK,https://fr.linkedin.com/company/datafreak?trk=public_jobs_topcard-org-name,https://fr.linkedin.com/jobs/view/d%C3%A9veloppeur%C2%B7se-full-stack-mission-freelance-remote-at-datafreak-4336238152?trk=public_jobs_topcard-title,2025-11-15 18:21:14,,,,"Proactive Data & AI Expert with a robust engineering background, specializing in building and scaling production-ready systems.
+
+Successfully designed and built a new data architecture from the ground up, demonstrating strong refactoring and migration capabilities crucial for technical modernizations.
+
+Proven ability to scale data architectures for millions of users and deploy end-to-end AI-driven products, ensuring high availability and performance.
+
+With a solid foundation in Python and architectural design, I am adept at optimizing and securing backend APIs, ready to contribute to a seamless full-stack refactoring project.",
+4320973867,Java Developer,"Department: Technology
+
+Location: Malta
+
+- Platform Development and Maintenance: Enhance and maintain the platform, focusing on Servlets, JSP, Filters, and their lifecycles, as well as integrations.
+- DevOps & CI/CD Mindset: Adopt a DevOps philosophy by promoting small, frequent releases and continuous improvement through feedback loops. Collaborate with the Java Tech Lead to establish and maintain CI/CD pipelines and automation.
+- Component-Based Design: Build reusable, modular components and libraries to support efficient development and maintainability across different brands.
+- Third-Level Support: Investigate and resolve production incidents, provide hotfixes, and ensure timely solutions for customer issues.
+- Collaboration: Work closely with the Java Tech Lead, Product Owner, and other devs to ensure new features or platform adaptations meet functional and technical requirements.
+- Testing & Quality: Focus on quality through automated testing, ensuring reliable, high-performance code. Implement unit, integration, and end-to-end testing.
+- Feedback Loops: Regularly gather and incorporate feedback from stakeholders, end-users, and internal teams to iteratively improve the product.
+- API Integration: Work with service providers to build or adapt APIs and integrate third-party services into the PAM.
+- Documentation: Create clear, concise technical documentation to ensure maintainability and facilitate onboarding for new team members.
+- OnCall rotation availability.
+
+- 4 years in Java with solid understanding of OOP , design patterns , and multithreading .
+- Hands-on experience building scalable web applications using Spring and Struts frameworks.
+- Skilled in RESTful API design and integration, ensuring secure and efficient communication between systems.
+- Proficient in SQL and MySQL , including query optimization and database performance tuning.
+- Familiar with Servlets , JSP , and Filters for server-side application management.
+- Experienced with Maven/Gradle and CI/CD pipelines for streamlined build and deployment processes.
+- Advanced use of Git for version control, branching, and collaborative workflows.
+- Strong focus on performance optimization , testing , debugging , and secure coding practices .",Gaming Innovation Group,https://mt.linkedin.com/company/gig-gaming-innovation-group?trk=public_jobs_topcard-org-name,https://es.linkedin.com/jobs/view/java-developer-at-gaming-innovation-group-4320973867?trk=public_jobs_topcard-title,2025-11-16 03:25:42,,,,"Highly analytical and entrepreneurial engineer with a proven track record in designing, scaling, and optimizing robust platforms.
+Successfully scaled data architectures to support millions of users, ensuring high availability and performance.
+Designed and built new data architectures from the ground up, demonstrating expertise in modular system design.
+Developed novel algorithms that delivered a 3x increase in efficiency, highlighting a strong focus on performance optimization and problem-solving.
+Experienced in leading technical vision and deploying end-to-end engineering solutions, aligning with CI/CD principles and quality assurance for critical systems.",
+4322706774,Node JS Developer,"About the Role
+
+We are seeking an experienced Senior Node.js / NestJS Engineer to support a series of digital initiatives for a fast-paced digital agency environment. This role is a client-facing consultancy position, requiring excellent communication skills, the ability to manage stakeholder expectations, and the confidence to work autonomously while contributing to high-quality engineering outcomes.
+
+
+
+You will collaborate with cross-functional teams to architect, develop, and deliver robust backend services and APIs for enterprise-level clients. The ideal contractor will be proactive, adaptable, and comfortable working within evolving project scopes and agency workflows.
+
+
+
+Key Responsibilities
+
+- Develop, maintain, and optimise backend services using Node.js and NestJS .
+- Work directly with client stakeholders to gather requirements, present solutions, and provide technical guidance.
+- Architect scalable, maintainable backend systems aligned with best practices.
+- Collaborate with internal UX, frontend, strategy, and delivery teams to ensure successful project execution.
+- Conduct code reviews, uphold engineering standards, and ensure high code quality.
+- Troubleshoot issues, recommend improvements, and contribute to technical decision-making.
+- Provide consultancy-level insight on project feasibility, risk management, and solution design.
+- Deliver documentation and handover materials as required.
+
+
+
+Required Skills & Experience
+
+- 5+ years experience with Node.js engineering in production environments.
+- Strong commercial experience with NestJS (or similar structured frameworks)
+- Previous work within consultancy or digital agency environments - Highly desirable
+- Demonstrated client-facing experience , including presenting technical approaches and managing expectations.
+- Solid understanding of modern backend architecture, API development, microservices, and integration patterns.
+- Experience with TypeScript , RESTful APIs , and ideally GraphQL.
+- Strong understanding of CI/CD pipelines, modern DevOps workflows, and cloud platforms (AWS, GCP, or Azure)
+- Familiarity with testing frameworks (Jest, etc.)
+- Ability to work independently under limited supervision in a remote environment.
+- Excellent communication and documentation skills
+
+
+
+Nice-to-Have
+
+- Experience in digital agency-style rapid delivery environments.
+- Knowledge of containerisation tools such as Docker.
+- Experience with authentication/authorisation frameworks (OAuth, JWT, etc.).
+- Background in mentoring or leading small technical teams.
+
+
+
+Up to £400 per day Outside of IR35.
+
+
+
+Apply now.
+
+","Halian | Managed Services, Recruitment Agency & Contract Staffing",https://uk.linkedin.com/company/halian?trk=public_jobs_topcard-org-name,https://uk.linkedin.com/jobs/view/node-js-developer-at-halian-managed-services-recruitment-agency-contract-staffing-4322706774?trk=public_jobs_topcard-title,2025-11-15 10:32:07,,,,"Proactive and entrepreneurial engineer with a strong background in architecting and scaling robust backend systems, adept at delivering high-quality engineering outcomes in fast-paced environments.
+
+Proven experience scaling data architectures to support millions of users and designing new data architectures from the ground up, ensuring high availability and performance.
+
+As Co-Founder/CTO, I led technical vision, product strategy, and the development of AI-driven platforms, demonstrating strong client-facing communication and stakeholder management skills.
+
+I excel at collaborating with cross-functional teams to develop and deploy end-to-end AI-driven products, providing consultancy-level insights for complex technical challenges and solution design.",
+4340900650,Strategy Consultant | $80-$120/hr,"This opportunity is shared as part of a referral program
+
+
+
+Mercor is hiring experienced Management Consultants to collaborate with a leading AI research lab on a long-term project focused on benchmarking and improving the capabilities of cutting-edge AI models. This role involves designing high-quality management consulting prompts, answers, and evaluation sets to train and refine frontier large language models (LLMs).
+
+
+
+Key Responsibilities
+
+- Design and review consulting-style prompts, structured answers, and evaluation criteria
+- Benchmark AI-generated responses against consulting frameworks and real-world standards
+- Provide structured feedback on logic, clarity, and business rigor
+- Conduct online research and synthesize insights from diverse sources to support evaluation
+
+
+
+Ideal Qualifications
+
+- 2+ years of prior experience at McKinsey, Bain, BCG, or a similarly competitive consulting firm
+- Strong online research and analytical skills
+- Ability to synthesize insights from diverse sources and data sets
+- Excellent written communication and attention to detail
+
+
+
+Project Timeline
+
+- Start Date: Immediate
+- Duration: 4 weeks
+- Commitment: Flexible, 20+ hours/week
+- Schedule: Fully remote and asynchronous – work on your own schedule
+
+
+
+Compensation & Contract
+
+- Competitive hourly rate based on experience ($90–$110 USD/hr)
+- Top performers receive weekly bonus incentives ranging from $20–$100/hr on top of their pay rate
+
+
+
+Application & Onboarding Process
+
+- Upload your resume
+- AI interview: A short, 15-minute conversational session to understand your background, experience, and interest in the role",HelixRecruit,https://sg.linkedin.com/company/helixrecruit?trk=public_jobs_topcard-org-name,https://uk.linkedin.com/jobs/view/strategy-consultant-%2480-%24120-hr-at-helixrecruit-4340900650?trk=public_jobs_topcard-title,2025-11-16 00:32:43,,,,"Proactive AI Expert with Co-Founder/CTO experience, adept at leading technical vision and product strategy for novel AI-driven platforms.
+Proven ability to design, evaluate, and optimize complex systems, including developing ML algorithms that delivered a 3x increase in efficiency.
+Skilled in Generative AI, data analytics, and problem-solving, with a strong focus on synthesizing insights and ensuring business rigor.
+Expert in providing structured feedback and benchmarking AI model performance against real-world standards.
+Leverages an entrepreneurial mindset to drive strategic outcomes and effective communication for complex problem-solving.",
+4252219624,Science Specialist (Fluent in Italian) – AI Trainer,,Invisible Expert Marketplace,https://www.linkedin.com/company/invisible-expert-marketplace?trk=public_jobs_topcard-org-name,https://it.linkedin.com/jobs/view/science-specialist-fluent-in-italian-%E2%80%93-ai-trainer-at-invisible-expert-marketplace-4252219624?trk=public_jobs_topcard-title,2025-11-15 14:24:21,,,,"Highly accomplished Data & AI Expert with a strong Mathematical Engineering background, fluent in Italian.
+Proven leader in developing and deploying AI-driven products, including a novel ML/optimization algorithm that delivered a 3x efficiency increase.
+As Co-Founder/CTO, spearheaded the technical vision for an AI-driven Business Intelligence platform, demonstrating expertise in Generative AI, Machine Learning, and product strategy.
+Adept at leveraging complex data and analytical skills to drive innovation, making me an ideal candidate for an AI Trainer role.",
+4340218409,Contract Senior Software Engineer (C#) (Remote - EU),"- Architect, design, build, and deliver robust, zero-downtime API products and cloud solutions
+- Collaborate with cross-functional teams to identify and solve business challenges effectively
+- Write clear, maintainable, and scalable C# code following industry standards and best practices
+- Contribute to system monitoring, operations, and maintenance in alignment with SLAs
+- Mentor and support other engineers through code reviews, pair programming, and knowledge sharing
+- Continuously improve team processes, practices, and technical approaches to enhance productivity and quality
+
+- Strong experience as a C# software engineer, including system design and API development
+- Hands-on experience with cloud platforms (Azure, AWS, GCP) and distributed system architectures
+- Proficiency in SQL and NoSQL databases, system reliability patterns, and scalable software design
+- Familiarity with design patterns, fault-tolerant architectures, and large-scale distributed systems
+- Experience in agile methodologies and collaborative team environments
+- Strong problem-solving, communication, and analytical skills, capable of explaining technical concepts in business-friendly language
+- Self-motivated, detail-oriented, and committed to continuous learning and improvement
+- Bonus: experience in FinTech, high-performance API products, or cloud systems deployment
+
+- Competitive contract-based daily rates with potential for extension
+- Remote-first work within the EU with flexible scheduling
+- Opportunities to work with forward-thinking, collaborative, and skilled teams
+- Exposure to innovative cloud and API technologies
+- Continuous professional growth and mentorship opportunities",Jobgether,https://be.linkedin.com/company/jobgether?trk=public_jobs_topcard-org-name,https://www.linkedin.com/jobs/view/contract-senior-software-engineer-c%23-remote-eu-at-jobgether-4340218409?trk=public_jobs_topcard-title,2025-11-15 05:21:12,,,,"Highly accomplished Software Engineer and Data & AI Expert with a proven track record in architecting and scaling robust, high-performance systems. Expertly designed and built data architectures from the ground up, including scaling solutions to support millions of users and ensuring high availability. Developed novel ML/optimization algorithms that delivered a 3x increase in team efficiency. As Co-Founder/CTO, I led technical vision, product strategy, and the development of AI-driven platforms. Adept at collaborating with cross-functional teams to solve complex business challenges and deliver scalable, maintainable software solutions.",
+4336246953,Solution Architect - 4-Month Contract,"The ideal candidate will be responsible for designing and implementing AI-driven solutions that enable our clients to harness the power of artificial intelligence. You'll own the entire AI architecture development lifecycle, from initial concept through deployment and optimization, helping organizations transform their operations through AI.
+
+
+
+Responsibilities
+
+- Collaborate with client to translate requirements into scalable AI solutions that drive business transformation
+- Serve as the technical AI expert, bridging business needs with cutting-edge technology for AI enablement
+- Create comprehensive documentation for AI models, pipelines, and architectural decisions
+- Ensure AI solutions meet performance, security, and compliance requirements across diverse client environments
+- Support clients in their AI journey from strategy to implementation
+
+Qualifications
+
+- Bachelor's degree in Computer Science, Engineering, Mathematics, or related field
+- 5+ years of experience in solution architecture with 3+ years focused on AI/ML
+- Strong knowledge of cloud AI services (Azure) and MLOps practices
+- Proven experience with Python and AI/ML frameworks (TensorFlow, PyTorch, Hugging Face, etc.)
+- Excellent communication skills with ability to explain complex AI concepts to business audiences
+- Client-facing experience and ability to understand diverse industry requirements
+- The clients are based in Singapore. Work for Singapore timezone is a must
+
+Preferred Skills
+
+- Experience with large language models (LLMs) and generative AI
+- Multi-modal RAG (Retrieval-Augmented Generation) expertise is highly preferred
+- Knowledge of vector databases and retrieval-augmented generation (RAG)",Kornhill Services Limited,https://uk.linkedin.com/company/kornhill-services-limited?trk=public_jobs_topcard-org-name,https://uk.linkedin.com/jobs/view/solution-architect-4-month-contract-at-kornhill-services-limited-4336246953?trk=public_jobs_topcard-title,2025-11-15 11:30:29,,,,"Proactive Co-Founder & CTO with a strong track record in designing and implementing end-to-end AI-driven solutions, owning the entire AI architecture development lifecycle from concept to deployment.
+Successfully led the technical vision and development of a novel AI-driven Business Intelligence platform, demonstrating expertise in translating complex requirements into scalable, impactful products.
+Proven ability to architect and scale robust data infrastructures, supporting millions of users, and building new data architectures from the ground up.
+Developed and deployed AI-driven products for thousands of users, including a novel ML/optimization algorithm that delivered a 3x increase in efficiency.
+Skilled in Generative AI, Machine Learning, and Data Architecture Design, adept at bridging business needs with cutting-edge technology.
+Possesses strong communication and stakeholder management skills, crucial for guiding clients through their AI journey from strategy to implementation.",
+4336098347,"Backend Engineer, Contract | Python (Django), JavaScript (React) and SQL (MySQL) | Fully Remote / EU-Based | Rate £550-650pd, Outside IR35 | 12-months Contract Length","Backend Engineer, Contract | Python (Django), JavaScript (React) and SQL (MySQL) | Fully Remote / EU-Based | Rate £550-650pd, Outside IR35 | 12-months Contract Length
+
+
+
+Opportunity:
+
+
+
+We're supporting a fast-moving client at huge global scale, that is in need of a Senior Backend Contractor with deep experience across Python, Django and some JavaScript/React . This is a high-impact freelance role within a tech-driven established team - building scalable systems in a modern backend environment and implementing AI work.
+
+
+
+What You'll Be Doing as a Backend Engineer, Contract | Python (Django), JavaScript (React) and SQL (MySQL) | Fully Remote / EU-Based | Rate £550-650pd, Outside IR35 | 12-months Contract Length
+
+
+
+- Designing and building robust backend services across Python and Django
+- Collaborating with product and platform teams to scale critical infrastructure
+- Contributing to performance optimisation, secure coding, and clean architecture decisions
+- Bringing in best practices across multiple programming paradigms and languages
+
+
+
+Core Skills for the Backend Engineer, Contract | Python (Django), JavaScript (React) and SQL (MySQL) | Fully Remote / EU-Based | Rate £550-650pd, Outside IR35 | 12-months Contract Length
+
+
+
+- Senior-level backend experience with Python and Django in production systems
+- Proven work with JavaScript and React (production experience strongly preferred)
+- Familiarity with MySQL Databases and scale
+- Strong grasp of APIs, cloud-native systems, and scalable architecture
+- Freelance mindset: able to hit the ground running, communicate clearly, and add value fast
+
+
+
+Details for the Backend Engineer, Contract | Python (Django), JavaScript (React) and SQL (MySQL) | Fully Remote / EU-Based | Rate £550-650pd, Outside IR35 | 12-months Contract Length
+
+
+
+- Contract : LTD company (UK) / B2B
+- Location : Remote (must be EU-based for legal/timezone reasons)
+- Duration : Long-term engagement potential
+- Start : ASAP
+
+
+
+If interested in this Backend Engineer, Contract | Python (Django), JavaScript (React) and SQL (MySQL) | Fully Remote / EU-Based | Rate £550-650pd, Outside IR35 | 12-months Contract Length , please apply here and we will contact you if it's a good match! :)",Owen Thomas | Pending B Corp™,https://uk.linkedin.com/company/owen-thomas-talent?trk=public_jobs_topcard-org-name,https://uk.linkedin.com/jobs/view/backend-engineer-contract-python-django-javascript-react-and-sql-mysql-fully-remote-eu-based-rate-%C2%A3550-650pd-outside-ir35-12-months-contract-length-at-owen-thomas-pending-b-corp%E2%84%A2-4336098347?trk=public_jobs_topcard-title,2025-11-15 17:30:23,Harry Ellis,https://uk.linkedin.com/in/harry-ellis-049b53122,,,"Hi Harry,
+
+I noticed your search for a Backend Engineer contractor focused on scalable systems and AI work. As a freelance AI & Data Engineer, I specialize in delivering immediate impact in these areas.
+
+I've successfully scaled data architectures to support millions of users and designed/deployed end-to-end AI-driven products. My background aligns well with building robust backend services and implementing high-impact AI solutions.
+
+Would you be open to a quick chat to explore how I could contribute?"
+4336297844,"Product Engineer, Full Stack/AI, Contract | Python, TypeScript, AWS | Scale up, Creative Tools | £550-675 per day - Outside IR35 | 6 Months Initial | UK remote","Product Engineer, Full Stack/AI, Contract | Python, TypeScript, AWS | Scale up, Creative Tools | £550-675 per day - Outside IR35 | 6 Months Initial | UK remote
+
+
+
+Opportunity:
+
+We’re supporting an innovative, fast-moving team. They’re building cutting-edge creative production tools, and are looking for a Full Stack Python Engineer with strong Python, React experience and startup mindset. This is a remote role, giving you autonomy while you design, build and scale applications that power creative workflows in industries like media and digital production.
+
+
+
+You’ll be delivering greenfield features end-to-end, working closely with creative teams, and solving unique technical challenges with modern web and cloud technologies.
+
+
+
+What You’ll Be Doing as a Product Engineer, Full Stack/AI, Contract | Python, TypeScript, AWS | Scale up, Creative Tools | £550-675 per day - Outside IR35 | 6 Months Initial | UK remote
+
+- Build and maintain dynamic, responsive web interfaces with React , TypeScript , and modern CSS.
+- Implement state management solutions (e.g., Redux , Zustand ) for seamless user experiences.
+- Design and develop robust backend services and APIs with Python , Django , FastAPI , including both REST and GraphQL.
+- Architect and maintain scalable database solutions (SQL/NoSQL).
+- Deploy and manage applications using Docker , Kubernetes , and Terraform in AWS environments.
+- Maintain CI/CD pipelines, monitor application health, and ensure uptime and performance.
+- Collaborate cross-functionally with designers, product managers, and engineers to deliver high-quality products.
+- Innovate and drive solutions for unique technical challenges in creative workflows.
+- Contribute to tools integrated with creative software (e.g., Houdini, Nuke, DaVinci Resolve).
+
+
+
+Core Skills for the Product Engineer, Full Stack/AI, Contract | Python, TypeScript, AWS | Scale up, Creative Tools | £550-675 per day - Outside IR35 | 6 Months Initial | UK remote
+
+- Strong proficiency in React , TypeScript , and modern web development best practices.
+- Solid backend experience with Python , Django , FastAPI , and database design.
+- Knowledge of state management libraries like Redux or Zustand .
+- Familiarity with DevOps practices, CI/CD pipelines, and cloud deployment on AWS .
+- Experience with containerisation and orchestration ( Docker , Kubernetes ).
+- Understanding of scalable architecture patterns and data integrity principles.
+- Ability to work autonomously, with a proven track record of delivering end-to-end products.
+- Excellent problem-solving and communication skills.
+
+
+
+Nice to Have:
+
+- Experience working in startups or high-growth environments.
+- Familiarity with creative production tools such as Houdini , Nuke , DaVinci Resolve .
+- Knowledge of ReactFlow or similar frameworks for node-graph-driven applications .
+- Passion for creative automation and solving unique technical challenges.
+
+
+
+Details for the Product Engineer, Full Stack/AI, Contract | Python, TypeScript, AWS | Scale up, Creative Tools | £550-675 per day - Outside IR35 | 6 Months Initial | UK remote
+
+- Location: Remote (Work from anywhere in the UK)
+- Type: Contract, full-time
+- Rate: GBP525-675 per day Outside IR35
+- Start: ASAP",Owen Thomas | Pending B Corp™,https://uk.linkedin.com/company/owen-thomas-talent?trk=public_jobs_topcard-org-name,https://uk.linkedin.com/jobs/view/product-engineer-full-stack-ai-contract-python-typescript-aws-scale-up-creative-tools-%C2%A3550-675-per-day-outside-ir35-6-months-initial-uk-remote-at-owen-thomas-pending-b-corp%E2%84%A2-4336297844?trk=public_jobs_topcard-title,2025-11-15 17:30:21,Harry Ellis,https://uk.linkedin.com/in/harry-ellis-049b53122,,,"Hi Harry, I saw your opening for a Product Engineer, Full Stack/AI and wanted to reach out. I'm a freelance AI & Data Engineer focused on delivering immediate impact, not a full-time applicant. My background includes leading AI-driven product development as a Co-Founder/CTO and designing novel ML algorithms that delivered 3x efficiency gains. I believe my expertise in building and scaling AI solutions can quickly accelerate your creative production tools. Would you be open to a brief chat?"
+4336217919,"JavaScript Developer, Contractor, Full-stack | NodeJS, TypeScript, React, AWS | Disruptive Start-up, B2C | Rate c/ £500/day (Outside) | 6-months | UK remote or London Hybrid","JavaScript Developer, Contractor, Full-stack | NodeJS, TypeScript, React, AWS | Disruptive Start-up, B2C | Rate c/ £500/day (Outside) | 6-months | UK remote or London Hybrid
+
+
+
+Opportunity:
+
+
+
+We’re supporting an innovative, fast-moving founding team. They’re building an innovative B2C platform with lots of partnerships already signed up! Very exciting opportunity to take a lot of responsibility and work in a small team with proven founders and engineers - on a disruptive and data-heavy B2C application.
+
+
+
+You’ll work closely with the founding team to build scalable, secure, and high-performance systems that deliver an exceptional user experience.
+
+
+
+What You’ll Be Doing as a JavaScript Developer, Contractor, Backend Engineering | NodeJS, TypeScript, AWS | Disruptive Start-up, B2C | Rate £500/day (Outside) | 6-months | London, Hybrid
+
+
+
+- Develop, maintain, and optimize robust backend services and APIs that power our mobile and web platforms
+- Design and implement low-latency event processing pipelines
+- Ensure backend infrastructure is reliable, scalable, and secure
+- Enhance database efficiency and refine data storage strategies
+- Maintain comprehensive multi-layered test coverage
+- Collaborate closely with frontend and mobile teams to define and deliver API contracts
+- Set up and manage effective monitoring, logging, and alerting systems
+- Influence architectural decisions and help establish engineering best practices
+- Conduct code reviews and provide mentorship to junior developers
+- Explore and integrate new technologies to expand platform capabilities
+- Work with product and design teams to convert requirements into scalable technical solutions
+- Continuously refine development workflows and improve system performance
+
+
+
+
+
+What You’ll Need as a JavaScript Developer, Contractor, Backend Engineering | NodeJS, TypeScript, AWS | Disruptive Start-up, B2C | Rate £500/day (Outside) | 6-months | London, Hybrid
+
+
+
+- 6+ years commercial experience in Backend technologies, with majority focused on NodeJS.
+- Proven track record of start-up experience, working for cool innovative consumer b2c brands where you've taken ownership.
+- Confidence working on huge datasets and complex API work
+- Great communication skills and attitude to get your hands dirty across the stack and business challenges.
+- Nice to have: Full stack experience, with TypeScript
+
+
+
+JavaScript Developer, Contractor, Backend Engineering | NodeJS, TypeScript, AWS | Disruptive Start-up, B2C | Rate £500/day (Outside) | 6-months | London, Hybrid
+
+- Location: Remote
+- Type: Contract, full-time
+- Rate: circa £500/day
+- Start: ASAP",Owen Thomas | Pending B Corp™,https://uk.linkedin.com/company/owen-thomas-talent?trk=public_jobs_topcard-org-name,https://uk.linkedin.com/jobs/view/javascript-developer-contractor-full-stack-nodejs-typescript-react-aws-disruptive-start-up-b2c-rate-c-%C2%A3500-day-outside-6-months-uk-remote-or-london-hybrid-at-owen-thomas-pending-b-corp%E2%84%A2-4336217919?trk=public_jobs_topcard-title,2025-11-15 17:32:01,Harry Ellis,https://uk.linkedin.com/in/harry-ellis-049b53122,,,"Hi Harry,
+
+I noticed your search for a JavaScript Developer, Backend Contractor. While my primary stack is Python/Scala, my expertise lies in architecting and scaling robust backend systems for high-growth, data-heavy startups.
+
+As a freelance AI & Data Engineer, I've scaled data architectures for millions of users and led the technical vision for AI-driven platforms as a Co-Founder/CTO. I can immediately contribute to your disruptive B2C platform.
+
+Would you be open to a brief call to discuss accelerating your project?"
+4289542156,Senior Product Manager - Declarations & Financial Statements Group,"- You’ll spend an extensive amount of time continuously discovering the users and their pain points. You will interview them, conduct user research and get your hands in our data platform to gather insights on what needs to be solved.
+- With those insights and with the company’s objectives in mind, you’ll be empowered to define your OKRs and your roadmaps, to have the strongest possible impact on solving user problems and reaching the company's objectives.
+- You’ll work hand in hand with a Product Designer dedicated to your squad, as well as a team of Product-centered engineers. You will start with small steps (we like the MVP approach!) and will follow-up on the implementation and future iterations. For us, achieving a common goal matter more than just building features.
+
+- You’ll learn everything about our company, our teams, and our vision during the first onboarding week
+- You’ll familiarize yourself with the product and the accounting industry (You will have access to a lot of documentation and will assist to trainings organized by your peers)
+- You’ll get a very deep knowledge of our Product organization, methods, and culture
+
+- You’ll have imagined and implemented your first solutions, hand-in-hand with Product Designers and Engineers
+- You’ll have impacted positively at least one OKR
+- You will have setup your continuous discovery routine and will be ready to build your roadmap
+
+- You’ll be autonomous at defining your OKRs and your roadmap
+- You’ll keep having a strong impact via iterations on the solutions you've shipped
+- You’ll share your learnings and best practices within the team
+
+- Multiple opportunities to recruit and mentor new PMs
+- Increased responsibilities in project leadership
+- Responsibilities to think of and implement new processes, tools and best practices to make sure that your team works even smoother
+
+- You will first have a general chat with a Talent Acquisition Manager (30 min)
+- You’ll then have a discussion with 1 member of our Product team to assess the fit and the Product culture (45 min)
+- You’ll then pass a live case study with 2 PMs from our team (1h15)
+- You'll have a final round with Tancrède (our CPO) and a Group PM or a Head of Product (60 mn)
+
+- Strong user research skills and Product sense: ability to develop a strong conviction about user needs and problems based on user feedback (from all types of sources)
+- Strong & structured communication skills to convince and get buy in on his/her vision, embark/drive the squad, build relationships with commercial teams, talk to users regularly..
+- Ability to navigate and simplify complex problems (understand, vulgarize, break problems into small pieces)
+- Hands-on and not afraid to step out of the traditional product role to make the product succeed (working on Educational content, and enablement if needed..)
+- Past experience in Product management at a scale up or large tech company is required (ideally a company with a strong product culture)
+- Experience working with accounting is not required (generalist profile is ok) as long as they are curious about accounting and comfortable with complexity.",Pennylane,https://fr.linkedin.com/company/pennylaneaccounting?trk=public_jobs_topcard-org-name,https://fr.linkedin.com/jobs/view/senior-product-manager-declarations-financial-statements-group-at-pennylane-4289542156?trk=public_jobs_topcard-title,2025-11-15 13:21:23,,,,"Entrepreneurial Senior Product Manager with a strong background in AI and data architecture, adept at translating user needs into impactful product solutions.
+As Co-Founder/CTO, I led the technical vision and product strategy for a novel AI-driven Business Intelligence platform, focusing on user-centric feature development.
+My experience includes scaling data architectures to support millions of users and deploying AI-driven products that enhanced the learning experience for thousands.
+I excel at leveraging data insights to define OKRs and roadmaps, having designed data platforms from scratch and developed algorithms that delivered a 3x increase in efficiency.
+Proven ability to collaborate with cross-functional teams to simplify complex problems and drive product success from discovery to iteration.",
+4336127734,Senior Analyst,"About Us
+
+Pimlico is a tech company based in London and San Francisco, building XHS™ to offer compliance teams advanced tools for monitoring, analysis, collaboration, and integration.
+
+
+
+Our Regulatory AI workspaces empower organizations to transform noise into meaningful signal, and enhance the effectiveness of team processes and collaboration.
+
+
+
+Join us as we launch XHS™ Beta for Gambling from November 2025 and prepare to start service with our early clients in the Gambling and iGaming sector from January 2025.
+
+
+
+Role Description
+
+This is a contract-based remote role for a Senior Analyst. The role involves analyzing Gambling- and iGaming-related data, identifying industry and legal trends, and constructing internal country reports across global jurisdictions.
+
+
+
+Other responsibilities include collaborating with the product team based in London and San Francisco, and contributing to the construction of scalable AI-agentic architecture and processes.
+
+
+
+Qualifications
+
+- 4+ years in legal/regulatory research, compliance analysis, policy, or market intelligence - Gambling / iGaming experience strongly preferred.
+- Strong analytical and research skills, including the ability to review and interpret gambling industry trends, technical compliance data, and compliance standards.
+- Expertise in data collection, reporting, and documenting actionable insights effectively.
+- Experience with prompt engineering and the use of advanced tools
+- Strong written and verbal communication skills with attention to detail.
+- Ability to work independently and collaboratively in a fast-paced remote environment.
+- Familiarity with gambling regulations, compliance processes, or industry practices is a plus.
+- Bachelor's degree in Data Analysis, Business, Law, or a related field preferred.
+
+
+
+Preferred
+
+- Law degree or compliance certification; multilingual reading ability (e.g., Spanish, Portuguese, Italian, German, French).
+- Payments/fintech exposure (AML, sanctions, fraud, KYC).
+- Familiarity with responsible gambling frameworks and ad standards.
+
+
+
+Contract Length & Compensation
+
+- Three months contract length
+- Compensation negotiable upon experience",Pimlico,https://uk.linkedin.com/company/wearepimlico?trk=public_jobs_topcard-org-name,https://uk.linkedin.com/jobs/view/senior-analyst-at-pimlico-4336127734?trk=public_jobs_topcard-title,2025-11-15 14:33:04,Andrew Leming,https://uk.linkedin.com/in/andrewleming,,,"Hi Andrew, I saw your opening for a Senior Analyst at Pimlico. While my core expertise is in AI & Data Engineering, not legal/regulatory compliance, I noted your need for contributions to scalable AI-agentic architecture. As a freelance AI & Data expert, I specialize in designing and deploying end-to-end AI products and scaling data architectures for millions of users. I'd be happy to offer a brief call to explore how my expertise could accelerate your AI initiatives, even if outside this specific analyst role."
+4340678010,"Full Stack Software Engineer (Remote, Contractual) EU [WN-11]","About Smart Working
+
+
+
+At Smart Working, we believe your job should not only look right on paper but also feel right every day. This isn’t just another remote opportunity - it’s about finding where you truly belong, no matter where you are. From day one, you’re welcomed into a genuine community that values your growth and well-being.
+
+
+
+Our mission is simple: to break down geographic barriers and connect skilled professionals with outstanding global teams and products for full-time, long-term roles. We help you discover meaningful work with teams that invest in your success, where you’re empowered to grow personally and professionally.
+
+Join one of the highest-rated workplaces on Glassdoor and experience what it means to thrive in a truly remote-first world.
+
+
+
+About the role
+
+
+
+As a Full Stack Software Engineer , you’ll play a vital role in building digital solutions that power our partners’ products. You’ll work across front-end and back-end to ensure usability, scalability, and performance, tackling technical challenges with modern tools and frameworks.
+
+
+
+This opportunity begins as a 6-month, high-impact project where you’ll deliver real value from day one. For strong performers, it’s also a pathway to a long-term contract of up to 2 years — giving you the best of both worlds: the excitement of an immediate challenge and the stability of extended career growth.
+
+
+
+You’ll thrive here if you’re passionate about high-quality applications, eager to work with cutting-edge technologies, and proactive about driving innovation in an agile, international environment.
+
+
+
+
+
+- Design and implement scalable, performant UIs and app architectures, balancing user experience with resource constraints
+- Develop across the stack with React.js, Node.js, TypeScript, and modern frameworks (Next.js, Vite)
+- Work with SQL databases including PostgreSQL, MySQL, MSSQL, and indexing/search tools like Elastic, OpenSearch, or Solr
+- Build and consume APIs (REST or GraphQL), handling caching and offline support with React Query or Apollo
+- Manage application state using patterns/tools such as Redux, Context API, or Zustand
+- Ensure quality with unit, integration, and E2E testing frameworks (Jest, Cypress, Puppeteer, Mocha)
+- Apply microservices architecture principles and containerization with Docker
+- Build responsive UIs that adapt to varied devices and screen sizes
+- Collaborate in an agile team, communicating effectively with peers and stakeholders to deliver business value
+
+
+
+- 5+ years of professional experience with TypeScript/JavaScript
+- 3+ years of experience with React.js, using latest features
+- 3+ years of experience with Node.js, using latest features
+- Strong experience with state management (Redux, Context API, Zustand)
+- Proficiency with SQL databases (PostgreSQL, MySQL, MSSQL)
+- Experience with indexing/search tools (Elastic, OpenSearch, Solr)
+- Strong knowledge of RESTful APIs and/or GraphQL, including caching/offline via React Query or Apollo
+- Hands-on experience with Docker and microservices architecture
+- Proficiency with unit, integration, and E2E testing frameworks (Jest, Cypress, Puppeteer, Mocha)
+- Proven ability to deliver responsive UI development
+- Experience with at least one modern framework (Next.js or Vite)
+
+
+
+- Experience with Azure services (Service Bus, Blob Storage, Table Storage, Secrets, Managed Identity)
+- Exposure to Kubernetes & Helm
+- Familiarity with MongoDB
+- Systemic framework knowledge
+- A strong client-oriented mindset and the ability to translate business models into technical solutions
+- Proactive, continuous improvement approach and a passion for quality
+
+
+
+At Smart Working, you’ll never be just another remote hire.
+
+
+
+Be a Smart Worker — valued, empowered, and part of a culture that celebrates integrity, excellence, and ambition.
+
+
+
+If that sounds like your kind of place, we’d love to hear your story.
+
+We may use artificial intelligence (AI) tools to support parts of the hiring process, such as reviewing applications, analyzing resumes, or assessing responses. These tools assist our recruitment team but do not replace human judgment. Final hiring decisions are ultimately made by humans. If you would like more information about how your data is processed, please contact us.",Smart Working,https://uk.linkedin.com/company/smartworkingsolutions?trk=public_jobs_topcard-org-name,https://pt.linkedin.com/jobs/view/full-stack-software-engineer-remote-contractual-eu-wn-11-at-smart-working-4340678010?trk=public_jobs_topcard-title,2025-11-16 04:28:44,,,,"Proactive and entrepreneurial engineer with a strong background in delivering high-impact digital solutions and scalable architectures. As Co-Founder/CTO, led the technical vision and end-to-end development of a novel AI-driven Business Intelligence platform. Proven ability to scale data architectures to support millions of users, ensuring high availability and performance. Designed and deployed AI-driven products for thousands of students and developed novel ML/optimization algorithms that delivered a 3x increase in efficiency. Adept at building robust data architectures from the ground up and translating business needs into technical solutions within agile, international environments.",
+4331164994,Business Intelligence Analyst (6 month FTC),"- Build and maintain Power BI dashboards to support performance tracking and business insight
+- Use SQL to access and analyse data from key business systems and sources
+- Support development of MI frameworks used by the Executive Committee, CFO, and Head of Finance
+- Collaborate with FP&A colleagues to surface key trends and opportunities
+- Contribute to a culture that values experimentation, open dialogue, and continuous improvement
+
+- Ability to demonstrate an understanding of the regulatory framework relevant to the role, whilst practising effective risk management taking account of outcomes for clients.
+- Understand, follow and demonstrate compliance with all relevant internal and external rules, regulations and procedures that apply to the conduct of the business. Follow principles and rules of the Financial Conduct Authority (FCA) and the internal requirements set out in the Compliance Manual, local and Group Compliance and Risk policies.
+
+- Proficiency in SQL and Power BI (including DAX and Power Query)
+- Proficiency in Excel and Microsoft Office
+- A curious mindset with a structured approach to exploring data and business problems
+- Strong attention to detail and ability to spot patterns and trends
+- Basic understanding of financial and commercial concepts (e.g. P&L, margin drivers)
+- Comfortable communicating ideas clearly and working across functions (Front Office, Finance, Technology)
+
+- Experience with Alteryx or Python would be desirable
+- Exposure to financial services or similar data-driven sectors is desirable
+- Understanding of Financial and Management Accounts
+- Prior experience with Snowflake and/or Workday Adaptive is highly desirable",TrinityBridge,https://www.linkedin.com/company/trinitybridge-wm?trk=public_jobs_topcard-org-name,https://uk.linkedin.com/jobs/view/business-intelligence-analyst-6-month-ftc-at-trinitybridge-4331164994?trk=public_jobs_topcard-title,2025-11-15 12:30:31,Emily McCarthy,https://uk.linkedin.com/in/emily-mccarthy-2b9a02129,,,"Dear Emily,
+
+I noticed your search for a Business Intelligence Analyst. While my core expertise lies in building and scaling AI-driven data platforms, rather than direct Power BI development, I wanted to connect.
+
+As a freelance AI & Data Engineer, I specialize in designing robust data architectures and developing AI solutions that drive significant business insights. My experience leading the development of a novel AI-driven BI platform and scaling data architectures for millions of users could offer immediate value.
+
+If you're exploring ways to enhance your data infrastructure or integrate advanced AI capabilities, I'd be keen to discuss how I could support your team."
+4340586500,Full Stack Developer – SaaS & AI Platforms,"- Develop, maintain, and optimize SaaS and mobile applications using Laravel 12, Inertia, React 18, Tailwind, TypeScript, and Docker
+- Collaborate with cross-functional teams to deliver robust and scalable solutions
+- Participate in code reviews, testing, and continuous integration processes
+- Ensure clean, maintainable, and well-documented code
+- Integrate backend and frontend components for seamless user experiences
+- Troubleshoot, debug, and resolve technical issues as they arise
+- Contribute to the improvement of development workflows and best practices
+
+- 2–5 years of experience with Laravel and React (Inertia/Vite)
+- Strong understanding of backend-frontend integration and RESTful APIs
+- Proficiency with GitHub workflows and version control
+- Experience with Docker and modern development environments
+- Excellent problem-solving skills and attention to detail
+- Fluent English communication skills, both written and verbal
+- Ability to work independently in a remote-first team
+- Bonus: Experience with React Native or multi-tenant SaaS architectures",Twine,https://uk.linkedin.com/company/twine-net?trk=public_jobs_topcard-org-name,https://ch.linkedin.com/jobs/view/full-stack-developer-%E2%80%93-saas-ai-platforms-at-twine-4340586500?trk=public_jobs_topcard-title,2025-11-15 11:18:00,,,,"Highly accomplished Co-Founder & CTO with a strong engineering background, adept at leading the technical vision and development of novel, AI-driven SaaS platforms. Proven ability to design and scale robust data architectures supporting millions of users, ensuring high availability and performance for complex systems.
+
+Expert in developing and deploying end-to-end AI-driven products, coupled with a track record of creating innovative ML/optimization algorithms that delivered a 3x increase in efficiency. Combines an entrepreneurial mindset with strong problem-solving and communication skills, ideal for building and optimizing scalable solutions.",
+4340666505,Freelance Application Developer (Remote),"- Proven experience in application and web development, ideally with exposure to industrial automation or manufacturing environments
+- Strong understanding of PLC, HMI, SCADA, and VFD systems integration with web and mobile applications
+- Ability to communicate complex technical concepts clearly and effectively to engineering teams
+- Experience mentoring or training others in a technical capacity
+- Proficiency in relevant programming languages and frameworks (e.g., JavaScript, Python, .NET, React, Angular)
+- Familiarity with cloud platforms and remote collaboration tools
+- Availability for a short-term, remote engagement (up to one week)
+- Strong problem-solving skills and a collaborative mindset",Twine,https://uk.linkedin.com/company/twine-net?trk=public_jobs_topcard-org-name,https://ch.linkedin.com/jobs/view/freelance-application-developer-remote-at-twine-4340666505?trk=public_jobs_topcard-title,2025-11-15 11:18:03,,,,"Proactive and entrepreneurial Freelance Application Developer with a strong engineering background, adept at building and deploying robust, scalable applications.
+
+As Co-Founder/CTO, I led the technical vision and development of a novel AI-driven Business Intelligence platform. I have designed and deployed end-to-end AI-driven products for thousands of users and scaled data architectures to support millions.
+
+My experience includes building new data architectures from the ground up and developing novel algorithms that delivered a 3x increase in efficiency. I excel at problem-solving and communicating complex technical concepts to engineering teams, making me ideal for short-term, high-impact engagements.",
+4340576532,Full Stack Developer – SaaS & AI Platforms,"- Develop, maintain, and optimize SaaS and mobile applications using Laravel 12, Inertia, React 18, Tailwind, TypeScript, and Docker
+- Collaborate with cross-functional teams to deliver robust and scalable solutions
+- Participate in code reviews, testing, and continuous integration processes
+- Ensure clean, maintainable, and well-documented code
+- Integrate backend and frontend components for seamless user experiences
+- Troubleshoot, debug, and resolve technical issues as they arise
+- Contribute to the improvement of development workflows and best practices
+
+- 2–5 years of experience with Laravel and React (Inertia/Vite)
+- Strong understanding of backend-frontend integration and RESTful APIs
+- Proficiency with GitHub workflows and version control
+- Experience with Docker and modern development environments
+- Excellent problem-solving skills and attention to detail
+- Fluent English communication skills, both written and verbal
+- Ability to work independently in a remote-first team
+- Bonus: Experience with React Native or multi-tenant SaaS architectures",Twine,https://uk.linkedin.com/company/twine-net?trk=public_jobs_topcard-org-name,https://uk.linkedin.com/jobs/view/full-stack-developer-%E2%80%93-saas-ai-platforms-at-twine-4340576532?trk=public_jobs_topcard-title,2025-11-15 11:30:28,,,,"Highly accomplished Co-Founder & CTO with a strong engineering background, adept at leading the technical vision and development of novel, AI-driven SaaS platforms. Proven ability to design and scale robust data architectures supporting millions of users, ensuring high availability and performance for complex systems.
+
+Expert in developing and deploying end-to-end AI-driven products, coupled with a track record of creating innovative ML/optimization algorithms that delivered a 3x increase in efficiency. Combines an entrepreneurial mindset with strong problem-solving and communication skills, ideal for building and optimizing scalable solutions.",
+4340696339,Application Developer – Remote,"- Develop, customize, and maintain applications using asp.net winforms and DevExpress components
+- Support the migration of client data and systems within the insurance industry
+- Collaborate with stakeholders to gather requirements and deliver tailored solutions
+- Troubleshoot, debug, and optimize code for performance and reliability
+- Document technical processes and contribute to knowledge sharing within the team
+- Ensure deliverables meet quality standards and project timelines
+
+- Proficient in asp.net winforms development
+- Strong experience with Oracle databases and PL/SQL
+- Hands-on expertise with DevExpress UI components
+- Previous exposure to insurance industry projects is highly desirable
+- Ability to work independently in a remote setting
+- Excellent problem-solving and communication skills
+- Availability for a single project with potential for long-term engagement",Twine,https://uk.linkedin.com/company/twine-net?trk=public_jobs_topcard-org-name,https://ch.linkedin.com/jobs/view/application-developer-%E2%80%93-remote-at-twine-4340696339?trk=public_jobs_topcard-title,2025-11-15 11:17:58,,,,"Highly accomplished Software Engineer with a proven track record in developing and optimizing robust systems. Expert in designing and scaling complex data architectures, including supporting millions of users and building new systems from the ground up. Developed novel algorithms that delivered a 3x increase in efficiency, demonstrating strong problem-solving and optimization capabilities. Adept at collaborating with stakeholders to gather requirements and deliver high-quality solutions. Eager to apply extensive engineering expertise to application development and data migration projects, thriving in independent, remote environments.",
+4340586497,Application Developer – Remote,"- Develop, customize, and maintain applications using asp.net winforms and DevExpress components
+- Support the migration of client data and systems within the insurance industry
+- Collaborate with stakeholders to gather requirements and deliver tailored solutions
+- Troubleshoot, debug, and optimize code for performance and reliability
+- Document technical processes and contribute to knowledge sharing within the team
+- Ensure deliverables meet quality standards and project timelines
+
+- Proficient in asp.net winforms development
+- Strong experience with Oracle databases and PL/SQL
+- Hands-on expertise with DevExpress UI components
+- Previous exposure to insurance industry projects is highly desirable
+- Ability to work independently in a remote setting
+- Excellent problem-solving and communication skills
+- Availability for a single project with potential for long-term engagement",Twine,https://uk.linkedin.com/company/twine-net?trk=public_jobs_topcard-org-name,https://uk.linkedin.com/jobs/view/application-developer-%E2%80%93-remote-at-twine-4340586497?trk=public_jobs_topcard-title,2025-11-15 11:30:25,,,,"Highly accomplished Software Engineer with a proven track record in developing and optimizing robust systems. Expert in designing and scaling complex data architectures, including supporting millions of users and building new systems from the ground up. Developed novel algorithms that delivered a 3x increase in efficiency, demonstrating strong problem-solving and optimization capabilities. Adept at collaborating with stakeholders to gather requirements and deliver high-quality solutions. Eager to apply extensive engineering expertise to application development and data migration projects, thriving in independent, remote environments.",
